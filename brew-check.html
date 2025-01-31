@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>brew check</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function handleResponse(answer) {
+            const nextLevelButton = document.getElementById('nextLevel');
+            const goodImageOverlay = document.getElementById('goodOverlay');
+            const badImageOverlay = document.getElementById('badOverlay');
+
+            // Reset both overlays
+            goodImageOverlay.style.display = 'none';
+            badImageOverlay.style.display = 'none';
+
+            // Show the correct overlay based on the answer
+            if (answer === 'yes') {
+                nextLevelButton.style.display = 'inline-block'; // Show the next level button
+                goodImageOverlay.style.display = 'block'; // Show "Good" overlay
+            } else if (answer === 'no') {
+                nextLevelButton.style.display = 'none'; // Hide the next level button
+                badImageOverlay.style.display = 'block'; // Show "Bad" overlay
+            }
+        }
+    </script>
+    <style>
+        /* CSS to make images appear side by side with text over them */
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .image-box {
+            position: relative;
+            width: 45%;  /* Adjust the width of the images */
+        }
+
+        .image-box img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #ccc;  /* Optional: add a border to images */
+        }
+
+        /* Overlay text for "Good" and "Bad" */
+        .overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  /* Optional: shadow for text visibility */
+            display: none;  /* Initially hidden */
+        }
+
+        /* Style for the container around the buttons */
+        .response-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;  /* Green background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .image-container {
+            margin-top: 20px; /* Add vertical space above the image container */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>If that worked, then we should now be able to use the 'brew' command</h1>
+        <p>Let's do a test.</p>
+        <p>Run the following command in your terminal: % brew -v </p>
+        <hr>
+        
+        <!-- Image Container where images will always be displayed -->
+        <div class="image-container">
+            <div class="image-box">
+                <!-- <p> Good </p> -->
+                <img src="images/brew-version-good.png" alt="Good Brew" class="screenshot">
+                <div id="goodOverlay" class="overlay">Good</div>
+            </div>
+            <div class="image-box">
+                <!-- <p> Problem </p> -->
+                <img src="images/brew-version-bad.png" alt="Bad Brew" class="screenshot">
+                <div id="badOverlay" class="overlay">Bad</div>
+            </div>
+        </div>
+
+        <p>Which result did you get?</p>
+        
+        <!-- Yes and No buttons -->
+        <div class="response-buttons">
+            <button onclick="handleResponse('yes')" class="btn">Left</button>
+            <button onclick="handleResponse('no')" class="btn">Right</button>
+        </div>
+
+        <div class="navigation">
+            <!-- Next Level button, initially hidden -->
+            <a href="flags.html" class="btn" id="nextLevel" style="display: none;">Next Level</a>
+            <!-- Link to Previous Page (Page 1) -->
+            <a href="brew-install.html" class="btn btn-back">Back to Brew Install</a>
+        </div>
+    </div>
+</body>
+</html>

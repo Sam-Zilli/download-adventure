@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>github account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function handleResponse(answer) {
+            const nextLevelButton = document.getElementById('nextLevel');
+
+            if (answer === 'no') {
+                // Show an alert and prevent the user from moving forward
+                alert("Using your Berklee email - make a Github account: https://github.com/signup. Make sure to verify the email address.");
+                nextLevelButton.style.display = 'none'; // Hide the next level button if "No" is clicked
+            } else if (answer === 'yes') {
+                // Show the next level button if the user clicks "Yes"
+                nextLevelButton.style.display = 'inline-block'; // Show the next level button
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Did you make a Github account? </h1>
+        <p>You SHOULD have done this in Week 0.</p>
+
+        <!-- Yes and No buttons -->
+        <div class="response-buttons">
+            <button onclick="handleResponse('yes')" class="btn">Yes</button>
+            <button onclick="handleResponse('no')" class="btn">No</button>
+        </div>
+
+        <div class="navigation">
+            <!-- Next Level button, initially hidden -->
+            <a href="brew-install.html" class="btn" id="nextLevel" style="display: none;">Next Level</a>
+            <!-- Link to Previous Page (Page 1) -->
+            <a href="index.html" class="btn btn-back">Back to Start</a>
+        </div>
+    </div>
+</body>
+</html>

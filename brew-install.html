@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>brew install</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function handleResponse(answer) {
+            const nextLevelButton = document.getElementById('nextLevel');
+            if (answer === 'yes') {
+                // Show an alert and prevent the user from moving forward
+                alert("read it, maybe it tells you to do something...");
+                nextLevelButton.style.display = 'none'; // Hide the next level button if "No" is clicked
+            } else if (answer === 'no') {
+                // Show the next level button if the user clicks "Yes"
+                nextLevelButton.style.display = 'inline-block'; // Show the next level button
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Homebrew </h1>
+        <p>Go to www.brew.sh </p>
+
+        <p>the page will look like this: </p>
+        <img src="images/homebrew.png" alt="brew" width="500" height="300">
+        <p>Copy the command on the page and paste it into your terminal. </p>
+
+        <p> It might ask for your password. As you type, nothing will appear. However, you ARE typing. Just enter your password and hit enter.</p>
+
+        <p> Did you get a big long scary error? </p>
+        <!-- Yes and No buttons -->
+        <div class="response-buttons">
+            <button onclick="handleResponse('yes')" class="btn">Yes</button>
+            <button onclick="handleResponse('no')" class="btn">No</button>
+        </div>
+
+
+
+        <div class="navigation">
+            <!-- Next Level button, initially hidden -->
+            <a href="brew-check.html" class="btn" id="nextLevel" style="display: none;">Next Level</a>
+            <!-- Link to Previous Page (Page 1) -->
+            <a href="github-account.html" class="btn btn-back">Back to Start</a>
+        </div>
+    </div>
+</body>
+</html>

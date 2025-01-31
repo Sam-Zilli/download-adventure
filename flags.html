@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flags in Terminal Commands</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: #4CAF50;  /* Green background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The -v is called a Flag</h1>
+
+        <h2>$ brew -v</h2>
+        <p>but what Does the `-v` Flag Mean?</p>
+        <p> Find the answer in the brew documentation: </p>
+        <a href="https://docs.brew.sh/Manpage">https://docs.brew.sh/Manpage</a>
+
+        <p>What does the `-v` flag stand for:</p>
+        <input type="text" id="userInput" placeholder="Enter your answer here">
+        <button class="btn" onclick="checkAnswer()">Submit</button>
+
+        <div class="navigation">
+            <!-- Next Level button, initially hidden -->
+            <a href="brew-install-git.html" class="btn" id="nextLevel" style="display: none;">We'll come back to flags later. For now, Next Level</a>
+            <!-- Link to Previous Page (Page 2) -->
+            <a href="brew-check.html" class="btn btn-back">Back to Brew Check</a>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer() {
+            const userInput = document.getElementById('userInput').value.trim().toLowerCase();
+            const correctAnswer = 'verbose'; 
+
+            if (userInput === correctAnswer) {
+                document.getElementById('nextLevel').style.display = 'inline-block';
+            } else {
+                alert('Incorrect answer. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>
