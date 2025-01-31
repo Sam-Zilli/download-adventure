@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>brew install</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <script>
         function handleResponse(answer) {
-            const nextLevelButton = document.getElementById('nextLevel');
+            const next = document.getElementById('next');
             if (answer === 'yes') {
                 // Show an alert and prevent the user from moving forward
                 alert("read it, maybe it tells you to do something...");
-                nextLevelButton.style.display = 'none'; // Hide the next level button if "No" is clicked
+                next.style.display = 'none'; // Hide the next level button if "No" is clicked
             } else if (answer === 'no') {
                 // Show the next level button if the user clicks "Yes"
-                nextLevelButton.style.display = 'inline-block'; // Show the next level button
+                next.style.display = 'inline-block'; // Show the next level button
             }
         }
     </script>
@@ -26,9 +26,9 @@
         <p>Go to www.brew.sh </p>
 
         <p>the page will look like this: </p>
-        <img src="images/homebrew.png" alt="brew" width="500" height="300">
-        <p>Copy the command on the page and paste it into your terminal. </p>
-
+        <img src="../images/homebrew.png" alt="brew" width="500" height="300">
+        <p>Copy the command-line instruction on the page and paste it into your terminal. </p>
+        <hr>
         <p> It might ask for your password. As you type, nothing will appear. However, you ARE typing. Just enter your password and hit enter.</p>
 
         <p> Did you get a big long scary error? </p>
@@ -42,7 +42,7 @@
 
         <div class="navigation">
             <!-- Next Level button, initially hidden -->
-            <a href="brew-check.html" class="btn" id="nextLevel" style="display: none;">Next Level</a>
+            <a href="brew-check.html" class="btn" id="next" style="display: none;">Next</a>
             <!-- Link to Previous Page (Page 1) -->
             <a href="github-account.html" class="btn btn-back">Back to Start</a>
         </div>

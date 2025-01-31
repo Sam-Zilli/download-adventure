@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install Git with Homebrew</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        h2 {
+            color: #333;
+        }
+        pre {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-family: monospace;
+        }
+        ol {
+            padding-left: 20px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Installing Git with Homebrew</h1>
+
+    <p>Follow these steps to install Git using Homebrew on your macOS machine:</p>
+
+    <ol>
+        <li><strong>Open Terminal</strong>: You can open the terminal by pressing <code>Command + Space</code> and typing "Terminal", then pressing <code>Enter</code>.</li>
+        <li><strong>Install Homebrew</strong>: If you don't have Homebrew installed already, you can install it by pasting the following command into your terminal:</li>
+        <pre>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</pre>
+        <li><strong>Install Git with Homebrew</strong>: Once Homebrew is installed, you can easily install Git by running the following command in the terminal:</li>
+        <pre>brew install git</pre>
+        <li><strong>Verify Git Installation</strong>: After the installation is complete, verify that Git is installed by running:</li>
+        <pre>git --version</pre>
+        <p>This should return the installed version of Git, indicating that the installation was successful.</p>
+    </ol>
+
+    <p>If you encounter any issues during installation, you can check the <a href="https://brew.sh" target="_blank">Homebrew website</a> for additional documentation and troubleshooting.</p>
+
+    <footer>
+        <p>Happy coding!</p>
+    </footer>
+
+</body>
+</html>

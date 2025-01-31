@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Git?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>What is Git?</h1>
+    <p>Git is a version control system that helps developers manage their code changes. Want to know why it's awesome?</p>
+    <button class="btn" onclick="revealAnswer()">Click to find out!</button>
+    <p id="answer" class="hidden">Git helps you track changes, collaborate with others, and manage versions of your code. It's essential for any software project! It's used to collaborate with other engineers, to showcase your projects, and is the "google drive" of coding.</p>
+    <a href="git2.html" class="btn">Next: Setting Up Git</a>
+
+    <script>
+        function revealAnswer() {
+            document.getElementById('answer').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

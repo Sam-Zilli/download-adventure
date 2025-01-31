@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>github account</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <script>
         function handleResponse(answer) {
             const nextLevelButton = document.getElementById('nextLevel');
@@ -16,7 +16,7 @@
                 nextLevelButton.style.display = 'none'; // Hide the next level button if "No" is clicked
             } else if (answer === 'yes') {
                 // Show the next level button if the user clicks "Yes"
-                nextLevelButton.style.display = 'inline-block'; // Show the next level button
+                next.style.display = 'inline-block'; // Show the next level button
             }
         }
     </script>
@@ -34,9 +34,9 @@
 
         <div class="navigation">
             <!-- Next Level button, initially hidden -->
-            <a href="brew-install.html" class="btn" id="nextLevel" style="display: none;">Next Level</a>
+            <a href="brew-install.html" class="btn" id="next" style="display: none;">Next</a>
             <!-- Link to Previous Page (Page 1) -->
-            <a href="index.html" class="btn btn-back">Back to Start</a>
+            <a href="../index.html" class="btn btn-back">Back to Start</a>
         </div>
     </div>
 </body>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flags in Terminal Commands</title>
+    <title>Do you have a question? Ask!</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <style>
         .btn {
             padding: 10px 20px;
@@ -25,20 +25,22 @@
 </head>
 <body>
     <div class="container">
-        <h1>The -v is called a Flag</h1>
+        <h1>$ brew -v</h1>
 
-        <h2>$ brew -v</h2>
-        <p>but what Does the `-v` Flag Mean?</p>
-        <p> Find the answer in the brew documentation: </p>
-        <a href="https://docs.brew.sh/Manpage">https://docs.brew.sh/Manpage</a>
+        <h2>We get to use brew now! But wait...</h2>
+        <p>but what does the `-v` mean?</p>
 
-        <p>What does the `-v` flag stand for:</p>
+
+        <p>Find the answer by reading this page (skip to where it says "First, some important concepts…")</p>
+        <a href="https://jgefroh.medium.com/a-beginners-guide-to-linux-command-line-56a8004e2471" target="_blank">https://jgefroh.medium.com/a-beginners-guide-to-linux-command-line-56a8004e2471</a>
+        
+        <p> -v is an example of a... </p>
         <input type="text" id="userInput" placeholder="Enter your answer here">
         <button class="btn" onclick="checkAnswer()">Submit</button>
 
         <div class="navigation">
             <!-- Next Level button, initially hidden -->
-            <a href="brew-install-git.html" class="btn" id="nextLevel" style="display: none;">We'll come back to flags later. For now, Next Level</a>
+            <a href="../Level2/index.html" class="btn" id="next" style="display: none;">I think you're ready for LEVEL 2</a>
             <!-- Link to Previous Page (Page 2) -->
             <a href="brew-check.html" class="btn btn-back">Back to Brew Check</a>
         </div>
@@ -47,10 +49,11 @@
     <script>
         function checkAnswer() {
             const userInput = document.getElementById('userInput').value.trim().toLowerCase();
-            const correctAnswer = 'verbose'; 
+            const correctAnswer = 'flag'; 
+            const altCorrectAnswer = 'flags';
 
-            if (userInput === correctAnswer) {
-                document.getElementById('nextLevel').style.display = 'inline-block';
+            if (userInput === correctAnswer || userInput === altCorrectAnswer) {
+                document.getElementById('next').style.display = 'inline-block';
             } else {
                 alert('Incorrect answer. Please try again.');
             }

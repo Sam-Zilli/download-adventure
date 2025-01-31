@@ -97,7 +97,7 @@ p {
 }
 
 /* Hidden "Next Level" button initially */
-#nextLevel {
+#next {
     display: none;
 }
 

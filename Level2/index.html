@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Sandbox for Learning</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="task-list">
+        <h3>Tasks</h3>
+        <ul id="tasks">
+            <!-- Task list will go here -->
+        </ul>
+        <p id="current-task">Complete the first task by using the 'ls' command to list the files in the directory.</p>
+    </div>
+
+    <div class="terminal">
+        <div id="output" class="output"></div>
+        <div class="input-line">
+            <span class="prompt">$</span>
+            <input type="text" id="command-input" class="command-input" autofocus />
+        </div>
+    </div>
+
+    <div id="quiz" class="quiz">
+        <p id="quiz-question">What does the `-a` flag in the `ls` command do?</p>
+        <button class="btn" onclick="checkQuizAnswer('lists hidden files')">Lists hidden files</button>
+        <button class="btn" onclick="checkQuizAnswer('lists all files')">Lists all files</button>
+        <button class="btn" onclick="checkQuizAnswer('appends file names')">Appends file names</button>
+        <button class="btn" onclick="checkQuizAnswer('does nothing')">Does nothing</button>
+    </div> 
+
+    
+    <!-- Hidden until correct answer is given -->
+    <button id="nextPageButton" class="btn" style="display:none;">Go to Next Page</button>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

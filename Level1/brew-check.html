@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>brew check</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <script>
         function handleResponse(answer) {
-            const nextLevelButton = document.getElementById('nextLevel');
+            const nextLevelButton = document.getElementById('next');
             const goodImageOverlay = document.getElementById('goodOverlay');
             const badImageOverlay = document.getElementById('badOverlay');
 
@@ -86,21 +86,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>If that worked, then we should now be able to use the 'brew' command</h1>
+        <h1>If that worked, then we should now be able to use 'brew'</h1>
         <p>Let's do a test.</p>
-        <p>Run the following command in your terminal: % brew -v </p>
+        <p>Put this into your terminal: % brew -v </p>
         <hr>
         
         <!-- Image Container where images will always be displayed -->
         <div class="image-container">
             <div class="image-box">
                 <!-- <p> Good </p> -->
-                <img src="images/brew-version-good.png" alt="Good Brew" class="screenshot">
+                <img src="../images/brew-version-good.png" alt="Good Brew" class="screenshot">
                 <div id="goodOverlay" class="overlay">Good</div>
             </div>
             <div class="image-box">
                 <!-- <p> Problem </p> -->
-                <img src="images/brew-version-bad.png" alt="Bad Brew" class="screenshot">
+                <img src="../images/brew-version-bad.png" alt="Bad Brew" class="screenshot">
                 <div id="badOverlay" class="overlay">Bad</div>
             </div>
         </div>
@@ -115,7 +115,7 @@
 
         <div class="navigation">
             <!-- Next Level button, initially hidden -->
-            <a href="flags.html" class="btn" id="nextLevel" style="display: none;">Next Level</a>
+            <a href="flags.html" class="btn" id="next" style="display: none;">Next</a>
             <!-- Link to Previous Page (Page 1) -->
             <a href="brew-install.html" class="btn btn-back">Back to Brew Install</a>
         </div>
