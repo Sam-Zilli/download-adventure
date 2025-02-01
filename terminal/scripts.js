@@ -195,7 +195,7 @@ function handleCommand(command) {
             break;
         case "less":
             if (args[0] === ".hidden_file") {
-                printToOutput("Password to the next level: 'password'");
+                printToOutput("Password to the next level: -a");
                 handleTaskCompletion("less .hidden_file");
             } else {
                 printToOutput(`less: '${args[0]}': No such file`);
