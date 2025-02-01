@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Matching Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Open Source vs Proprietary Software</h1>
+        <p>Drag and drop the software examples to their correct category!</p>
+
+        <div class="categories">
+            <div id="open-source" class="category" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h3>Open Source Software</h3>
+            </div>
+            <div id="proprietary" class="category" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h3>Proprietary Software</h3>
+            </div>
+        </div>
+
+        <div class="software">
+            <div id="linux" class="software-item" draggable="true" ondragstart="drag(event)">
+                <p>Linux</p>
+            </div>
+            <div id="windows" class="software-item" draggable="true" ondragstart="drag(event)">
+                <p>Windows</p>
+            </div>
+            <div id="firefox" class="software-item" draggable="true" ondragstart="drag(event)">
+                <p>Firefox</p>
+            </div>
+            <div id="macos" class="software-item" draggable="true" ondragstart="drag(event)">
+                <p>macOS</p>
+            </div>
+            <div id="gimp" class="software-item" draggable="true" ondragstart="drag(event)">
+                <p>GIMP</p>
+            </div>
+            <div id="adobe-photoshop" class="software-item" draggable="true" ondragstart="drag(event)">
+                <p>Adobe Photoshop</p>
+            </div>
+        </div>
+
+        <button id="check-btn" class="btn" onclick="checkAnswers()">Check Answers</button>
+        <p id="result-message" class="hidden"></p>
+
+        <!-- Next button, initially hidden -->
+        <a href="next-page.html" id="next-btn" class="btn hidden">Next</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+.hidden { display: none; }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+div {
+    margin-bottom: 10px;
+}
+
+input {
+    padding: 5px;
+    width: 30px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#feedback-message {
+    font-weight: bold;
+    margin-top: 10px;
+}
+th, td {
+    padding: 12px 20px; /* Increase padding for more space between columns */
+    border: 1px solid #ddd;
+    text-align: center;
+}

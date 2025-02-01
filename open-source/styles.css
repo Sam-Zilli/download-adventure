@@ -1,0 +1,109 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    background-color: #f7f7f7; /* Light background for better readability */
+    color: #333; /* Dark text for high contrast */
+    font-family: 'Arial', sans-serif; /* Clean, modern font */
+    font-size: 18px;
+    line-height: 1.6; /* Line height for easier reading */
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container Styling */
+.container {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff; /* White background for content */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    border: 1px solid #ddd; /* Light border */
+}
+
+/* Header Styling */
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #2c3e50; /* Darker shade for the heading */
+    text-align: center;
+}
+
+/* Paragraph Styling */
+p {
+    margin-bottom: 20px;
+    color: #555; /* Slightly lighter grey text for easy reading */
+    font-size: 18px;
+    text-align: justify;
+}
+
+/* Simulate Terminal-like Box for Code */
+.terminal-code {
+    font-family: 'Courier New', monospace;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    white-space: pre-wrap; /* Allow long lines to wrap */
+}
+
+/* Buttons for Navigation */
+.btn {
+    background-color: #3498db; /* Soft blue background for the buttons */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    margin: 10px 0;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover effect for buttons */
+.btn:hover {
+    background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* For "Back to Start" button */
+.btn.btn-back {
+    background-color: #e74c3c; /* Red background for "Back" button */
+}
+
+.btn.btn-back:hover {
+    background-color: #c0392b; /* Darker red on hover */
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    .btn {
+        width: 100%; /* Make buttons full width on small screens */
+        padding: 14px;
+    }
+}
