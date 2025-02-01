@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Homebrew and Dependencies</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Homebrew</h1>
+
+        <h2> What is a Dependency? </h2>
+        <p>In software development, a dependency is any external piece of code or software that a program needs in order to function correctly. Dependencies can be libraries, frameworks, tools, or other software that your program relies on to perform specific tasks.</h2>
+
+        <h2>How Homebrew Helps with Software Dependencies</h2>
+        <p>In software development, many applications depend on other software or libraries to function. These dependencies can be complicated to manage manually, especially as software projects grow in size and complexity. Homebrew handles this automatically by installing all the required dependencies when you install a software package.</p>
+        
+        <h3>How Homebrew Handles Dependencies</h3>
+        <p>When you install a package with Homebrew, it automatically installs any other software or libraries that the package requires to run. For example, if you install a web development tool like <code>node</code>, Homebrew will ensure that all of its dependencies, such as <code>npm</code> (Node Package Manager), are installed as well, since you need npm for node.</p>
+        
+        <h2>Installing Software with Homebrew</h2>
+        <p>Once Homebrew is installed, you can begin installing software with the following command:</p>
+        <pre><code>brew install <software_name></code></pre>
+        
+        <h3>Example</h3>
+        <p>If you want to install <code>git</code>, the version control system, you can simply run:</p>
+        <pre><code>brew install git</code></pre>
+
+        <div class="navigation">
+            <a href="brew-install.html" class="btn">Next: Let's get brew!</a>
+        </div>
+    </div>
+</body>
+</html>

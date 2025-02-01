@@ -6,19 +6,6 @@
     <title>brew install</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
-    <script>
-        function handleResponse(answer) {
-            const next = document.getElementById('next');
-            if (answer === 'yes') {
-                // Show an alert and prevent the user from moving forward
-                alert("read it, maybe it tells you to do something...");
-                next.style.display = 'none'; // Hide the next level button if "No" is clicked
-            } else if (answer === 'no') {
-                // Show the next level button if the user clicks "Yes"
-                next.style.display = 'inline-block'; // Show the next level button
-            }
-        }
-    </script>
 </head>
 <body>
     <div class="container">
@@ -31,21 +18,16 @@
         <hr>
         <p> It might ask for your password. As you type, nothing will appear. However, you ARE typing. Just enter your password and hit enter.</p>
 
-        <p> Did you get a big long scary error? </p>
-        <!-- Yes and No buttons -->
-        <div class="response-buttons">
-            <button onclick="handleResponse('yes')" class="btn">Yes</button>
-            <button onclick="handleResponse('no')" class="btn">No</button>
-        </div>
-
-
-
         <div class="navigation">
-            <!-- Next Level button, initially hidden -->
-            <a href="brew-check.html" class="btn" id="next" style="display: none;">Next</a>
+            <a href="brew-error.html" class="next-btn" id="next" style="display: none;">While that's installing, keep going...</a>
             <!-- Link to Previous Page (Page 1) -->
-            <a href="github-account.html" class="btn btn-back">Back to Start</a>
         </div>
+
+        <div class="response-buttons">
+            <!-- Yes and No buttons -->
+            <button onclick="window.location.href='brew-error.html';" class="btn">Next</button>
+        </div>
+        
     </div>
 </body>
 </html>

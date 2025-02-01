@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>github account</title>
+    <title>brew install</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
     <script>
         function handleResponse(answer) {
-            const nextLevelButton = document.getElementById('nextLevel');
-
-            if (answer === 'no') {
+            const next = document.getElementById('next');
+            if (answer === 'yes') {
                 // Show an alert and prevent the user from moving forward
-                alert("Using your Berklee email - make a Github account: https://github.com/signup. Make sure to verify the email address.");
-                nextLevelButton.style.display = 'none'; // Hide the next level button if "No" is clicked
-            } else if (answer === 'yes') {
+                alert("read it, maybe it tells you to do something...");
+                next.style.display = 'none'; // Hide the next level button if "No" is clicked
+            } else if (answer === 'no') {
                 // Show the next level button if the user clicks "Yes"
                 next.style.display = 'inline-block'; // Show the next level button
             }
@@ -23,8 +22,9 @@
 </head>
 <body>
     <div class="container">
-        <h1>Did you make a Github account? </h1>
-        <p>You SHOULD have done this in Week 0.</p>
+        <p> Did you get a big long scary error that looks like this? </p>
+
+        <img src="../images/brew-error.png" alt="brew error" width="500" height="300">
 
         <!-- Yes and No buttons -->
         <div class="response-buttons">
@@ -32,9 +32,13 @@
             <button onclick="handleResponse('no')" class="btn">No</button>
         </div>
 
+
+
         <div class="navigation">
             <!-- Next Level button, initially hidden -->
-            <a href="git2.html" class="btn" id="next" style="display: none;">Next</a>
+            <a href="brew-check.html" class="btn" id="next" style="display: none;">If it's a DIFFERENT error - raise hand! Otherwise, let's go on...</a>
+            <!-- Link to Previous Page (Page 1) -->
+            <a href="index.html" class="btn btn-back">Back to start of Brew</a>
         </div>
     </div>
 </body>

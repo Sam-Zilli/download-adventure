@@ -25,6 +25,12 @@
                 badImageOverlay.style.display = 'block'; // Show "Bad" overlay
             }
         }
+
+        // Function to show an alert and then redirect
+        function showAlertAndRedirect() {
+            alert("Next Password: i-got-brew");
+            window.location.href = "../navigation/levels.html"; // Redirect to the next page after the alert
+        }
     </script>
     <style>
         /* CSS to make images appear side by side with text over them */
@@ -94,12 +100,10 @@
         <!-- Image Container where images will always be displayed -->
         <div class="image-container">
             <div class="image-box">
-                <!-- <p> Good </p> -->
                 <img src="../images/brew-version-good.png" alt="Good Brew" class="screenshot">
                 <div id="goodOverlay" class="overlay">Good</div>
             </div>
             <div class="image-box">
-                <!-- <p> Problem </p> -->
                 <img src="../images/brew-version-bad.png" alt="Bad Brew" class="screenshot">
                 <div id="badOverlay" class="overlay">Bad</div>
             </div>
@@ -115,7 +119,7 @@
 
         <div class="navigation">
             <!-- Next Level button, initially hidden -->
-            <a href="flags.html" class="btn" id="next" style="display: none;">Next</a>
+            <a href="../navigation/levels.html" class="btn" id="next" style="display: none;" onclick="showAlertAndRedirect(); return false;">Next</a>
             <!-- Link to Previous Page (Page 1) -->
             <a href="brew-install.html" class="btn btn-back">Back to Brew Install</a>
         </div>

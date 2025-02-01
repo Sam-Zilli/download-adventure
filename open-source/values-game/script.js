@@ -51,7 +51,7 @@ function checkAnswers() {
 
     // If all matches are correct, show success message and show "Next" button
     if (openSourceMatches === openSourceCorrect.length && proprietaryMatches === proprietaryCorrect.length) {
-        resultMessage.textContent = "Congratulations! You have successfully matched all descriptions correctly!";
+        resultMessage.textContent = "Nice! The passowrd for the next level is: collaborate";
         resultMessage.style.color = "green";
         document.getElementById("next-btn").classList.remove("hidden");  // Show the Next button
     } else {

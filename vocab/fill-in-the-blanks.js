@@ -8,8 +8,8 @@ const sentences = [
         answers: ["directory", "mkdir"]
     },
     {
-        text: "I would type ___ into the terminal in order to make TWO new directories, one called berklee and one called boco. I would type ___ if I wanted to make a new file called example.txt.",
-        answers: ["mkdir berklee boco", "touch example.txt"]
+        text: "I would type ___ into the terminal in order to make TWO new directories, one called berklee and one called boco.",
+        answers: ["mkdir berklee boco"]
     },
     {
         text: "In 'mkdir berklee boco', 'mkdir' is the ___ and berklee and boco are both ___.",
@@ -39,8 +39,8 @@ function checkAnswer() {
     const correctAnswers = sentences[currentSentenceIndex].answers.map(answer => answer.toLowerCase());
 
     const feedbackElement = document.getElementById('feedback');
-
     let isCorrect = true;
+
     userAnswers.forEach((userAnswer, index) => {
         if (userAnswer !== correctAnswers[index]) {
             isCorrect = false;
@@ -62,14 +62,12 @@ function checkAnswer() {
             }, 1500);
         } else {
             setTimeout(() => {
-                feedbackElement.textContent = "Congratulations! You've completed the game!";
+                feedbackElement.textContent = "Excellent! The password is: vocabulary";
                 feedbackElement.classList.remove('correct');
                 feedbackElement.classList.add('incorrect');
-
-                // Redirect after completion
-                setTimeout(() => {
-                    window.location.href = "../snake-game/snake.html"; // Replace 'nextPage.html' with the URL you want to redirect to
-                }, 2000); // Redirects after a 2-second delay
+                
+                // Show the Next button after the last sentence
+                document.getElementById('next-btn').style.display = 'inline-block';  // Make the next button visible
             }, 1500);
         }
     } else {
@@ -77,6 +75,11 @@ function checkAnswer() {
         feedbackElement.classList.remove('correct');
         feedbackElement.classList.add('incorrect');
     }
+}
+
+// Function to go to the next page
+function goToNextPage() {
+    window.location.href = "../navigation/levels.html";  // Adjust this URL as needed
 }
 
 // Initialize the game with the first sentence

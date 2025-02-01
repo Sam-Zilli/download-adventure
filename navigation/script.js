@@ -1,13 +1,15 @@
 // Define the passwords for each level
 const levelPasswords = {
-    "learn": "..binary/index.html",
-    "FIONA15": "level2.html",
-    "create": "level3.html",
-    "innovate": "level4.html",
-    "transform": "level5.html",
-    "succeed": "level6.html",
-    "achieve": "level7.html",
-    "win": "level8.html"
+    "learn"   : "../binary/index.html",
+    "FIONA15" : "../terminal/index.html",
+    "-a" : "../vocab/index.html",
+    "vocabulary" : "../open-source/index.html",
+    "collaborate" : "../brew/index.html",
+    "i-got-brew" : "../git/index.html",
+    "IGOTGIT" : "../vscode/index.html",
+    "ide" : "../snake-game/index.html",
+    "speaking-of-snakes" : "../python/index.html",
+    "you-did-it!" : "../congrats/index.html"
 };
 
 // Function to check the entered password and route the user accordingly
