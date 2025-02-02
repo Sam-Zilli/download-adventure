@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Command Cheat Sheet</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1, h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        .cheat-sheet {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .command {
+            background-color: #2d2d2d;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            display: block;
+        }
+
+        .command-description {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .section-title {
+            margin-top: 30px;
+            font-size: 1.5em;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Terminal Command Cheat Sheet</h1>
+    <div class="cheat-sheet">
+        <p>This cheat sheet contains essential terminal commands to help you navigate and manage files from the terminal.</p>
+
+        <div class="section-title">Essential Terminal Commands</div>
+        <ul>
+            <li><span class="command">pwd</span><span class="command-description">Prints the current working directory (where you are in the file system).</span></li>
+            <li><span class="command">ls</span><span class="command-description">Lists all files and directories in the current directory.</span></li>
+            <li><span class="command">cd ~</span><span class="command-description">Changes to the home directory of the user.</span></li>
+            <li><span class="command">cd ..</span><span class="command-description">Moves up one directory level.</span></li>
+            <li><span class="command">cd <em>&lt;directory&gt;</em></span><span class="command-description">Changes the current directory to the specified <em>&lt;directory&gt;</em>.</span></li>
+            <li><span class="command">clear</span><span class="command-description">Clears the terminal screen.</span></li>
+            <li><span class="command">echo “what to echo”</span><span class="command-description">Prints the text inside the quotes to the terminal.</span></li>
+            <li><span class="command">mkdir <em>&lt;folder_name&gt;</em></span><span class="command-description">Creates a new directory with the specified <em>&lt;folder_name&gt;</em>.</span></li>
+            <li><span class="command">rmdir <em>&lt;folder_name&gt;</em></span><span class="command-description">Removes an empty directory with the specified <em>&lt;folder_name&gt;</em>.</span></li>
+            <li><span class="command">less <em>&lt;file_name&gt;</em></span><span class="command-description">Displays the contents of a file one page at a time. Press <strong>q</strong> to quit.</span></li>
+            <li><span class="command">touch <em>&lt;file.txt&gt;</em></span><span class="command-description">Creates an empty file with the specified name.</span></li>
+            <li><span class="command">rm <em>&lt;file.txt&gt;</em></span><span class="command-description">Deletes the specified file.</span></li>
+            <li><span class="command">grep “search terms” <em>&lt;file_to_search&gt;</em></span><span class="command-description">Searches for the specified search terms in the given file and displays matching lines.</span></li>
+            <li><span class="command">mv <em>&lt;thing&gt; &lt;newLocation&gt;</em></span><span class="command-description">Moves a file or directory to a new location.</span></li>
+            <li><span class="command">mv <em>&lt;thing&gt; &lt;newNameForThing&gt;</em></span><span class="command-description">Renames a file or directory to the specified new name.</span></li>
+        </ul>
+    </div>
+
+</body>
+</html>

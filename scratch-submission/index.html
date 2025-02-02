@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>How to Push Your Local File to GitHub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>THE FINAL LEVEL</h1>
+            <p>Follow the steps below to add a local file to your GitHub repository and push it to your remote repository.</p>
+        </header>
+
+        <section id="step-1">
+            <h2>Step 1: Scratch File into Local Repo</h2>
+            <p>Using the commands we have learned in class, move your Scratch file (ends in .sb3) into the repository you cloned onto your computer.</p>
+        </section>
+
+        <section id="step-2">
+            <h2>Step 2: Add Your File to the Repository</h2>
+            <p>Even though your file is in the repo's directory, Git does not yet KNOW about your file. </p>
+            <p>Add your file to Git's tracking by running: </p>
+            <pre><code>git add <file-name></code></pre>
+            <p>For example, to add a file named <code>index.html</code>, use:</p>
+            <pre><code>git add index.html</code></pre>
+            <p>This stages your file to be committed.</p>
+        </section>
+
+        <section id="step-3">
+            <h2>Step 3: Commit the Changes</h2>
+            <p>Now that your file is staged, you need to commit it. A commit is like a snapshot of your changes. Run the following command:</p>
+            <pre><code>git commit -m "Add index.html file"</code></pre>
+            <p>Replace <code>"Add index.html file"</code> with your own DESCRIPTIVE message that explains what changes you made.</p>
+        </section>
+
+        <!-- <section id="step-4">
+            <h2>Step 4: Link Your Local Repository to GitHub</h2>
+            <p>If you haven't already connected your local repository to a remote GitHub repository, do so by running:</p>
+            <pre><code>git remote add origin <remote-repo-url></code></pre>
+            <p>Replace <code><remote-repo-url></code> with the actual URL of your GitHub repository. It will look something like:</p>
+            <pre><code>git remote add origin https://github.com/username/repository-name.git</code></pre>
+            <p>If you have already connected the remote repository, you can skip this step.</p>
+        </section> -->
+
+        <section id="step-4">
+            <h2>Step 4: Push Your Changes to GitHub</h2>
+            <p>Once you've committed your changes, push them to your remote GitHub repository using the following command:</p>
+            <pre><code>git push -u origin main</code></pre>
+            <p>Explanation:
+                <ul>
+                    <li><strong>git push</strong> - pushes your committed changes to the remote repository.</li>
+                    <li><strong>origin</strong> - the default name for your remote GitHub repository.</li>
+                    <li><strong>main</strong> - the name of the branch you're pushing to (if you're using GitHub's default branch, it's often called <code>main</code> depending on the setup).</li>
+                </ul>
+            </p>
+            <p>After running this command, your local file will be uploaded to your GitHub repository.</p>
+        </section>
+
+        <section id="step-5">
+            <h2>Step 5: Verify Your Changes on GitHub.com</h2>
+            <p>Now, head over to your GitHub repository page and refresh it. You should see the file you just added in the repository.</p>
+            <p>If everything went smoothly, congratulations! You've successfully added a local file to your GitHub repository and pushed it to the remote.</p>
+            <p>This is how you will submit coding assignments from now on!</p>
+        </section>
+
+        <footer>
+            <a href="../navigation/levels.html" id="nextPageButton">
+                <button>Next Page - the password is: adventure</button>
+            </a> 
+        </footer>
+    </div>
+</body>
+</html>

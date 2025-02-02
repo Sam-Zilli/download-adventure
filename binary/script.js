@@ -1,9 +1,9 @@
-const correctAnswer = ['F', 'I', 'O', 'N', 'A', '1', '5']; 
+const correctAnswer = ['F', 'I', 'F', 'I', '1', '5']; 
 
 // Function to check if the input matches the correct answer
 function checkAnswer() {
     let userAnswer = [];
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 1; i <= 6; i++) {
         userAnswer.push(document.getElementById('input' + i).value.trim());
     }
 
@@ -33,7 +33,7 @@ document.getElementById('check-btn').addEventListener('click', checkAnswer);
 
 // Function to handle the "Next Level" button click
 function nextLevel() {
-    alert("Enter FIONA15 on the next page to proceed.")
+    alert("The password is: bytes")
 
     // Optionally, hide the "Next Level" button again
     window.location.href = "../navigation/levels.html";

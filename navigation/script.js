@@ -1,15 +1,33 @@
 // Define the passwords for each level
 const levelPasswords = {
+
+    // First password is learn, then they are routed to the binary level
     "learn"   : "../binary/index.html",
-    "FIONA15" : "../terminal/index.html",
+
+    // Second password is byes, then they are routed to the terminal level
+    "bytes" : "../terminal/index.html",
+
+    // Third password is -a, then they are routed to the vocab level
     "-a" : "../vocab/index.html",
-    "vocabulary" : "../open-source/index.html",
-    "collaborate" : "../brew/index.html",
+
+    // Fourth password is command, then they are routed to the open-source level
+    "command" : "../open-source/index.html",
+
+    // Fifth password is together, then they are routed to the brew
+    "together" : "../brew/index.html",
+
+    // Sixth password is i-got-brew, then they are routed to the git level
     "i-got-brew" : "../git/index.html",
-    "IGOTGIT" : "../vscode/index.html",
-    "ide" : "../snake-game/index.html",
-    "speaking-of-snakes" : "../python/index.html",
-    "you-did-it!" : "../congrats/index.html"
+
+    // Seventh password 
+    "IGOTGIT" : "../snake-game/snake.html",
+
+    // Eighth password
+    "ide" : "../scratch-submission/index.html",
+
+
+    // Ninth password
+    "adventure" : "../../navigation/end.html"
 };
 
 // Function to check the entered password and route the user accordingly

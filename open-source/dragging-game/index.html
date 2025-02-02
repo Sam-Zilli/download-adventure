@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragging Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- The title and description will be injected here -->
+        <div id="game-header">
+            <h1 id="game-title"></h1>
+            <p id="game-description"></p>
+        </div>
+
+        <!-- Categories will be injected here -->
+        <div id="categories-container" class="categories"></div>
+
+
+        <div id="draggable-list" class="dragme"></div>
+
+        <!-- Check Answers Button -->
+        <button id="check-btn" class="btn" onclick="checkAnswers()">Check Answers</button>
+        <p id="result-message" class="hidden"></p>
+
+        <!-- Next button, initially hidden -->
+        <a href="#" id="next-btn" class="btn hidden">Next</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

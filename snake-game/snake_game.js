@@ -116,7 +116,7 @@ function gameLoop() {
 
 // Function to handle "Next Page" button click
 function goToNextPage() {
-    window.location.href = "../git/git-install.html"; // Redirect to the next page
+    window.location.href = "../vs-code/index.html"; // Redirect to the next page
 }
 
 // Start the game

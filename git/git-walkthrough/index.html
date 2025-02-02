@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Git and GitHub Walkthrough for Beginners</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Git and GitHub Walkthrough</h1>
+        </header>
+
+        <div id="steps">
+            <div class="step active" id="step-1">
+                <h2>Step 1: Before we begin, we need a repo to practice with.</h2>
+                <p>Good news, I made you one! Follow <a href="" target="_blank">this link!</a></p>
+                <!-- <code>git init</code> -->
+                <ol>
+                    <li>Accept the assignment</li>
+                    <li>Copy the link for the repo by clicking on the big green 'Code' button</li>
+                    <img src="../../images/code-button.png" alt="Copy the link for the repo">
+                    <li>Click to copy the link to your clipboard</li>
+                    <img src="../../images/copy-link.png" alt="Copy the link for the repo">
+                </ol>
+                <button class="next" onclick="nextStep(2)">Next</button>
+            </div>
+        
+            <div class="step" id="step-2">
+                <h2>Step 2: Clone a repo from Github.com to your computer</h2>
+                <p>Start by opening your terminal and running the following command to clone (make a copy of) the repo on your computer:</p>
+                <ol>
+                    <li>Open your terminal</li>
+                    <li>Navigate to the directory you want to clone this repo to (maybe your Intro-To-Programming folder?)</li>
+                    <li>Run this command: </li>
+                </ol>
+                <code>% git clone &lt;theLinkYouCopiedInStep0&gt;</code>
+
+                <button class="next" onclick="nextStep(3)">Next</button>
+            </div>
+
+            <div class="step" id="step-3">
+                <h2>Step 3: Let's make sure that worked.</h2>
+                <ol>
+                    <li>Run the command that tells you what contents are in the directory you are in. Does the repo exist now?</li>
+                    <li>Change directories into the repo.</li>
+                    <li>Now that you're inside the repo cloned on your computer, what does it contain?</li>
+                        <ul>
+                            <li>Notice that the ls command shows you the contents, but ls -a shows you even the HIDDEN content.</li>
+                            <li>You can check if you are in inside a github repository by running ls -a and seeing if there's a .git file</li>
+                        </ul>
+                    </ol>
+                <button class="next" onclick="showCompletion()">Finish</button>
+            </div>
+
+            <!-- <div class="step" id="step-3">
+                <h2>Step 3: Commit Your Changes</h2>
+                <p>Once you've staged your changes, commit them with a message:</p>
+                <code>git commit -m "Initial commit"</code>
+                <button class="next" onclick="nextStep(4)">Next</button>
+            </div>
+
+            <div class="step" id="step-4">
+                <h2>Step 4: Create a GitHub Repository</h2>
+                <p>Now, go to GitHub and create a new repository. Copy the URL for the repository, for example:</p>
+                <code>https://github.com/yourusername/your-repo.git</code>
+                <button class="next" onclick="nextStep(5)">Next</button>
+            </div>
+
+            <div class="step" id="step-5">
+                <h2>Step 5: Link Your Local Repository to GitHub</h2>
+                <p>In your terminal, run the following command to link your local repo to GitHub:</p>
+                <code>git remote add origin https://github.com/yourusername/your-repo.git</code>
+                <button class="next" onclick="nextStep(6)">Next</button>
+            </div>
+
+            <div class="step" id="step-6">
+                <h2>Step 6: Push Your Changes to GitHub</h2>
+                <p>Finally, push your commits to GitHub using:</p>
+                <code>git push -u origin master</code>
+                <button class="next" onclick="showCompletion()">Finish</button>
+            </div> -->
+
+            <div class="completion" id="completion" style="display: none;">
+                <h2>You've successfully cloned code from Github onto your computer. You could use this exact method to get TONS of open-source software online!</h2>
+                <p>The password is IGOTGIT</p>
+                <button class="next" onclick="window.location.href = '../../navigation/levels.html'">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -62,7 +62,7 @@ function checkAnswer() {
             }, 1500);
         } else {
             setTimeout(() => {
-                feedbackElement.textContent = "Excellent! The password is: vocabulary";
+                feedbackElement.textContent = "The password is: command";
                 feedbackElement.classList.remove('correct');
                 feedbackElement.classList.add('incorrect');
                 
