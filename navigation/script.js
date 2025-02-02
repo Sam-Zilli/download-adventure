@@ -19,14 +19,13 @@ const levelPasswords = {
     // Sixth password is i-got-brew, then they are routed to the git level
     "i-got-brew" : "../git/index.html",
 
-    // Seventh password 
+    // Seventh password is IGOTIT, then they are routed to the snake game
     "IGOTGIT" : "../snake-game/snake.html",
 
-    // Eighth password
-    "ide" : "../scratch-submission/index.html",
+    // Eighth password is IDE, then they are routed to the scratch submission page
+    "IDE" : "../scratch-submission/index.html",
 
-
-    // Ninth password
+    // Ninth password is adventure, then they are routed to the end page
     "adventure" : "../../navigation/end.html"
 };
 

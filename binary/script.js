@@ -35,6 +35,5 @@ document.getElementById('check-btn').addEventListener('click', checkAnswer);
 function nextLevel() {
     alert("The password is: bytes")
 
-    // Optionally, hide the "Next Level" button again
     window.location.href = "../navigation/levels.html";
 }
