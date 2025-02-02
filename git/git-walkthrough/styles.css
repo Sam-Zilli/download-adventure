@@ -10,30 +10,36 @@ body {
     color: #333;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;  /* Change to start to avoid cutting off content at center */
+    min-height: 100vh; /* Ensure body takes at least 100vh of the viewport */
     margin: 0;
+    padding: 20px;  /* Add some padding to prevent clipping */
 }
 
 #container {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    width: 90%;
+    width: 100%;
     max-width: 900px;
     padding: 30px;
-    overflow: hidden;
+    overflow: visible; /* Allow content to overflow instead of being hidden */
+    display: flex;
+    flex-direction: column; /* Ensure child elements stack vertically */
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
+    padding: 40px 0;  /* More padding for header space */
+    margin-bottom: 20px; /* Reduced margin-bottom */
+    flex-shrink: 0; /* Prevent header from shrinking */
 }
 
 header h1 {
     color: #4CAF50;
     font-size: 2.5em;
     font-weight: 600;
+    margin-bottom: 10px; /* Added margin-bottom to space out header text */
 }
 
 header p {
