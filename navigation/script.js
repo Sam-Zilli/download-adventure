@@ -26,7 +26,7 @@ const levelPasswords = {
     "IDE" : "../scratch-submission/get-auth-token.html",
 
     // Ninth password is adventure, then they are routed to the end page
-    "adventure" : "../../navigation/end.html"
+    "adventure" : "../navigation/end.html"
 };
 
 // Function to check the entered password and route the user accordingly
