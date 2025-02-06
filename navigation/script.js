@@ -1,31 +1,33 @@
 // Define the passwords for each level
 const levelPasswords = {
 
-    // First password is learn, then they are routed to the binary level
+
     "learn"   : "../binary/index.html",
 
-    // Second password is byes, then they are routed to the terminal level
-    "bytes" : "../terminal/index.html",
+    "bytes" : "../scratch-submission/get-auth-token.html",
 
-    // Third password is -a, then they are routed to the vocab level
+    "auth" : "../terminal/index.html",
+
     "-a" : "../vocab/index.html",
 
-    // Fourth password is command, then they are routed to the open-source level
+
     "command" : "../open-source/index.html",
 
-    // Fifth password is together, then they are routed to the brew
+
     "together" : "../brew/index.html",
 
-    // Sixth password is i-got-brew, then they are routed to the git level
+
     "i-got-brew" : "../git/index.html",
 
-    // Seventh password is IGOTIT, then they are routed to the snake game
+
+                // After snake game user is routed to VSCode install
     "IGOTGIT" : "../snake-game/snake.html",
 
-    // Eighth password is IDE, then they are routed to the scratch submission page
-    "IDE" : "../scratch-submission/get-auth-token.html",
 
-    // Ninth password is adventure, then they are routed to the end page
+    // VSCode password IDE routes to final level
+    "IDE" : "../scratch-submission/index.html",
+
+
     "adventure" : "end.html"
 };
 
