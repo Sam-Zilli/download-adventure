@@ -28,27 +28,39 @@
             margin: 0 auto;
         }
 
-        .command {
-            background-color: #2d2d2d;
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            margin: 10px 0;
-            display: block;
-        }
-
-        .command-description {
-            margin: 10px 0;
-            padding-left: 20px;
-        }
-
         .section-title {
             margin-top: 30px;
             font-size: 1.5em;
             color: #333;
             border-bottom: 2px solid #ddd;
             padding-bottom: 5px;
+        }
+
+        /* Updated Flex Layout */
+        .command-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 15px; /* Add space between commands */
+        }
+
+        .command {
+            background-color: #2d2d2d;
+            color: #fff;
+            padding: 15px 20px;  /* Add more padding for better spacing */
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin-right: 20px; /* Space between command and description */
+            width: 30%; /* Increase width of the command block */
+            word-wrap: break-word; /* Ensure long commands don't overflow */
+        }
+
+        .command-description {
+            font-size: 1.1em;
+            width: 60%; /* Allow description to take up most of the space */
+            padding-left: 20px;
+            color: #555;
+            word-wrap: break-word; /* Ensure long descriptions don't overflow */
         }
     </style>
 </head>
@@ -60,21 +72,96 @@
 
         <div class="section-title">Essential Terminal Commands</div>
         <ul>
-            <li><span class="command">pwd</span><span class="command-description">Prints the current working directory (where you are in the file system).</span></li>
-            <li><span class="command">ls</span><span class="command-description">Lists all files and directories in the current directory.</span></li>
-            <li><span class="command">cd ~</span><span class="command-description">Changes to the home directory of the user.</span></li>
-            <li><span class="command">cd ..</span><span class="command-description">Moves up one directory level.</span></li>
-            <li><span class="command">cd <em>&lt;directory&gt;</em></span><span class="command-description">Changes the current directory to the specified <em>&lt;directory&gt;</em>.</span></li>
-            <li><span class="command">clear</span><span class="command-description">Clears the terminal screen.</span></li>
-            <li><span class="command">echo “what to echo”</span><span class="command-description">Prints the text inside the quotes to the terminal.</span></li>
-            <li><span class="command">mkdir <em>&lt;folder_name&gt;</em></span><span class="command-description">Creates a new directory with the specified <em>&lt;folder_name&gt;</em>.</span></li>
-            <li><span class="command">rmdir <em>&lt;folder_name&gt;</em></span><span class="command-description">Removes an empty directory with the specified <em>&lt;folder_name&gt;</em>.</span></li>
-            <li><span class="command">less <em>&lt;file_name&gt;</em></span><span class="command-description">Displays the contents of a file one page at a time. Press <strong>q</strong> to quit.</span></li>
-            <li><span class="command">touch <em>&lt;file.txt&gt;</em></span><span class="command-description">Creates an empty file with the specified name.</span></li>
-            <li><span class="command">rm <em>&lt;file.txt&gt;</em></span><span class="command-description">Deletes the specified file.</span></li>
-            <li><span class="command">grep “search terms” <em>&lt;file_to_search&gt;</em></span><span class="command-description">Searches for the specified search terms in the given file and displays matching lines.</span></li>
-            <li><span class="command">mv <em>&lt;thing&gt; &lt;newLocation&gt;</em></span><span class="command-description">Moves a file or directory to a new location.</span></li>
-            <li><span class="command">mv <em>&lt;thing&gt; &lt;newNameForThing&gt;</em></span><span class="command-description">Renames a file or directory to the specified new name.</span></li>
+            <li>
+                <div class="command-container">
+                    <span class="command">pwd</span>
+                    <span class="command-description">Prints the current working directory (where you are in the file system).</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">ls</span>
+                    <span class="command-description">Lists all files and directories in the current directory.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">cd ~</span>
+                    <span class="command-description">Changes to the home directory of the user.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">cd ..</span>
+                    <span class="command-description">Moves up one directory level.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">cd <em>&lt;directory&gt;</em></span>
+                    <span class="command-description">Changes the current directory to the specified <em>&lt;directory&gt;</em>.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">clear</span>
+                    <span class="command-description">Clears the terminal screen.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">echo “what to echo”</span>
+                    <span class="command-description">Prints the text inside the quotes to the terminal.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">mkdir <em>&lt;folder_name&gt;</em></span>
+                    <span class="command-description">Creates a new directory with the specified <em>&lt;folder_name&gt;</em>.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">rmdir <em>&lt;folder_name&gt;</em></span>
+                    <span class="command-description">Removes an empty directory with the specified <em>&lt;folder_name&gt;</em>.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">less <em>&lt;file_name&gt;</em></span>
+                    <span class="command-description">Displays the contents of a file one page at a time. Press <strong>q</strong> to quit.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">touch <em>&lt;file.txt&gt;</em></span>
+                    <span class="command-description">Creates an empty file with the specified name.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">rm <em>&lt;file.txt&gt;</em></span>
+                    <span class="command-description">Deletes the specified file.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">grep “search terms” <em>&lt;file_to_search&gt;</em></span>
+                    <span class="command-description">Searches for the specified search terms in the given file and displays matching lines.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">mv <em>&lt;thing&gt; &lt;newLocation&gt;</em></span>
+                    <span class="command-description">Moves a file or directory to a new location.</span>
+                </div>
+            </li>
+            <li>
+                <div class="command-container">
+                    <span class="command">mv <em>&lt;thing&gt; &lt;newNameForThing&gt;</em></span>
+                    <span class="command-description">Renames a file or directory to the specified new name.</span>
+                </div>
+            </li>
         </ul>
     </div>
 
