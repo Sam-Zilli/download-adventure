@@ -4,8 +4,11 @@ const levelPasswords = {
 
     "learn"   : "../binary/index.html",
 
-    "bytes" : "../scratch-submission/get-auth-token.html",
+    // Routed to did you make a gh account page?
+    // Then routed to Creation of auth token
+    "bytes" : "../git/github-account.html",
 
+    // After creating auth token, routed to terminal page
     "auth" : "../terminal/index.html",
 
     "-a" : "../vocab/index.html",
