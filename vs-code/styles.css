@@ -141,3 +141,13 @@ footer {
         font-size: 1rem;
     }
 }
+
+
+/* Add styles for the highlighted command */
+.highlight {
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007acc;  /* VS Code Blue */
+    padding: 2px 6px;
+    border-radius: 4px;
+}
