@@ -22,25 +22,43 @@
                     <li>Go to <a href="https://github.com" target="_blank">GitHub.com</a> and make sure you're logged in</li>
                     <li>Click the green "New" button or the "+" icon in the top right corner</li>
                     <li>Select "New repository"</li>
-                    <li>Give your repository the name Intro-To-Programming</li>
+                    <li>Give your repository the name <strong>Intro-To-Programming</strong></li>
                     <li>Add a description (optional but recommended)</li>
-                    <li>Choose "Public" so others can see your work</li>
+                    <li>Choose visibility <strong>PRIVATE</strong></li>
                     <li>Check "Add a README file" - this creates an initial file in your repo</li>
                     <li>Click "Create repository"</li>
-                </ol>
-                
-                <p><strong>Next, get the clone URL:</strong></p>
-                <ol>
-                    <li>On your new repository page, click the green "Code" button</li>
-                    <li>Make sure "HTTPS" is selected</li>
-                    <li>Click the copy button to copy the repository URL to your clipboard</li>
                 </ol>
                 
                 <button class="next" onclick="nextStep(2)">Next</button>
             </div>
         
             <div class="step" id="step-2">
-                <h2>Step 2: Clone Your Repository to Your Computer</h2>
+                <h2>Step 2: Add Your Instructor as a Collaborator</h2>
+                <p>Now you need to add your instructor as a collaborator so they can access your private repository:</p>
+                
+                <ol>
+                    <li>On your repository page, click on the "Settings" tab</li>
+                    <li>In the left sidebar, click on "Collaborators"</li>
+                    <li>Click the green "Add people" button</li>
+                    <li>In the search box, type: <strong>Sam-Zilli</strong></li>
+                    <li>Click on the Sam-Zilli user when it appears</li>
+                    <li>Click "Add Sam-Zilli to this repository"</li>
+                    <li>Leave the role as "Write" (this is the default)</li>
+                </ol>
+                
+                <p><strong>Now get the clone URL:</strong></p>
+                <ol>
+                    <li>Go back to your repository's main page (click on "Code" tab)</li>
+                    <li>Click the green "Code" button</li>
+                    <li>Make sure "HTTPS" is selected</li>
+                    <li>Click the copy button to copy the repository URL to your clipboard</li>
+                </ol>
+                
+                <button class="next" onclick="nextStep(3)">Next</button>
+            </div>
+        
+            <div class="step" id="step-3">
+                <h2>Step 3: Clone Your Repository to Your Computer</h2>
                 <p>Now let's use the terminal to clone (download) your repository to your computer:</p>
                 
                 <ol>
@@ -56,15 +74,15 @@
                 <code>git clone &lt;paste-your-repository-url-here&gt;</code>
                 
                 <p><strong>Example:</strong></p>
-                <code>git clone https://github.com/yourusername/my-first-repo.git</code>
+                <code>git clone https://github.com/yourusername/Intro-To-Programming.git</code>
                 
                 <p>Press Enter and watch Git download your repository!</p>
 
-                <button class="next" onclick="nextStep(3)">Next</button>
+                <button class="next" onclick="nextStep(4)">Next</button>
             </div>
 
-            <div class="step" id="step-3">
-                <h2>Step 3: Explore Your Cloned Repository</h2>
+            <div class="step" id="step-4">
+                <h2>Step 4: Explore Your Cloned Repository</h2>
                 <p>Let's verify the clone worked and explore your repository using terminal commands:</p>
                 
                 <ol>
@@ -74,8 +92,8 @@
                     </li>
                     
                     <li><strong>Navigate into your repository:</strong>
-                        <br><code>cd my-first-repo</code>
-                        <br>(Replace "my-first-repo" with your actual repository name)
+                        <br><code>cd Intro-To-Programming</code>
+                        <br>(This should match your repository name)
                     </li>
                     
                     <li><strong>List the contents of your repository:</strong>
