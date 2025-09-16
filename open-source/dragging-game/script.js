@@ -155,7 +155,7 @@ function nextLevel() {
     } else {
         // End of the game
         alert("The password is: together");
-        window.location.href = "../../navigation/levels.html"; // Redirect to the password page
+        window.location.href = "PasswordPortal.html"; // Redirect to the password page
     }
 }
 

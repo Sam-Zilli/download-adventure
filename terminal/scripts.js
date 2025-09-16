@@ -249,7 +249,7 @@ function restartTerminal() {
 
 // Function to navigate to the next page
 function goToNextPage() {
-    window.location.href = "../navigation/levels.html"; // Change this to the actual next page URL
+    window.location.href = "PasswordPortal.html"; // Change this to the actual next page URL
 }
 
 // Initialize task list and display the first prompt

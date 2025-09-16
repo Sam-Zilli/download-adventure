@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Gates Quiz Game</title>
+    <link rel="stylesheet" href="matrixHacker.css">
+    <style>
+        .quiz-board {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 32px;
+        }
+        .switch-row {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 24px;
+        }
+        .switch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .bulb {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #222;
+            border: 3px solid #00ff41;
+            margin: 24px auto 0 auto;
+            box-shadow: 0 0 16px #00ff4140;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        .bulb.on {
+            background: #eaff00;
+            box-shadow: 0 0 32px #eaff00, 0 0 16px #00ff41;
+            border-color: #eaff00;
+        }
+        .gate-label {
+            margin-top: 18px;
+            font-size: 1.2em;
+            color: #00ff41;
+        }
+        .btn {
+            margin-top: 24px;
+            background: #00ff41;
+            color: #111;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            padding: 10px 28px;
+            cursor: pointer;
+            box-shadow: 0 0 8px #00ff41;
+        }
+        .btn:hover {
+            background: #111;
+            color: #00ff41;
+            border: 1.5px solid #00ff41;
+        }
+        .feedback {
+            margin-top: 18px;
+            font-size: 1.1em;
+            color: #eaff00;
+            min-height: 24px;
+        }
+        .score {
+            margin-top: 18px;
+            font-size: 1.1em;
+            color: #00ff41;
+        }
+</style>
+    <link rel="stylesheet" href="matrixModal.css">
+</head>
+<body>
+    <div class="quiz-board">
+        <div id="custom-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
+            <div style="background:#111; border:2px solid #00ff41; border-radius:10px; padding:36px 32px; box-shadow:0 0 32px #00ff41; text-align:center; max-width:90vw;">
+                <h2 style="color:#00ff41; margin-bottom:18px;">Congratulations!</h2>
+                <p style="font-size:1.3em; color:#00ff41; margin-bottom:24px;">The password is: <b>Transistoor</b></p>
+                <button onclick="closeModal()" style="background:#00ff41; color:#111; border:none; border-radius:4px; font-size:1.1em; padding:10px 28px; cursor:pointer;">OK</button>
+            </div>
+        </div>
+        <h1>Logic Gates Quiz Game</h1>
+        <div class="score" id="score"></div>
+        <div class="gate-label" id="gateLabel"></div>
+        <div class="switch-row">
+            <div class="switch">
+                <label for="switch1">Switch 1</label>
+                <input type="checkbox" id="switch1">
+            </div>
+            <div class="switch">
+                <label for="switch2">Switch 2</label>
+                <input type="checkbox" id="switch2">
+            </div>
+        </div>
+        <div class="bulb" id="bulb"></div>
+        <button class="btn" id="submitBtn" onclick="submitAnswer()">Submit</button>
+        <div class="feedback" id="feedback"></div>
+        <button class="btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next</button>
+    </div>
+    <script>
+        const gates = [
+            { type: 'AND', a: false, b: false },
+            { type: 'AND', a: true,  b: false },
+            { type: 'AND', a: false, b: true },
+            { type: 'AND', a: true,  b: true },
+            { type: 'OR',  a: false, b: false },
+            { type: 'OR',  a: true,  b: false },
+            { type: 'OR',  a: false, b: true },
+            { type: 'OR',  a: true,  b: true },
+            { type: 'XOR', a: false, b: false },
+            { type: 'XOR', a: true,  b: false },
+            { type: 'XOR', a: false, b: true },
+            { type: 'XOR', a: true,  b: true }
+        ];
+        let quiz = [];
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+        }
+        function makeQuiz() {
+            quiz = [];
+            // 8 random questions, mix of AND, OR, XOR
+            let pool = gates.slice();
+            shuffle(pool);
+            quiz = pool.slice(0,8);
+        }
+        let current = 0;
+        let score = 0;
+        const switch1 = document.getElementById('switch1');
+        const switch2 = document.getElementById('switch2');
+        const bulb = document.getElementById('bulb');
+        const gateLabel = document.getElementById('gateLabel');
+        const feedback = document.getElementById('feedback');
+        const scoreDiv = document.getElementById('score');
+        const submitBtn = document.getElementById('submitBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        function showQuestion() {
+            if (current >= quiz.length) {
+                gateLabel.textContent = 'Quiz complete!';
+                feedback.textContent = `Final Score: ${score} / ${quiz.length}`;
+                submitBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                switch1.disabled = true;
+                switch2.disabled = true;
+                // Show password modal
+                setTimeout(() => {
+                    document.getElementById('custom-modal').style.display = 'flex';
+                }, 800);
+                return;
+            }
+        function closeModal() {
+            document.getElementById('custom-modal').style.display = 'none';
+        }
+            const q = quiz[current];
+            gateLabel.textContent = `Gate: ${q.type} | What should the switches be to turn the light ${getExpected(q) ? 'ON' : 'OFF'}?`;
+            switch1.checked = q.a;
+            switch2.checked = q.b;
+            updateBulb();
+            feedback.textContent = '';
+            scoreDiv.textContent = `Score: ${score} / ${quiz.length}`;
+            submitBtn.style.display = '';
+            nextBtn.style.display = 'none';
+            switch1.disabled = false;
+            switch2.disabled = false;
+        }
+        function getExpected(q) {
+            switch (q.type) {
+                case 'AND': return q.a && q.b;
+                case 'OR':  return q.a || q.b;
+                case 'XOR': return q.a !== q.b;
+            }
+        }
+        function updateBulb() {
+            const q = quiz[current];
+            let on = false;
+            switch (q.type) {
+                case 'AND': on = switch1.checked && switch2.checked; break;
+                case 'OR':  on = switch1.checked || switch2.checked; break;
+                case 'XOR': on = switch1.checked !== switch2.checked; break;
+            }
+            if (on) {
+                bulb.classList.add('on');
+            } else {
+                bulb.classList.remove('on');
+            }
+        }
+        switch1.addEventListener('change', updateBulb);
+        switch2.addEventListener('change', updateBulb);
+        function submitAnswer() {
+            const q = quiz[current];
+            let correct = false;
+            switch (q.type) {
+                case 'AND': correct = (switch1.checked && switch2.checked) === getExpected(q); break;
+                case 'OR':  correct = (switch1.checked || switch2.checked) === getExpected(q); break;
+                case 'XOR': correct = (switch1.checked !== switch2.checked) === getExpected(q); break;
+            }
+            if (correct) {
+                feedback.textContent = 'Correct!';
+                score++;
+            } else {
+                feedback.textContent = 'Incorrect.';
+            }
+            submitBtn.style.display = 'none';
+            nextBtn.style.display = '';
+            switch1.disabled = true;
+            switch2.disabled = true;
+            scoreDiv.textContent = `Score: ${score} / ${quiz.length}`;
+        }
+        function nextQuestion() {
+            current++;
+            showQuestion();
+        }
+        // Initialize
+        makeQuiz();
+        showQuestion();
+    </script>
+</body>
+</html>

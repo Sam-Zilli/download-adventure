@@ -79,7 +79,7 @@ function checkAnswer() {
 
 // Function to go to the next page
 function goToNextPage() {
-    window.location.href = "../navigation/levels.html";  // Adjust this URL as needed
+    window.location.href = "PasswordPortal.html";  // Adjust this URL as needed
 }
 
 // Initialize the game with the first sentence
