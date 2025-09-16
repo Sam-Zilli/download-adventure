@@ -4,6 +4,8 @@ const scoreElement = document.getElementById('score');
 const nextPageButton = document.getElementById('nextPageButton');
 const startModal = document.getElementById('startModal');
 const startButton = document.getElementById('startButton');
+const winModal = document.getElementById('winModal');
+const continueButton = document.getElementById('continueButton');
 
 let score = 0;
 let isGameRunning = false;
@@ -117,7 +119,8 @@ function updateItems() {
             scoreElement.textContent = 'Score: ' + score;
             items.splice(index, 1);
             if (score >= 10) {
-                nextPageButton.style.display = 'block';
+                isGameRunning = false;
+                winModal.style.display = 'block';
             }
         }
     });
@@ -151,7 +154,7 @@ function keyUp(e) {
 }
 
 function goToNextPage() {
-    window.location.href = '../WhatIsProprietarySoftware.html';
+    window.location.href = '../../PasswordPortal/PasswordPortal.html';
 }
 
 function startGame() {
@@ -160,9 +163,14 @@ function startGame() {
     update();
 }
 
+function continueToPortal() {
+    window.location.href = '../../PasswordPortal/PasswordPortal.html';
+}
+
 document.addEventListener('keydown', keyDown);
 document.addEventListener('keyup', keyUp);
 startButton.addEventListener('click', startGame);
+continueButton.addEventListener('click', continueToPortal);
 
 // Draw initial player state
 drawPlayer();

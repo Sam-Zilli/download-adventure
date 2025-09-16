@@ -14,57 +14,108 @@
         </header>
 
         <div id="steps">
-            <div class="step active" id="step-1">
-                <h2>Step 1: Before we begin, we need a repo to practice with.</h2>
-                <p>Good news, I made you one!</p>
-                <p> IF YOU ARE IN THE TUESAY PM CLASS: </p>Follow <a href="https://classroom.github.com/a/nuDZVHg7" target="_blank">this link!</a></p>
-                <p> IF YOU ARE IN THE THURSDAY AM CLASS: </p>Follow <a href="https://classroom.github.com/a/Uuniz8AY" target="_blank">this link!</a></p>
-
+                        <div class="step active" id="step-1">
+                <h2>Step 1: Create a New Repository on GitHub</h2>
+                <p>Let's create a brand new repository from scratch!</p>
+                
                 <ol>
-                    <li>If your name isn't listed, click "Can’t find your name? Skip to the next step →"</li>
-                    <li>Accept the assignment</li>
-                    <img src="../../images/accept-assignment.png" alt="Accept the assignment">
-                    <li>Click the link to go to your repository</li>
-                    <img src="../../images/repo-created.png" alt="Click the link to go to your repository">
-                    <li>Copy the link for the repo by clicking on the big green 'Code' button</li>
-                    <img src="../../images/code-button.png" alt="Copy the link for the repo">
-                    <li>Click to copy the link to your clipboard</li>
-                    <img src="../../images/copy-link.png" alt="Copy the link for the repo">
+                    <li>Go to <a href="https://github.com" target="_blank">GitHub.com</a> and make sure you're logged in</li>
+                    <li>Click the green "New" button or the "+" icon in the top right corner</li>
+                    <li>Select "New repository"</li>
+                    <li>Give your repository a name (e.g., "my-first-repo")</li>
+                    <li>Add a description (optional but recommended)</li>
+                    <li>Choose "Public" so others can see your work</li>
+                    <li>Check "Add a README file" - this creates an initial file in your repo</li>
+                    <li>Click "Create repository"</li>
                 </ol>
+                
+                <p><strong>Next, get the clone URL:</strong></p>
+                <ol>
+                    <li>On your new repository page, click the green "Code" button</li>
+                    <li>Make sure "HTTPS" is selected</li>
+                    <li>Click the copy button to copy the repository URL to your clipboard</li>
+                </ol>
+                
                 <button class="next" onclick="nextStep(2)">Next</button>
             </div>
         
             <div class="step" id="step-2">
-                <h2>Step 2: Clone a repo from Github.com to your computer</h2>
-                <p>Start by opening your terminal and running the following command to clone (make a copy of) the repo on your computer:</p>
+                <h2>Step 2: Clone Your Repository to Your Computer</h2>
+                <p>Now let's use the terminal to clone (download) your repository to your computer:</p>
+                
                 <ol>
-                    <li>Open your terminal</li>
-                    <li>Navigate to the directory you want to clone this repo to (maybe your Intro-To-Programming folder?)</li>
-                    <li>Run this command: </li>
+                    <li>Open your terminal application</li>
+                    <li>Navigate to where you want to store your project. For example:
+                        <br><code>cd ~/Documents</code>
+                        <br>or
+                        <br><code>cd ~/Desktop</code>
+                    </li>
+                    <li>Clone your repository using the URL you copied:</li>
                 </ol>
-                <code>% git clone &lt;theLinkYouCopiedInStep0&gt;</code>
+                
+                <code>git clone &lt;paste-your-repository-url-here&gt;</code>
+                
+                <p><strong>Example:</strong></p>
+                <code>git clone https://github.com/yourusername/my-first-repo.git</code>
+                
+                <p>Press Enter and watch Git download your repository!</p>
 
                 <button class="next" onclick="nextStep(3)">Next</button>
             </div>
 
             <div class="step" id="step-3">
-                <h2>Step 3: Let's make sure that worked.</h2>
+                <h2>Step 3: Explore Your Cloned Repository</h2>
+                <p>Let's verify the clone worked and explore your repository using terminal commands:</p>
+                
                 <ol>
-                    <li>Run the command that tells you what contents are in the directory you are in. Does the repo exist now?</li>
-                    <li>Change directories into the repo.</li>
-                    <li>Now that you're inside the repo cloned on your computer, what does it contain?</li>
-                        <ul>
-                            <li>Notice that the ls command shows you the contents, but ls -a shows you even the HIDDEN content.</li>
-                            <li>You can check if you are in inside a github repository by running ls -a and seeing if there's a .git file</li>
-                        </ul>
-                    </ol>
+                    <li><strong>List the contents of your current directory:</strong>
+                        <br><code>ls</code>
+                        <br>You should see your repository folder!
+                    </li>
+                    
+                    <li><strong>Navigate into your repository:</strong>
+                        <br><code>cd my-first-repo</code>
+                        <br>(Replace "my-first-repo" with your actual repository name)
+                    </li>
+                    
+                    <li><strong>List the contents of your repository:</strong>
+                        <br><code>ls</code>
+                        <br>You should see your README.md file!
+                    </li>
+                    
+                    <li><strong>See ALL files, including hidden ones:</strong>
+                        <br><code>ls -a</code>
+                        <br>Notice the <code>.git</code> folder - this is what makes it a Git repository!
+                    </li>
+                    
+                    <li><strong>Check your repository's status:</strong>
+                        <br><code>git status</code>
+                        <br>This shows you're on the main branch and everything is up to date.
+                    </li>
+                    
+                    <li><strong>View your README file:</strong>
+                        <br><code>cat README.md</code>
+                        <br>This displays the contents of your README file in the terminal.
+                    </li>
+                </ol>
+                
+                <p><strong>Congratulations!</strong> You've successfully created a GitHub repository and cloned it to your computer using terminal commands!</p>
+                
                 <button class="next" onclick="showCompletion()">Finish</button>
             </div>
 
             <div class="completion" id="completion" style="display: none;">
-                <h2>You've successfully cloned code from Github onto your computer. You could use this exact method to get TONS of open-source software online!</h2>
-                <p>The password is IGOTGIT</p>
-                <button class="next" onclick="window.location.href = 'PasswordPortal.html'">Next</button>
+                <h2>Excellent Work! 🎉</h2>
+                <p>You've successfully learned how to:</p>
+                <ul>
+                    <li>Create a new GitHub repository from scratch</li>
+                    <li>Clone it to your computer using terminal commands</li>
+                    <li>Navigate and explore the repository structure</li>
+                    <li>Use essential Git commands like <code>git status</code></li>
+                </ul>
+                <p>You now have the fundamental skills to work with Git and GitHub! You can use these same techniques to clone any open-source project and start contributing to the developer community.</p>
+                <p><strong>The password is:</strong> IGOTGIT</p>
+                <button class="next" onclick="window.location.href = '../../PasswordPortal/PasswordPortal.html'">Next</button>
             </div>
         </div>
     </div>

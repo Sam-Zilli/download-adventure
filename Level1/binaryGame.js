@@ -55,7 +55,7 @@ function nextLevel() {
         modal.style.display = 'flex';
     } else {
         // fallback
-    window.location.href = "PasswordPortal.html";
+    window.location.href = "../PasswordPortal/PasswordPortal.html";
     }
 }
 
@@ -63,6 +63,6 @@ function closeModal() {
     var modal = document.getElementById('custom-modal');
     if (modal) {
         modal.style.display = 'none';
-    window.location.href = "PasswordPortal.html";
+    window.location.href = "../PasswordPortal/PasswordPortal.html";
     }
 }

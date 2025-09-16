@@ -25,8 +25,6 @@
 
     <div class="task-list">
         <h3>Tasks</h3>
-            <!-- Review link at the top of the page -->
-    <a href="terminal-commands-info-sheet.html" class="command-review-link" target="_blank">Stuck? Review Terminal Commands Here!</a>
         <ul id="tasks">
             <!-- Task list will go here -->
         </ul>
@@ -51,6 +49,33 @@
 
     <!-- Hidden until correct answer is given -->
     <button id="nextPageButton" class="btn" style="display:none;">Go to Next Page</button>
+
+    <!-- Instructions Modal -->
+    <div id="instructionsModal" class="modal">
+        <div class="modal-content">
+            <h2>Terminal Instructions</h2>
+            <p><strong>Important:</strong></p>
+            <ul style="text-align: left; margin: 20px 0;">
+                <li>You must do the commands in order</li>
+                <li>This is not a real terminal - you can only use the commands I am asking for</li>
+                <li>If you have questions, refer to your "Terminal Commands Starter Pack" on Canvas</li>
+            </ul>
+            <button id="startTerminal" class="btn">Start Terminal</button>
+        </div>
+    </div>
+
+    <!-- LS Quiz Modal -->
+    <div id="lsQuizModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>File Type Quiz</h2>
+            <p id="lsQuizQuestion">Is "document.txt" a file or directory?</p>
+            <div style="margin: 20px 0;">
+                <button onclick="answerLsQuiz('file')" class="btn" style="margin: 0 10px;">File</button>
+                <button onclick="answerLsQuiz('directory')" class="btn" style="margin: 0 10px;">Directory</button>
+            </div>
+            <p id="lsQuizResult" style="font-weight: bold; margin-top: 15px;"></p>
+        </div>
+    </div>
 
     <script src="scripts.js"></script>
 </body>

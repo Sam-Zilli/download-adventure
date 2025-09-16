@@ -2,14 +2,26 @@
 const levelPasswords = {
 
     // Level 1: What is Binary?
-    "learn"   : "WhatIsBinary.html",
-    // Then goes to Binary Game
+    "learn"   : "../Level1/WhatIsBinary.html",
 
     // Level 2: Transistors
-    "bytes"    : "Transistors.html",
+    "bytes"    : "../Level2/Transistors.html",
 
-    // Level 3: Logic Gates
-    "Transistor" : "WhatIsOpenSource.html",
+    // Level 3: Open Source
+    "Transistor" : "../Level3/WhatIsOpenSource.html",
+
+    // Level 4: Terminal Review
+    "Terminal" : "../terminal/index.html",
+
+    // Level 5: Brew
+    "-a" : "../brew/index.html",
+
+    // Level 6: Git and GitHub
+    "i-got-brew" : "../git/index.html",
+    
+    // After snake game user is routed to VSCode install
+    "IGOTGIT" : "../snake-game/snake.html",
+    
 
     // // Routed to did you make a gh account page?
     // // Then routed to Creation of auth token
@@ -27,15 +39,9 @@ const levelPasswords = {
     // "together" : "../brew/index.html",
 
 
-    // "i-got-brew" : "../git/index.html",
 
-
-    //             // After snake game user is routed to VSCode install
-    // "IGOTGIT" : "../snake-game/snake.html",
-
-
-    // // VSCode password IDE routes to final level
-    // "IDE" : "../scratch-submission/index.html",
+    // VSCode password IDE routes to final level
+    "IDE" : "../scratch-submission/index.html",
 
 
     // "adventure" : "end.html"
