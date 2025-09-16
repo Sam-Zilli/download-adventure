@@ -7,6 +7,7 @@ const correctAnswer = ['B', 'I', 'T'];
 function checkAnswer() {
     let userAnswer = [];
     const allowed = ['B', 'I', 'T'];
+    const feedbackMessage = document.getElementById("feedback-message");
     for (let i = 1; i <= 3; i++) {
         const inputElem = document.getElementById('input' + i);
         if (!inputElem) {
@@ -14,15 +15,15 @@ function checkAnswer() {
             return;
         }
         const val = inputElem.value.trim();
-        if (!allowed.includes(val)) {
-            // Reject if not exactly B, I, or T (uppercase)
-            showAccessDeniedModal && showAccessDeniedModal();
+        if (val.length === 0 || !allowed.includes(val)) {
+            feedbackMessage.textContent = "Incorrect. Try Again.";
+            feedbackMessage.style.color = "red";
+            feedbackMessage.classList.remove("hidden");
             return;
         }
         userAnswer.push(val);
     }
 
-    const feedbackMessage = document.getElementById("feedback-message");
     const nextLevelButton = document.getElementById("next-level-btn");
 
     if (JSON.stringify(userAnswer) === JSON.stringify(correctAnswer)) {
@@ -33,7 +34,7 @@ function checkAnswer() {
             nextLevelButton.classList.remove("hidden");
         }
     } else {
-        feedbackMessage.textContent = "Oops! That's incorrect. Try again!";
+        feedbackMessage.textContent = "Incorrect. Try Again.";
         feedbackMessage.style.color = "red";
         feedbackMessage.classList.remove("hidden");
         if (nextLevelButton) {

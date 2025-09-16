@@ -31,11 +31,18 @@
             margin: 24px auto 0 auto;
             box-shadow: 0 0 16px #00ff4140;
             transition: background 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: #eaff00;
+            user-select: none;
         }
         .bulb.on {
             background: #eaff00;
             box-shadow: 0 0 32px #eaff00, 0 0 16px #00ff41;
             border-color: #eaff00;
+            color: #222;
         }
         .gate-label {
             margin-top: 18px;
@@ -74,13 +81,6 @@
 </head>
 <body>
     <div class="quiz-board">
-        <div id="custom-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
-            <div style="background:#111; border:2px solid #00ff41; border-radius:10px; padding:36px 32px; box-shadow:0 0 32px #00ff41; text-align:center; max-width:90vw;">
-                <h2 style="color:#00ff41; margin-bottom:18px;">Congratulations!</h2>
-                <p style="font-size:1.3em; color:#00ff41; margin-bottom:24px;">The password is: <b>Transistoor</b></p>
-                <button onclick="closeModal()" style="background:#00ff41; color:#111; border:none; border-radius:4px; font-size:1.1em; padding:10px 28px; cursor:pointer;">OK</button>
-            </div>
-        </div>
         <h1>Logic Gates Quiz Game</h1>
         <div class="score" id="score"></div>
         <div class="gate-label" id="gateLabel"></div>
@@ -122,11 +122,16 @@
             }
         }
         function makeQuiz() {
-            quiz = [];
-            // 8 random questions, mix of AND, OR, XOR
-            let pool = gates.slice();
-            shuffle(pool);
-            quiz = pool.slice(0,8);
+            quiz = [
+                // 1. AND, OFF OFF
+                { type: 'AND', a: false, b: false },
+                // 2. OR, OFF ON
+                { type: 'OR', a: false, b: true },
+                // 3. XOR, ON OFF
+                { type: 'XOR', a: true, b: false },
+                // 4. AND, ON ON
+                { type: 'AND', a: true, b: true }
+            ];
         }
         let current = 0;
         let score = 0;
@@ -140,26 +145,38 @@
         const nextBtn = document.getElementById('nextBtn');
         function showQuestion() {
             if (current >= quiz.length) {
-                gateLabel.textContent = 'Quiz complete!';
-                feedback.textContent = `Final Score: ${score} / ${quiz.length}`;
-                submitBtn.style.display = 'none';
-                nextBtn.style.display = 'none';
-                switch1.disabled = true;
-                switch2.disabled = true;
-                // Show password modal
-                setTimeout(() => {
-                    document.getElementById('custom-modal').style.display = 'flex';
-                }, 800);
+                if (score === quiz.length) {
+                    gateLabel.textContent = 'Quiz complete!';
+                    feedback.textContent = `Final Score: ${score} / ${quiz.length}`;
+                    submitBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                    switch1.disabled = true;
+                    switch2.disabled = true;
+                    setTimeout(() => {
+                        window.location.href = 'BooleanLogicPatternGame.html';
+                    }, 1200);
+                } else {
+                    gateLabel.textContent = 'Try again! You must get 100%.';
+                    feedback.textContent = '';
+                    submitBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                    switch1.disabled = true;
+                    switch2.disabled = true;
+                    setTimeout(() => {
+                        score = 0;
+                        current = 0;
+                        showQuestion();
+                    }, 1800);
+                }
                 return;
             }
-        function closeModal() {
-            document.getElementById('custom-modal').style.display = 'none';
-        }
             const q = quiz[current];
             gateLabel.textContent = `Gate: ${q.type} | What should the switches be to turn the light ${getExpected(q) ? 'ON' : 'OFF'}?`;
-            switch1.checked = q.a;
-            switch2.checked = q.b;
-            updateBulb();
+            switch1.checked = false;
+            switch2.checked = false;
+            bulb.classList.remove('on');
+            bulb.textContent = '?';
+            bulb.style.visibility = 'visible';
             feedback.textContent = '';
             scoreDiv.textContent = `Score: ${score} / ${quiz.length}`;
             submitBtn.style.display = '';
@@ -174,30 +191,33 @@
                 case 'XOR': return q.a !== q.b;
             }
         }
-        function updateBulb() {
-            const q = quiz[current];
-            let on = false;
-            switch (q.type) {
-                case 'AND': on = switch1.checked && switch2.checked; break;
-                case 'OR':  on = switch1.checked || switch2.checked; break;
-                case 'XOR': on = switch1.checked !== switch2.checked; break;
-            }
-            if (on) {
-                bulb.classList.add('on');
-            } else {
-                bulb.classList.remove('on');
-            }
-        }
-        switch1.addEventListener('change', updateBulb);
-        switch2.addEventListener('change', updateBulb);
+
         function submitAnswer() {
             const q = quiz[current];
             let correct = false;
+            let on = false;
             switch (q.type) {
-                case 'AND': correct = (switch1.checked && switch2.checked) === getExpected(q); break;
-                case 'OR':  correct = (switch1.checked || switch2.checked) === getExpected(q); break;
-                case 'XOR': correct = (switch1.checked !== switch2.checked) === getExpected(q); break;
+                case 'AND':
+                    correct = (switch1.checked && switch2.checked) === getExpected(q);
+                    on = switch1.checked && switch2.checked;
+                    break;
+                case 'OR':
+                    correct = (switch1.checked || switch2.checked) === getExpected(q);
+                    on = switch1.checked || switch2.checked;
+                    break;
+                case 'XOR':
+                    correct = (switch1.checked !== switch2.checked) === getExpected(q);
+                    on = switch1.checked !== switch2.checked;
+                    break;
             }
+            if (on) {
+                bulb.classList.add('on');
+                bulb.textContent = '';
+            } else {
+                bulb.classList.remove('on');
+                bulb.textContent = '';
+            }
+            bulb.style.visibility = 'visible';
             if (correct) {
                 feedback.textContent = 'Correct!';
                 score++;

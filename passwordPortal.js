@@ -8,7 +8,8 @@ const levelPasswords = {
     // Level 2: Transistors
     "bytes"    : "Transistors.html",
 
-
+    // Level 3: Logic Gates
+    "Transistor" : "WhatIsOpenSource.html",
 
     // // Routed to did you make a gh account page?
     // // Then routed to Creation of auth token

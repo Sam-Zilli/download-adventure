@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transistor Switch Logic Game</title>
+    <title>Boolean Logic</title>
     <link rel="stylesheet" href="matrixHacker.css">
     <style>
         .logic-board {
@@ -70,44 +70,93 @@
 </head>
 <body>
     <div class="logic-board">
-        <h1>Transistor Logic Game: Make Decisions with Switches</h1>
-        <div class="switch-row">
-            <div class="switch">
-                <label for="switch1">Switch 1</label>
-                <input type="checkbox" id="switch1">
+        <h1>Logic Gates</h1>
+        <div style="display: flex; gap: 48px; justify-content: center; margin: 32px 0;">
+            <!-- AND Gate Group -->
+            <div style="text-align:center; background:#181818; border-radius:10px; padding:18px 24px; min-width:150px;">
+                <div class="logic-label">AND Gate</div>
+                <div class="bulb" id="bulb-and"></div>
+                <div style="display:flex; gap:18px; justify-content:center; margin-top:10px;">
+                    <div class="switch">
+                        <label for="switch1">Switch 1</label>
+                        <input type="checkbox" id="switch1">
+                    </div>
+                    <div class="switch">
+                        <label for="switch2">Switch 2</label>
+                        <input type="checkbox" id="switch2">
+                    </div>
+                </div>
             </div>
-            <div class="switch">
-                <label for="switch2">Switch 2</label>
-                <input type="checkbox" id="switch2">
+            <!-- OR Gate Group -->
+            <div style="text-align:center; background:#181818; border-radius:10px; padding:18px 24px; min-width:150px;">
+                <div class="logic-label">OR Gate</div>
+                <div class="bulb" id="bulb-or"></div>
+                <div style="display:flex; gap:18px; justify-content:center; margin-top:10px;">
+                    <div class="switch">
+                        <label for="switch3">Switch 1</label>
+                        <input type="checkbox" id="switch3">
+                    </div>
+                    <div class="switch">
+                        <label for="switch4">Switch 2</label>
+                        <input type="checkbox" id="switch4">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="logic-label">Both switches must be ON to light the bulb (AND logic)</div>
-        <div class="bulb" id="bulb"></div>
-        <button class="btn" onclick="showExplanation()">Why does this work?</button>
-        <div class="explanation" id="explanation" style="display:none;">
-            <b>How do switches make decisions?</b><br>
-            In computers, transistors act like switches. When both switches are ON, electricity flows and the bulb lights up—just like an AND gate in computer logic. If either switch is OFF, the circuit is broken and the bulb stays dark. This is how computers use millions of tiny switches to make decisions and run programs!
+            <!-- XOR Gate Group -->
+            <div style="text-align:center; background:#181818; border-radius:10px; padding:18px 24px; min-width:150px;">
+                <div class="logic-label">XOR Gate</div>
+                <div class="bulb" id="bulb-xor"></div>
+                <div style="display:flex; gap:18px; justify-content:center; margin-top:10px;">
+                    <div class="switch">
+                        <label for="switch5">Switch 1</label>
+                        <input type="checkbox" id="switch5">
+                    </div>
+                    <div class="switch">
+                        <label for="switch6">Switch 2</label>
+                        <input type="checkbox" id="switch6">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
         const switch1 = document.getElementById('switch1');
         const switch2 = document.getElementById('switch2');
-        const bulb = document.getElementById('bulb');
-        function updateBulb() {
+        const switch3 = document.getElementById('switch3');
+        const switch4 = document.getElementById('switch4');
+        const switch5 = document.getElementById('switch5');
+        const switch6 = document.getElementById('switch6');
+        const bulbAnd = document.getElementById('bulb-and');
+        const bulbOr = document.getElementById('bulb-or');
+        const bulbXor = document.getElementById('bulb-xor');
+
+        function updateBulbs() {
+            // AND
             if (switch1.checked && switch2.checked) {
-                bulb.classList.add('on');
+                bulbAnd.classList.add('on');
             } else {
-                bulb.classList.remove('on');
+                bulbAnd.classList.remove('on');
+            }
+            // OR
+            if (switch3.checked || switch4.checked) {
+                bulbOr.classList.add('on');
+            } else {
+                bulbOr.classList.remove('on');
+            }
+            // XOR
+            if ((switch5.checked || switch6.checked) && !(switch5.checked && switch6.checked)) {
+                bulbXor.classList.add('on');
+            } else {
+                bulbXor.classList.remove('on');
             }
         }
-        switch1.addEventListener('change', updateBulb);
-        switch2.addEventListener('change', updateBulb);
+        [switch1, switch2, switch3, switch4, switch5, switch6].forEach(sw => sw.addEventListener('change', updateBulbs));
         function showExplanation() {
             document.getElementById('explanation').style.display = 'block';
         }
 </script>
     <div style="display: flex; justify-content: center; margin-top: 40px;">
-        <a href="TransistorLogicGates.html" class="btn">Next Page: Logic Gates</a>
+        <a href="BooleanLogicSwitchGame.html" class="btn">Game</a>
     </div>
 </body>
 </html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolean Logic Pattern Game</title>
+    <link rel="stylesheet" href="matrixHacker.css">
+    <style>
+        .logic-grid {
+            display: grid;
+            grid-template-columns: 120px repeat(8, 1fr);
+            gap: 48px;
+            justify-content: center;
+            margin-bottom: 32px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .logic-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        body {
+            background: #111;
+            color: #00ff41;
+            font-family: 'Fira Mono', monospace;
+            padding: 32px;
+        }
+        .bulb-row {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 48px;
+            justify-content: center;
+            margin-bottom: 32px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .bulb {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #222;
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 8px #00ff4140;
+            transition: background 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bulb.on {
+            background: #eaff00;
+            box-shadow: 0 0 16px #eaff00, 0 0 8px #00ff41;
+            border-color: #eaff00;
+        }
+        .switch-pair-row {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 48px;
+            justify-content: center;
+            margin-bottom: 24px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .switch-pair {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #181818;
+            border-radius: 8px;
+            padding: 10px 12px;
+            min-height: 70px;
+        }
+        .pattern-row {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 48px;
+            justify-content: center;
+            margin-bottom: 16px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .pattern-bulb {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #222;
+            border: 2px solid #00ff41;
+            display: inline-block;
+        }
+        .pattern-bulb.on {
+            background: #eaff00;
+            border-color: #eaff00;
+        }
+        .btn {
+            margin-top: 24px;
+            background: #00ff41;
+            color: #111;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            padding: 10px 28px;
+            cursor: pointer;
+            box-shadow: 0 0 8px #00ff41;
+        }
+        .btn:hover {
+            background: #111;
+            color: #00ff41;
+            border: 1.5px solid #00ff41;
+        }
+        .feedback {
+            margin-top: 18px;
+            font-size: 1.1em;
+            color: #eaff00;
+            min-height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Instructions Modal -->
+    <div id="instructions-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:10000; justify-content:center; align-items:center;">
+        <div style="background:#111; border:2px solid #00ff41; border-radius:10px; padding:36px 32px; box-shadow:0 0 32px #00ff41; text-align:left; max-width:90vw; max-width:700px; color:#eaff00; font-size:1.15em; line-height:1.7;">
+            <h2 style="color:#00ff41; margin-bottom:18px; text-align:center;">How to Play</h2>
+            <ul style="margin-bottom:18px;">
+                <li>Each column is a logic circuit with two switches and a bulb.</li>
+                <li>The <b>goal</b> is to match the pattern of bulbs shown at the top.</li>
+                <li>Each bulb uses a logic gate (AND, OR, XOR) shown below the bulb.</li>
+                <li>Toggle the two switches below each bulb to turn it on or off.</li>
+            </ul>
+            <b>Logic Gates:</b>
+            <ul style="margin-bottom:18px;">
+                <li><b>AND</b>: Bulb lights up only if <b>both</b> switches are ON.</li>
+                <li><b>OR</b>: Bulb lights up if <b>either</b> switch is ON.</li>
+                <li><b>XOR</b>: Bulb lights up if <b>only one</b> switch is ON.</li>
+            </ul>
+            <div style="text-align:center;">
+                <button onclick="closeInstructionsModal()" style="background:#00ff41; color:#111; border:none; border-radius:4px; font-size:1.1em; padding:10px 28px; cursor:pointer;">Start Game</button>
+            </div>
+        </div>
+    </div>
+    <!-- Win Modal -->
+    <div id="custom-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background:#111; border:2px solid #00ff41; border-radius:10px; padding:36px 32px; box-shadow:0 0 32px #00ff41; text-align:center; max-width:90vw;">
+            <h2 style="color:#00ff41; margin-bottom:18px;">Congratulations!</h2>
+            <p style="font-size:1.3em; color:#00ff41; margin-bottom:24px;">The password is: <b>Transistor</b></p>
+            <button onclick="window.location.href='PasswordPortal.html'" style="background:#00ff41; color:#111; border:none; border-radius:4px; font-size:1.1em; padding:10px 28px; cursor:pointer;">Go to Password Portal</button>
+        </div>
+    </div>
+    <h1>Boolean Logic Pattern Game</h1>
+    <button class="btn" style="margin-bottom:18px; margin-left:12px; font-size:0.95em; padding:7px 18px;" onclick="openInstructionsModal()">How to Play</button>
+    <div id="level-indicator" style="margin-bottom: 10px; font-size: 1.1em; color: #eaff00; font-weight: bold;"></div>
+    <div style="margin-bottom: 18px;">Match the pattern below by toggling the switches for each bulb!</div>
+    <div class="logic-grid" id="logicGrid"></div>
+    <button class="btn" id="checkBtn" onclick="checkPattern()">Check Pattern</button>
+    <button class="btn" id="nextLevelBtn" style="display:none; margin-left: 16px;">Next Level</button>
+    <div class="feedback" id="feedback"></div>
+    <script>
+        function closeModal() {
+            document.getElementById('custom-modal').style.display = 'none';
+        }
+    // --- Level logic ---
+    const NUM_BULBS = 8;
+    const LEVELS = [
+    // Level 1: all AND
+    Array(NUM_BULBS).fill('AND'),
+    // Level 2: alternating AND, OR, XOR
+    ['AND','OR','XOR','AND','OR','XOR','AND','XOR'],
+    // Level 3: all three types, shuffled
+    ['XOR','AND','OR','XOR','OR','AND','XOR','OR']
+    ];
+    let currentLevel = 0;
+    let pattern = [];
+    let gateTypes = LEVELS[currentLevel];
+
+    function randomPattern() {
+        pattern = Array.from({length: NUM_BULBS}, () => Math.random() > 0.5 ? 1 : 0);
+    }
+    // (No longer used: renderPattern, renderBulbs, renderSwitchPairs)
+    function updateBulbs() {
+        for (let i = 0; i < NUM_BULBS; i++) {
+            const s1 = document.getElementById('switch' + i + '_1');
+            const s2 = document.getElementById('switch' + i + '_2');
+            const bulb = document.getElementById('bulb' + i);
+            let isOn = 0;
+            switch (gateTypes[i]) {
+                case 'AND':
+                    isOn = s1.checked && s2.checked ? 1 : 0;
+                    break;
+                case 'OR':
+                    isOn = (s1.checked || s2.checked) ? 1 : 0;
+                    break;
+                case 'XOR':
+                    isOn = (s1.checked !== s2.checked) ? 1 : 0;
+                    break;
+            }
+            if (isOn) {
+                bulb.classList.add('on');
+            } else {
+                bulb.classList.remove('on');
+            }
+        }
+    }
+    function renderLogicGrid() {
+        const grid = document.getElementById('logicGrid');
+        grid.innerHTML = '';
+        document.getElementById('checkBtn').style.display = '';
+        for (let row = 0; row < 3; row++) {
+            for (let col = -1; col < NUM_BULBS; col++) {
+                const cell = document.createElement('div');
+                cell.style.display = 'flex';
+                cell.style.flexDirection = 'column';
+                cell.style.alignItems = 'center';
+                if (col === -1) {
+                    // Label column
+                    if (row === 0) {
+                        cell.textContent = 'Goal Pattern:';
+                        cell.style.color = '#eaff00';
+                        cell.style.fontWeight = 'bold';
+                        cell.style.fontSize = '1.05em';
+                        cell.style.justifyContent = 'center';
+                        cell.style.height = '48px';
+                    } else if (row === 1) {
+                        cell.textContent = 'Your Pattern:';
+                        cell.style.color = '#eaff00';
+                        cell.style.fontWeight = 'bold';
+                        cell.style.fontSize = '1.05em';
+                        cell.style.justifyContent = 'center';
+                        cell.style.height = '48px';
+                    } else {
+                        cell.textContent = '';
+                    }
+                } else {
+                    if (row === 0) {
+                        // Goal bulb
+                        const patternBulb = document.createElement('div');
+                        patternBulb.className = 'pattern-bulb' + (pattern[col] ? ' on' : '');
+                        cell.appendChild(patternBulb);
+                    } else if (row === 1) {
+                        // User bulb
+                        const userBulb = document.createElement('div');
+                        userBulb.className = 'bulb';
+                        userBulb.id = 'bulb' + col;
+                        cell.appendChild(userBulb);
+                    } else if (row === 2) {
+                        // Gate label and switches
+                        const gateLabel = document.createElement('div');
+                        gateLabel.textContent = gateTypes[col];
+                        gateLabel.style.color = '#eaff00';
+                        gateLabel.style.fontSize = '0.95em';
+                        gateLabel.style.marginBottom = '6px';
+                        cell.appendChild(gateLabel);
+                        const pair = document.createElement('div');
+                        pair.className = 'switch-pair';
+                        pair.style.minHeight = '70px';
+                        const pairLabel = document.createElement('div');
+                        pairLabel.textContent = 'Bulb ' + (col+1);
+                        pair.appendChild(pairLabel);
+                        const s1 = document.createElement('input');
+                        s1.type = 'checkbox';
+                        s1.id = 'switch' + col + '_1';
+                        s1.addEventListener('change', updateBulbs);
+                        const s2 = document.createElement('input');
+                        s2.type = 'checkbox';
+                        s2.id = 'switch' + col + '_2';
+                        s2.addEventListener('change', updateBulbs);
+                        pair.appendChild(s1);
+                        pair.appendChild(s2);
+                        cell.appendChild(pair);
+                    }
+                }
+                grid.appendChild(cell);
+            }
+        }
+    }
+    function checkPattern() {
+        let correct = true;
+        for (let i = 0; i < NUM_BULBS; i++) {
+            const s1 = document.getElementById('switch' + i + '_1');
+            const s2 = document.getElementById('switch' + i + '_2');
+            let isOn = 0;
+            switch (gateTypes[i]) {
+                case 'AND':
+                    isOn = s1.checked && s2.checked ? 1 : 0;
+                    break;
+                case 'OR':
+                    isOn = (s1.checked || s2.checked) ? 1 : 0;
+                    break;
+                case 'XOR':
+                    isOn = (s1.checked !== s2.checked) ? 1 : 0;
+                    break;
+            }
+            if (isOn !== pattern[i]) correct = false;
+        }
+        const feedback = document.getElementById('feedback');
+        if (correct) {
+            feedback.textContent = 'Correct! You matched the pattern!';
+            document.getElementById('checkBtn').style.display = 'none';
+            if (currentLevel < LEVELS.length - 1) {
+                setTimeout(() => {
+                    document.getElementById('nextLevelBtn').style.display = '';
+                }, 800);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('custom-modal').style.display = 'flex';
+                }, 800);
+            }
+        } else {
+            feedback.textContent = 'Not quite! Try again.';
+        }
+    }
+    function startLevel(level) {
+        currentLevel = level;
+        gateTypes = LEVELS[currentLevel];
+        randomPattern();
+        renderLogicGrid();
+        updateBulbs();
+        document.getElementById('feedback').textContent = '';
+        document.getElementById('nextLevelBtn').style.display = 'none';
+        document.getElementById('level-indicator').textContent = `Level ${currentLevel + 1} of ${LEVELS.length}`;
+    }
+    document.getElementById('nextLevelBtn').onclick = function() {
+        startLevel(currentLevel + 1);
+    };
+    // Modal logic
+    function openInstructionsModal() {
+        document.getElementById('instructions-modal').style.display = 'flex';
+    }
+    function closeInstructionsModal() {
+        document.getElementById('instructions-modal').style.display = 'none';
+    }
+    // Show instructions on first load
+    window.onload = function() {
+        openInstructionsModal();
+        startLevel(0);
+    };
+    </script>
+</body>
+</html>
