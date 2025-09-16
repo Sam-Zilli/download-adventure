@@ -44,7 +44,7 @@ const levelPasswords = {
     "IDE" : "../scratch-submission/index.html",
 
 
-    // "adventure" : "end.html"
+    "adventure" : "end.html"
 };
 
 // Function to check the entered password and route the user accordingly
