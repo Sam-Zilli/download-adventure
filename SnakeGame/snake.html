@@ -22,6 +22,36 @@
         #nextPageButton {
             display: none;
             margin-top: 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        #nextPageButton:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        #passwordDisplay {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
     </style>
 </head>
@@ -31,6 +61,10 @@
 <p>Use the arrow keys to control the snake and try to eat the food!</p>
 <canvas id="gameCanvas" width="600" height="400"></canvas>
 <div id="score">Score: 0</div>
+<div id="passwordDisplay">
+    🎉 Congratulations! You reached the target score! 🎉<br>
+    The password is: <span id="dynamic-password">loading...</span>
+</div>
 <button id="nextPageButton" onclick="goToNextPage()">Next Page</button>
 
 <script src="snake_game.js"></script>

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>How to Push Your Local File to GitHub</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="../constants.js"></script>
 </head>
 <body>
     <div id="container">
@@ -67,9 +68,33 @@
 
         <footer>
             <a href="../PasswordPortal/PasswordPortal.html" id="nextPageButton">
-                <button>Next Page - the password is: vscode</button>
+                <button>Next Page - the password is: <span id="dynamic-password">loading...</span></button>
             </a> 
         </footer>
     </div>
+
+    <script>
+        // Load dynamic password when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                console.log('Getting dynamic password for ScratchSubmission...');
+                const levelInfo = window.getLevelInfo('ScratchSubmission/index.html');
+                console.log('Level info:', levelInfo);
+                let nextPassword = 'vscode'; // fallback
+                
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                    console.log('Next password from constants.js:', nextPassword);
+                }
+                
+                document.getElementById('dynamic-password').textContent = nextPassword;
+                console.log('Dynamic password set to:', nextPassword);
+            } catch (error) {
+                console.error('Error getting level info:', error);
+                // Fallback to default
+                document.getElementById('dynamic-password').textContent = 'vscode';
+            }
+        });
+    </script>
 </body>
 </html>

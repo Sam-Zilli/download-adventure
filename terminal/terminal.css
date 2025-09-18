@@ -1,0 +1,175 @@
+/* Next Page Button Styling */
+.next-page-btn {
+    background: linear-gradient(90deg, #00ff41 0%, #0DFF00 100%);
+    color: #111;
+    font-size: 1.25em;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    padding: 16px 36px;
+    margin: 32px auto 0 auto;
+    box-shadow: 0 0 16px #00ff41a0;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+    display: block;
+}
+.next-page-btn:hover {
+    background: linear-gradient(90deg, #0DFF00 0%, #00ff41 100%);
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 24px #00ff41;
+}
+/* Basic styles for the terminal */
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #1d1f21;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.task-list {
+    width: 80%;
+    max-width: 900px;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+h3 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 5px;
+    font-size: 18px;
+}
+
+.completed {
+    text-decoration: line-through;
+    color: #4CAF50;
+}
+
+.current-task {
+    background-color: #4CAF50;
+    color: #1d1f21;
+    padding: 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 2px solid #4CAF50;
+}
+
+#current-task {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/* Basic styles for the terminal */
+.terminal {
+    width: 80%;
+    max-width: 900px;
+    background-color: #2d2f33;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    height: 80vh;
+}
+
+.output {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 16px;
+}
+
+.input-line {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.prompt {
+    color: #4CAF50;
+    margin-right: 5px;
+}
+
+.command-input {
+    background-color: #2d2f33;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 16px;
+    width: 100%;
+    padding: 5px;
+}
+
+.command-input:focus {
+    border-color: #4CAF50;
+}
+
+/* Modal styles */
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    background-color: transparent;
+}
+
+.modal-content {
+    background-color: #333;
+    padding: 30px;
+    border: 2px solid #4CAF50;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90vw;
+    text-align: center;
+    color: #ffffff;
+    box-shadow: 0 0 30px rgba(76, 175, 80, 0.5);
+    position: relative;
+}
+
+.modal-content h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.modal-content ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.modal-content li {
+    margin-bottom: 10px;
+}
+
+#startTerminal {
+    background-color: #4CAF50;
+    color: #1d1f21;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#startTerminal:hover {
+    background-color: #45a049;
+}

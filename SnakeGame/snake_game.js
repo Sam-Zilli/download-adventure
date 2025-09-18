@@ -47,7 +47,7 @@ function draw() {
         document.getElementById('nextPageButton').style.display = 'block';
         // Show password only once when first reaching score 5
         if (score >= 5 && !passwordShown) {
-            showPasswordAlert();
+            showPasswordDisplay();
             passwordShown = true; // Set flag to prevent showing again
         }
     }
@@ -121,21 +121,27 @@ function gameLoop() {
     setTimeout(gameLoop, 100); // Repeat every 100ms
 }
 
-// Function to show password alert
-function showPasswordAlert() {
+// Function to show password on page
+function showPasswordDisplay() {
     // Get the next password dynamically
     let nextPassword = 'auth'; // fallback that should be correct
     
     try {
+        console.log('Getting dynamic password for Snake game completion...');
         const levelInfo = window.getLevelInfo('snake.html');
+        console.log('Level info:', levelInfo);
         if (levelInfo && levelInfo.next) {
             nextPassword = levelInfo.next.password;
+            console.log('Next password from constants.js:', nextPassword);
         }
     } catch (error) {
         console.error('Error getting level info:', error);
     }
     
-    alert('Congratulations! You reached the target score! The password is: ' + nextPassword);
+    // Display the password on the page
+    document.getElementById('dynamic-password').textContent = nextPassword;
+    document.getElementById('passwordDisplay').style.display = 'block';
+    console.log('Dynamic password set to:', nextPassword);
 }
 
 // Function to handle "Next Page" button click

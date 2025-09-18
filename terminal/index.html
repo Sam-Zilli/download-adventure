@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terminal Sandbox for Learning</title>
-    <link rel="stylesheet" href="../styles/terminal.css">
+    <link rel="stylesheet" href="terminal.css">
     <style>
         /* Style for the command review link */
         .command-review-link {
@@ -39,9 +39,13 @@
         </div>
     </div>
 
-
-    <!-- Quiz section required for scripts.js -->
-    <div id="quiz" class="quiz" style="display:none;"></div>
+    <div id="quiz" class="quiz" style="display:none;">
+        <p id="quiz-question">What does the `-a` in the `ls` command do?</p>
+        <button class="btn" onclick="checkQuizAnswer('lists hidden files')">Lists hidden files</button>
+        <button class="btn" onclick="checkQuizAnswer('lists all files')">Lists all files</button>
+        <button class="btn" onclick="checkQuizAnswer('appends file names')">Appends file names</button>
+        <button class="btn" onclick="checkQuizAnswer('does nothing')">Does nothing</button>
+    </div>
 
     <!-- Hidden until correct answer is given -->
     <button id="nextPageButton" class="btn next-page-btn" style="display:none;">Go to Next Page</button>
@@ -54,7 +58,7 @@
             <ul style="text-align: left; margin: 20px 0;">
                 <li>You must do the commands in order</li>
                 <li>This is not a real terminal - you can only use the commands I am asking for</li>
-                <li>If you don't remember the commands, refer to your "Terminal" resources on Canvas</li>
+                <li>If you have questions, refer to your "Terminal Commands Starter Pack" on Canvas</li>
             </ul>
             <button id="startTerminal" class="btn">Start Terminal</button>
         </div>
@@ -73,9 +77,8 @@
         </div>
     </div>
 
-    <!-- Load constants.js and navigation.js before scripts.js for dynamic password support and navigation -->
     <script src="../constants.js"></script>
     <script src="../navigation.js"></script>
-    <script src="scripts.js"></script>
+    <script src="Terminal.js"></script>
 </body>
 </html>

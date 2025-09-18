@@ -5,7 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Git and GitHub Walkthrough for Beginners</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="../constants.js"></script>
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 900px;
+            padding: 30px;
+            overflow: visible;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        header h1 {
+            color: #4CAF50;
+            font-size: 2.5em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        code {
+            display: block;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 6px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            background-color: #e0ffe0;
+            border: 1px solid #4CAF50;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        ol {
+            list-style-type: decimal;
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .step ol li {
+            padding-left: 20px;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        ol img {
+            margin: 10px 0;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 768px) {
+            #container {
+                padding: 20px;
+            }
+
+            button {
+                width: auto;
+                margin-top: 15px;
+            }
+
+            ol {
+                padding-left: 15px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
 </head>
 <body>
     <div id="container">
@@ -132,12 +286,54 @@
                     <li>Use essential Git commands like <code>git status</code></li>
                 </ul>
                 <p>You now have the fundamental skills to work with Git and GitHub! You can use these same techniques to clone any open-source project and start contributing to the developer community.</p>
-                <p><strong>The password is:</strong> IGOTGIT</p>
-                <button class="next" onclick="window.location.href = '../PasswordPortal/PasswordPortal.html'">Next</button>
+                <p><strong>The password is:</strong> <span id="dynamic-password">IGOTGIT</span></p>
+                <button class="next" onclick="goToNextPage()">Next</button>
             </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let currentStep = 1;
+
+        function nextStep(stepNumber) {
+            // Hide the current step
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            
+            // Show the next step
+            currentStep = stepNumber;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+        }
+
+        function showCompletion() {
+            // Hide the last step
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            
+            // Show the completion message
+            document.getElementById('completion').style.display = 'block';  // Show completion div
+            
+            // Get dynamic password
+            try {
+                console.log('Getting dynamic password for CreateGithubRepoAndClone completion...');
+                const levelInfo = window.getLevelInfo('CreateGithubRepoAndClone/index.html');
+                console.log('Level info:', levelInfo);
+                let nextPassword = 'IGOTGIT';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                    console.log('Next password from constants.js:', nextPassword);
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+                console.log('Dynamic password set to:', nextPassword);
+            } catch (error) {
+                console.error('Error getting level info:', error);
+                // Fallback to default
+                document.getElementById('dynamic-password').textContent = 'IGOTGIT';
+            }
+        }
+
+        // Show the first step by default
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('step-1').classList.add('active');
+        });
+    </script>
 </body>
 </html>

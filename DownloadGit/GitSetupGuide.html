@@ -115,7 +115,7 @@
         <div id="completion-message" class="hidden">
             <h2>Congratulations!</h2>
             <p>You've successfully set up Git on your computer!</p>
-            <p><strong>The password is: <span id="dynamic-password">repo</span></strong></p>
+            <p><strong>The password is: <span id="dynamic-password">loading...</span></strong></p>
             <button class="btn" onclick="goToPasswordPortal()">Go to Password Portal</button>
         </div>
     </div>
@@ -212,14 +212,25 @@
         
         function showCompletion() {
             // Get the next password dynamically
-            const levelInfo = window.getLevelInfo('GitSetupGuide.html');
-            let nextPassword = 'repo'; // fallback
-            
-            if (levelInfo && levelInfo.next) {
-                nextPassword = levelInfo.next.password;
+            try {
+                console.log('Getting dynamic password for GitSetupGuide completion...');
+                const levelInfo = window.getLevelInfo('DownloadGit/GitSetupGuide.html');
+                console.log('Level info:', levelInfo);
+                let nextPassword = 'repo'; // fallback
+                
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                    console.log('Next password from constants.js:', nextPassword);
+                }
+                
+                document.getElementById('dynamic-password').textContent = nextPassword;
+                console.log('Dynamic password set to:', nextPassword);
+            } catch (error) {
+                console.error('Error getting level info:', error);
+                // Fallback to default
+                document.getElementById('dynamic-password').textContent = 'repo';
             }
             
-            document.getElementById('dynamic-password').textContent = nextPassword;
             document.getElementById('completion-message').classList.remove('hidden');
         }
         

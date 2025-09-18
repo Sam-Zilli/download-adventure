@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boolean Logic Adventure</title>
+    <link rel="stylesheet" href="../styles/matrixHacker.css">
+    <script src="../constants.js"></script>
+    <script src="../navigation.js"></script>
+    <style>
+        body {
+            background: #111;
+            color: #00ff41;
+            font-family: 'Fira Mono', monospace;
+            padding: 32px;
+            margin: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            display: none;
+            min-height: 600px;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: #00ff41;
+            color: #111;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            padding: 12px 24px;
+            cursor: pointer;
+            box-shadow: 0 0 8px #00ff41;
+            font-family: 'Fira Mono', monospace;
+        }
+        
+        .nav-btn:hover {
+            background: #111;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+        }
+        
+        .nav-btn:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        
+        .progress-indicator {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+            color: #eaff00;
+        }
+        
+        /* Step 1 - Logic Gates Demo */
+        .logic-board {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 32px;
+        }
+        
+        .gate-group {
+            text-align: center;
+            background: #181818;
+            border-radius: 10px;
+            padding: 18px 24px;
+            min-width: 150px;
+        }
+        
+        .logic-label {
+            margin-top: 18px;
+            font-size: 1.2em;
+            color: #00ff41;
+        }
+        
+        .bulb {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #222;
+            border: 3px solid #00ff41;
+            margin: 24px auto 0 auto;
+            box-shadow: 0 0 16px #00ff4140;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+        
+        .bulb.on {
+            background: #eaff00;
+            box-shadow: 0 0 32px #eaff00, 0 0 16px #00ff41;
+            border-color: #eaff00;
+        }
+        
+        .switch {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Step 2 - Quiz Game */
+        .quiz-board {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 32px;
+        }
+        
+        .switch-row {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 24px;
+        }
+        
+        .gate-label {
+            margin-top: 18px;
+            font-size: 1.2em;
+            color: #00ff41;
+        }
+        
+        .quiz-bulb {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #222;
+            border: 3px solid #00ff41;
+            margin: 24px auto 0 auto;
+            box-shadow: 0 0 16px #00ff4140;
+            transition: background 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            color: #eaff00;
+            user-select: none;
+        }
+        
+        .quiz-bulb.on {
+            background: #eaff00;
+            box-shadow: 0 0 32px #eaff00, 0 0 16px #00ff41;
+            border-color: #eaff00;
+            color: #222;
+        }
+        
+        .feedback {
+            margin-top: 18px;
+            font-size: 1.1em;
+            color: #eaff00;
+            min-height: 24px;
+        }
+        
+        .score {
+            margin-top: 18px;
+            font-size: 1.1em;
+            color: #00ff41;
+        }
+        
+        /* Step 3 - Pattern Game */
+        .logic-grid {
+            display: grid;
+            grid-template-columns: 120px repeat(8, 1fr);
+            gap: 48px;
+            justify-content: center;
+            margin-bottom: 32px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .logic-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .bulb-row {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 48px;
+            justify-content: center;
+            margin-bottom: 32px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .pattern-bulb {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #222;
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 8px #00ff4140;
+            transition: background 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: #eaff00;
+            user-select: none;
+        }
+        
+        .pattern-bulb.on {
+            background: #eaff00;
+            box-shadow: 0 0 16px #eaff00, 0 0 8px #00ff41;
+            border-color: #eaff00;
+            color: #222;
+        }
+        
+        .btn {
+            margin-top: 24px;
+            background: #00ff41;
+            color: #111;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            padding: 10px 28px;
+            cursor: pointer;
+            box-shadow: 0 0 8px #00ff41;
+        }
+        
+        .btn:hover {
+            background: #111;
+            color: #00ff41;
+            border: 1.5px solid #00ff41;
+        }
+        
+        .completion {
+            text-align: center;
+            margin-top: 50px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 8px;
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="progress-indicator">
+            <span id="progress-text">Step 1 of 3: Logic Gates Demo</span>
+        </div>
+
+        <!-- Step 1: Logic Gates Demo -->
+        <div class="step active" id="step-1">
+            <div class="logic-board">
+                <h1>Logic Gates</h1>
+                <p>Learn how different logic gates work by toggling the switches below:</p>
+                
+                <div style="display: flex; gap: 48px; justify-content: center; margin: 32px 0;">
+                    <!-- AND Gate Group -->
+                    <div class="gate-group">
+                        <div class="logic-label">AND Gate</div>
+                        <div class="bulb" id="bulb-and"></div>
+                        <div style="display:flex; gap:18px; justify-content:center; margin-top:10px;">
+                            <div class="switch">
+                                <label for="switch1">Switch 1</label>
+                                <input type="checkbox" id="switch1">
+                            </div>
+                            <div class="switch">
+                                <label for="switch2">Switch 2</label>
+                                <input type="checkbox" id="switch2">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- OR Gate Group -->
+                    <div class="gate-group">
+                        <div class="logic-label">OR Gate</div>
+                        <div class="bulb" id="bulb-or"></div>
+                        <div style="display:flex; gap:18px; justify-content:center; margin-top:10px;">
+                            <div class="switch">
+                                <label for="switch3">Switch 1</label>
+                                <input type="checkbox" id="switch3">
+                            </div>
+                            <div class="switch">
+                                <label for="switch4">Switch 2</label>
+                                <input type="checkbox" id="switch4">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- XOR Gate Group -->
+                    <div class="gate-group">
+                        <div class="logic-label">XOR Gate</div>
+                        <div class="bulb" id="bulb-xor"></div>
+                        <div style="display:flex; gap:18px; justify-content:center; margin-top:10px;">
+                            <div class="switch">
+                                <label for="switch5">Switch 1</label>
+                                <input type="checkbox" id="switch5">
+                            </div>
+                            <div class="switch">
+                                <label for="switch6">Switch 2</label>
+                                <input type="checkbox" id="switch6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; max-width: 800px; text-align: left;">
+                    <h3>How Logic Gates Work:</h3>
+                    <ul>
+                        <li><strong>AND Gate:</strong> Output is ON only when BOTH inputs are ON</li>
+                        <li><strong>OR Gate:</strong> Output is ON when AT LEAST ONE input is ON</li>
+                        <li><strong>XOR Gate:</strong> Output is ON when EXACTLY ONE input is ON (exclusive or)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Quiz Game -->
+        <div class="step" id="step-2">
+            <div class="quiz-board">
+                <h1>Logic Gates Quiz Game</h1>
+                <p>Test your understanding by setting the switches to make the bulb match the expected state!</p>
+                <div class="score" id="score"></div>
+                <div class="gate-label" id="gateLabel"></div>
+                <div class="switch-row">
+                    <div class="switch">
+                        <label for="quiz-switch1">Switch 1</label>
+                        <input type="checkbox" id="quiz-switch1">
+                    </div>
+                    <div class="switch">
+                        <label for="quiz-switch2">Switch 2</label>
+                        <input type="checkbox" id="quiz-switch2">
+                    </div>
+                </div>
+                <div class="quiz-bulb" id="quiz-bulb"></div>
+                <button class="btn" id="submitBtn" onclick="submitAnswer()">Submit</button>
+                <div class="feedback" id="feedback"></div>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()" style="display:none;">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Pattern Game -->
+        <div class="step" id="step-3">
+            <h1>Boolean Logic Pattern Game</h1>
+            <p>Complete all levels by matching the target pattern using logic gates!</p>
+            <div id="level-indicator" style="margin-bottom: 10px; font-size: 1.1em; color: #eaff00; font-weight: bold;"></div>
+            <div style="margin-bottom: 18px;">Match the pattern below by toggling the switches for each bulb!</div>
+            <div class="logic-grid" id="logicGrid"></div>
+            <button class="btn" id="checkBtn" onclick="checkPattern()">Check Pattern</button>
+            <button class="btn" id="nextLevelBtn" style="display:none; margin-left: 16px;" onclick="nextLevel()">Next Level</button>
+            <div class="feedback" id="pattern-feedback"></div>
+            
+            <div class="completion" id="pattern-completion" style="display: none;">
+                <h2>🎉🎉🎉</h2>
+                <p style="font-size:1.3em; color:#00ff41; margin-bottom:24px;">The password is: <b id="dynamic-password">loading...</b></p>
+                <button onclick="window.location.href='../PasswordPortal/PasswordPortal.html'" style="background:#00ff41; color:#111; border:none; border-radius:4px; font-size:1.1em; padding:10px 28px; cursor:pointer;">Go to Password Portal</button>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="previousStep()" disabled>← Previous</button>
+            <button class="nav-btn" id="nextBtn-nav" onclick="nextStep()">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+        let quizCompleted = false;
+        
+        // Step 1: Logic Gates Demo
+        const switch1 = document.getElementById('switch1');
+        const switch2 = document.getElementById('switch2');
+        const switch3 = document.getElementById('switch3');
+        const switch4 = document.getElementById('switch4');
+        const switch5 = document.getElementById('switch5');
+        const switch6 = document.getElementById('switch6');
+        const bulbAnd = document.getElementById('bulb-and');
+        const bulbOr = document.getElementById('bulb-or');
+        const bulbXor = document.getElementById('bulb-xor');
+
+        function updateDemoBulbs() {
+            // AND
+            if (switch1.checked && switch2.checked) {
+                bulbAnd.classList.add('on');
+            } else {
+                bulbAnd.classList.remove('on');
+            }
+            // OR
+            if (switch3.checked || switch4.checked) {
+                bulbOr.classList.add('on');
+            } else {
+                bulbOr.classList.remove('on');
+            }
+            // XOR
+            if ((switch5.checked || switch6.checked) && !(switch5.checked && switch6.checked)) {
+                bulbXor.classList.add('on');
+            } else {
+                bulbXor.classList.remove('on');
+            }
+        }
+        
+        [switch1, switch2, switch3, switch4, switch5, switch6].forEach(sw => sw.addEventListener('change', updateDemoBulbs));
+
+        // Step 2: Quiz Game
+        let quiz = [];
+        let current = 0;
+        let score = 0;
+        
+        function makeQuiz() {
+            const gates = ['AND', 'OR', 'XOR'];
+            const expectations = [true, false];
+            quiz = [];
+            for (let gate of gates) {
+                for (let expected of expectations) {
+                    quiz.push({ gate, expected });
+                }
+            }
+            // Shuffle
+            for (let i = quiz.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [quiz[i], quiz[j]] = [quiz[j], quiz[i]];
+            }
+        }
+        
+        function getExpected(q) {
+            return q.expected;
+        }
+        
+        function showQuestion() {
+            if (current >= quiz.length) {
+                if (score === quiz.length) {
+                    document.getElementById('gateLabel').textContent = 'Perfect Score! Quiz Complete!';
+                    document.getElementById('feedback').textContent = `Excellent! You got all ${quiz.length} questions correct!`;
+                    document.getElementById('submitBtn').style.display = 'none';
+                    document.getElementById('nextBtn').style.display = 'none';
+                    document.getElementById('quiz-switch1').disabled = true;
+                    document.getElementById('quiz-switch2').disabled = true;
+                    quizCompleted = true;
+                    updateNavigationButtons();
+                } else {
+                    document.getElementById('gateLabel').textContent = 'Quiz Failed - Try Again!';
+                    document.getElementById('feedback').textContent = `You need to get ALL questions correct to proceed. Score: ${score}/${quiz.length}. Restarting...`;
+                    document.getElementById('submitBtn').style.display = 'none';
+                    document.getElementById('nextBtn').innerHTML = 'Restart Quiz';
+                    document.getElementById('nextBtn').style.display = '';
+                    document.getElementById('quiz-switch1').disabled = true;
+                    document.getElementById('quiz-switch2').disabled = true;
+                }
+                return;
+            }
+            const q = quiz[current];
+            document.getElementById('gateLabel').textContent = `${q.gate} Gate - Make the bulb ${q.expected ? 'ON' : 'OFF'}`;
+            document.getElementById('quiz-switch1').checked = false;
+            document.getElementById('quiz-switch2').checked = false;
+            document.getElementById('quiz-switch1').disabled = false;
+            document.getElementById('quiz-switch2').disabled = false;
+            document.getElementById('quiz-bulb').classList.remove('on');
+            document.getElementById('quiz-bulb').style.visibility = 'hidden';
+            document.getElementById('submitBtn').style.display = '';
+            document.getElementById('nextBtn').style.display = 'none';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('score').textContent = `Question ${current + 1} / ${quiz.length}`;
+        }
+        
+        function submitAnswer() {
+            const q = quiz[current];
+            const switch1 = document.getElementById('quiz-switch1');
+            const switch2 = document.getElementById('quiz-switch2');
+            const bulb = document.getElementById('quiz-bulb');
+            const feedback = document.getElementById('feedback');
+            const scoreDiv = document.getElementById('score');
+            const submitBtn = document.getElementById('submitBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            let correct, on;
+            switch (q.gate) {
+                case 'AND':
+                    correct = (switch1.checked && switch2.checked) === getExpected(q);
+                    on = switch1.checked && switch2.checked;
+                    break;
+                case 'OR':
+                    correct = (switch1.checked || switch2.checked) === getExpected(q);
+                    on = switch1.checked || switch2.checked;
+                    break;
+                case 'XOR':
+                    correct = (switch1.checked !== switch2.checked) === getExpected(q);
+                    on = switch1.checked !== switch2.checked;
+                    break;
+            }
+            
+            if (on) {
+                bulb.classList.add('on');
+            } else {
+                bulb.classList.remove('on');
+            }
+            bulb.style.visibility = 'visible';
+            
+            if (correct) {
+                feedback.textContent = 'Correct!';
+                score++;
+            } else {
+                feedback.textContent = 'Incorrect! You must get ALL questions correct to proceed.';
+                // Immediately jump to the end to show failure message
+                current = quiz.length;
+            }
+            
+            submitBtn.style.display = 'none';
+            nextBtn.style.display = '';
+            switch1.disabled = true;
+            switch2.disabled = true;
+            scoreDiv.textContent = `Score: ${score} / ${quiz.length}`;
+        }
+        
+        function nextQuestion() {
+            if (current >= quiz.length && score < quiz.length) {
+                // Restart the quiz if they didn't get all correct
+                current = 0;
+                score = 0;
+                makeQuiz();
+                document.getElementById('nextBtn').innerHTML = 'Next';
+                showQuestion();
+            } else {
+                current++;
+                showQuestion();
+            }
+        }
+
+        // Step 3: Pattern Game
+        const NUM_BULBS = 8;
+        const LEVELS = [
+            Array(NUM_BULBS).fill('AND'),
+            ['AND','OR','XOR','AND','OR','XOR','AND','XOR'],
+            ['XOR','AND','OR','XOR','OR','AND','XOR','OR']
+        ];
+        let currentLevel = 0;
+        let pattern = [];
+        let gateTypes = LEVELS[currentLevel];
+        
+        function randomPattern() {
+            pattern = Array.from({length: NUM_BULBS}, () => Math.random() > 0.5 ? 1 : 0);
+        }
+        
+        function updatePatternBulbs() {
+            for (let i = 0; i < NUM_BULBS; i++) {
+                const s1 = document.getElementById('switch' + i + '_1');
+                const s2 = document.getElementById('switch' + i + '_2');
+                const bulb = document.getElementById('bulb' + i);
+                let isOn = 0;
+                switch (gateTypes[i]) {
+                    case 'AND':
+                        isOn = s1.checked && s2.checked ? 1 : 0;
+                        break;
+                    case 'OR':
+                        isOn = (s1.checked || s2.checked) ? 1 : 0;
+                        break;
+                    case 'XOR':
+                        isOn = (s1.checked !== s2.checked) ? 1 : 0;
+                        break;
+                }
+                if (isOn) {
+                    bulb.classList.add('on');
+                } else {
+                    bulb.classList.remove('on');
+                }
+            }
+        }
+        
+        function renderPatternLevel() {
+            const grid = document.getElementById('logicGrid');
+            grid.innerHTML = '';
+            
+            // Pattern row
+            const patternDiv = document.createElement('div');
+            patternDiv.textContent = 'Target:';
+            patternDiv.style.fontWeight = 'bold';
+            patternDiv.style.color = '#eaff00';
+            grid.appendChild(patternDiv);
+            
+            for (let i = 0; i < NUM_BULBS; i++) {
+                const bulbDiv = document.createElement('div');
+                bulbDiv.className = 'pattern-bulb' + (pattern[i] ? ' on' : '');
+                bulbDiv.textContent = pattern[i] ? '💡' : '';
+                grid.appendChild(bulbDiv);
+            }
+            
+            // Gate type row
+            const gateDiv = document.createElement('div');
+            gateDiv.textContent = 'Gates:';
+            gateDiv.style.fontWeight = 'bold';
+            grid.appendChild(gateDiv);
+            
+            for (let i = 0; i < NUM_BULBS; i++) {
+                const typeDiv = document.createElement('div');
+                typeDiv.textContent = gateTypes[i];
+                typeDiv.style.fontSize = '0.9em';
+                typeDiv.style.color = '#00ff41';
+                grid.appendChild(typeDiv);
+            }
+            
+            // Your result row
+            const resultDiv = document.createElement('div');
+            resultDiv.textContent = 'Result:';
+            resultDiv.style.fontWeight = 'bold';
+            grid.appendChild(resultDiv);
+            
+            for (let i = 0; i < NUM_BULBS; i++) {
+                const bulbDiv = document.createElement('div');
+                bulbDiv.className = 'pattern-bulb';
+                bulbDiv.id = 'bulb' + i;
+                grid.appendChild(bulbDiv);
+            }
+            
+            // Switch 1 row
+            const switch1Div = document.createElement('div');
+            switch1Div.textContent = 'Switch 1:';
+            switch1Div.style.fontWeight = 'bold';
+            grid.appendChild(switch1Div);
+            
+            for (let i = 0; i < NUM_BULBS; i++) {
+                const switchDiv = document.createElement('div');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = 'switch' + i + '_1';
+                checkbox.addEventListener('change', updatePatternBulbs);
+                switchDiv.appendChild(checkbox);
+                grid.appendChild(switchDiv);
+            }
+            
+            // Switch 2 row
+            const switch2Div = document.createElement('div');
+            switch2Div.textContent = 'Switch 2:';
+            switch2Div.style.fontWeight = 'bold';
+            grid.appendChild(switch2Div);
+            
+            for (let i = 0; i < NUM_BULBS; i++) {
+                const switchDiv = document.createElement('div');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = 'switch' + i + '_2';
+                checkbox.addEventListener('change', updatePatternBulbs);
+                switchDiv.appendChild(checkbox);
+                grid.appendChild(switchDiv);
+            }
+            
+            document.getElementById('level-indicator').textContent = `Level ${currentLevel + 1} of ${LEVELS.length}`;
+        }
+        
+        function checkPattern() {
+            let correct = true;
+            for (let i = 0; i < NUM_BULBS; i++) {
+                const s1 = document.getElementById('switch' + i + '_1');
+                const s2 = document.getElementById('switch' + i + '_2');
+                let isOn = 0;
+                switch (gateTypes[i]) {
+                    case 'AND':
+                        isOn = s1.checked && s2.checked ? 1 : 0;
+                        break;
+                    case 'OR':
+                        isOn = (s1.checked || s2.checked) ? 1 : 0;
+                        break;
+                    case 'XOR':
+                        isOn = (s1.checked !== s2.checked) ? 1 : 0;
+                        break;
+                }
+                if (isOn !== pattern[i]) {
+                    correct = false;
+                    break;
+                }
+            }
+            
+            const feedback = document.getElementById('pattern-feedback');
+            if (correct) {
+                feedback.textContent = 'Correct! Well done!';
+                feedback.style.color = '#00ff41';
+                document.getElementById('nextLevelBtn').style.display = '';
+            } else {
+                feedback.textContent = 'Not quite right. Try again!';
+                feedback.style.color = '#ff4141';
+            }
+        }
+        
+        function nextLevel() {
+            currentLevel++;
+            if (currentLevel >= LEVELS.length) {
+                // Show completion
+                document.getElementById('pattern-completion').style.display = 'block';
+                document.getElementById('checkBtn').style.display = 'none';
+                document.getElementById('nextLevelBtn').style.display = 'none';
+                
+                // Hide navigation arrows on completion
+                document.querySelector('.navigation').style.display = 'none';
+                
+                // Get dynamic password
+                try {
+                    console.log('Getting dynamic password for BooleanLogic completion...');
+                    const levelInfo = window.getLevelInfo('BooleanLogic/index.html');
+                    console.log('Level info:', levelInfo);
+                    let nextPassword = 'source';
+                    if (levelInfo && levelInfo.next) {
+                        nextPassword = levelInfo.next.password;
+                        console.log('Next password from constants.js:', nextPassword);
+                    }
+                    document.getElementById('dynamic-password').textContent = nextPassword;
+                    console.log('Dynamic password set to:', nextPassword);
+                } catch (error) {
+                    console.error('Error getting level info:', error);
+                    // Fallback to default
+                    document.getElementById('dynamic-password').textContent = 'source';
+                }
+                return;
+            }
+            gateTypes = LEVELS[currentLevel];
+            randomPattern();
+            renderPatternLevel();
+            document.getElementById('pattern-feedback').textContent = '';
+            document.getElementById('nextLevelBtn').style.display = 'none';
+        }
+        
+        // Navigation
+        function updateProgressIndicator() {
+            const progressText = document.getElementById('progress-text');
+            const stepTitles = ['Logic Gates Demo', 'Quiz Game', 'Pattern Game'];
+            progressText.textContent = `Step ${currentStep} of ${totalSteps}: ${stepTitles[currentStep - 1]}`;
+        }
+        
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn-nav');
+            
+            prevBtn.disabled = currentStep === 1;
+            
+            // Disable next button on step 2 until quiz is completed
+            if (currentStep === 2) {
+                nextBtn.disabled = !quizCompleted;
+            } else {
+                nextBtn.disabled = currentStep === totalSteps;
+            }
+            
+            if (currentStep === totalSteps) {
+                nextBtn.textContent = 'Complete';
+            } else {
+                nextBtn.textContent = 'Next →';
+            }
+        }
+        
+        function showStep(step) {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById(`step-${i}`).classList.remove('active');
+            }
+            
+            // Show current step
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            // Initialize step-specific content
+            if (step === 2) {
+                makeQuiz();
+                showQuestion();
+            } else if (step === 3) {
+                randomPattern();
+                renderPatternLevel();
+            }
+            
+            updateProgressIndicator();
+            updateNavigationButtons();
+        }
+        
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                // Check if user can advance from step 2 to step 3
+                if (currentStep === 2 && !quizCompleted) {
+                    return; // Don't advance if quiz not completed
+                }
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+        
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+        
+        // Initialize
+        showStep(1);
+    </script>
+</body>
+</html>

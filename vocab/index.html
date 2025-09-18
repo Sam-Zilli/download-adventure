@@ -3,59 +3,459 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Do you have a question? Ask!</title>
+    <title>Terminal Vocabulary Adventure</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="../constants.js"></script>
     <style>
-        .btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 5px;
-            cursor: pointer;
-            background-color: #4CAF50;  /* Green background */
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .step {
+            display: none;
+            min-height: 500px;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #4CAF50;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
+            font-size: 14px;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .nav-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: #666;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-indicator {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 16px;
+            color: #4CAF50;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            font-size: 14px;
+            margin: 10px 5px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Press Start 2P', cursive;
+            transition: all 0.3s ease;
         }
 
         .btn:hover {
             background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        h2 {
+            color: #6ED4FF;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        p {
+            line-height: 1.6;
+            margin: 15px 0;
+            font-size: 12px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px 5px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        a {
+            color: #6ED4FF;
+            text-decoration: none;
+            padding: 8px 16px;
+            background: rgba(110, 212, 255, 0.2);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            background: rgba(110, 212, 255, 0.4);
+        }
+
+        /* Game specific styles */
+        .game-container {
+            text-align: center;
+        }
+
+        .sentence-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            line-height: 2;
+            font-size: 12px;
+        }
+
+        .blank {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            padding: 5px 10px;
+            margin: 0 5px;
+            font-size: 12px;
+            color: #333;
+            font-family: 'Press Start 2P', cursive;
+            min-width: 100px;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: #4CAF50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .incorrect {
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .completion {
+            text-align: center;
+            margin-top: 50px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            border-radius: 15px;
+            padding: 40px;
+        }
+
+        .completion h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .completion p {
+            font-size: 16px;
+            margin: 15px 0;
+        }
+
+        .portal-btn {
+            background: white;
+            color: #4CAF50;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            padding: 15px 30px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .portal-btn:hover {
+            background: #f0f0f0;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>ls -a</h1>
+        <div class="progress-indicator">
+            <span id="progress-text">Step 1 of 2: Learn About Flags</span>
+        </div>
 
-        <h2>What was that -a?</h2>
+        <!-- Step 1: Learn About Flags -->
+        <div class="step active" id="step-1">
+            <h1>ls -a</h1>
+            <h2>What was that -a?</h2>
+            <p>Find the answer by reading this page (skip to where it says "First, some important concepts…")</p>
+            <p style="text-align: center; margin: 20px 0;">
+                <a href="https://jgefroh.medium.com/a-beginners-guide-to-linux-command-line-56a8004e2471" target="_blank">OPEN ME</a>
+            </p>
+            <p>-a is an example of a...</p>
+            <div style="text-align: center;">
+                <input type="text" id="userInput" placeholder="Enter your answer here">
+                <button class="btn" onclick="checkFlagAnswer()">Submit</button>
+            </div>
+            <div id="flag-feedback" style="text-align: center; margin-top: 20px; font-size: 14px;"></div>
+        </div>
 
-        <p>Find the answer by reading this page (skip to where it says "First, some important concepts…")</p>
-        <a href="https://jgefroh.medium.com/a-beginners-guide-to-linux-command-line-56a8004e2471" target="_blank">OPEN ME</a>
-        
-        <p> -a is an example of a... </p>
-        <input type="text" id="userInput" placeholder="Enter your answer here">
-        <button class="btn" onclick="checkAnswer()">Submit</button>
+        <!-- Step 2: Fill in the Blanks Game -->
+        <div class="step" id="step-2">
+            <div class="game-container">
+                <h1>Fill in the Blanks Game</h1>
+                <p>Complete each sentence with the correct terminal vocabulary!</p>
+                <div id="sentence-container" class="sentence-container">
+                    <!-- Sentences will be injected here by JS -->
+                </div>
+                <button id="submit-btn" class="btn">Submit</button>
+                <div id="feedback" class="feedback"></div>
 
+                <div class="completion" id="game-completion" style="display: none;">
+                    <h2>Congratulations! 🎉</h2>
+                    <p>You've mastered terminal vocabulary!</p>
+                    <p style="font-size:18px; margin-bottom:24px;">The password is: <strong id="dynamic-password">loading...</strong></p>
+                    <button class="portal-btn" onclick="window.location.href='../PasswordPortal/PasswordPortal.html'">Go to Password Portal</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
         <div class="navigation">
-            <!-- Next Level button, initially hidden -->
-            <a href="fill-in-the-blanks.html" class="btn" id="next" style="display: none;"> Let's keep learning!</a>
-            <!-- Link to Previous Page (Page 2) -->
-            <a href="../terminal/index.html" class="btn btn-back">Back to Terminal Sandbox</a>
+            <button class="nav-btn" id="prevBtn" onclick="previousStep()" disabled>← Previous</button>
+            <button class="nav-btn" id="nextBtn-nav" onclick="nextStep()" disabled>Next →</button>
         </div>
     </div>
 
     <script>
-        function checkAnswer() {
+        let currentStep = 1;
+        const totalSteps = 2;
+        let flagAnswered = false;
+
+        // Step 1: Flag Learning
+        function checkFlagAnswer() {
             const userInput = document.getElementById('userInput').value.trim().toLowerCase();
-            const correctAnswer = 'flag'; 
+            const correctAnswer = 'flag';
             const altCorrectAnswer = 'flags';
+            const feedback = document.getElementById('flag-feedback');
 
             if (userInput === correctAnswer || userInput === altCorrectAnswer) {
-                document.getElementById('next').style.display = 'inline-block';
+                feedback.textContent = "Correct! Flags modify how commands behave.";
+                feedback.className = "correct";
+                flagAnswered = true;
+                updateNavigationButtons();
             } else {
-                alert('Incorrect answer. Please try again.');
+                feedback.textContent = "Incorrect answer. Please try again.";
+                feedback.className = "incorrect";
             }
         }
+
+        // Step 2: Fill in the Blanks Game
+        const sentences = [
+            {
+                text: "You can always find your Current Directory by typing ___. You can see ALL the contents of the current_directory (even the hidden files) by typing ___.",
+                answers: ["pwd", "ls -a"]
+            },
+            {
+                text: "What you may have previously called a 'folder' is also often referred to as ___ in programming. You can make a new one by using the ___ command.",
+                answers: ["directory", "mkdir"]
+            },
+            {
+                text: "I would type ___ into the terminal in order to make TWO new directories, one called berklee and one called boco.",
+                answers: ["mkdir berklee boco"]
+            },
+            {
+                text: "In 'mkdir berklee boco', 'mkdir' is the ___ and berklee and boco are both ___.",
+                answers: ["command", "arguments"]
+            }
+        ];
+
+        let currentSentenceIndex = 0;
+
+        function generateSentence() {
+            const sentenceContainer = document.getElementById('sentence-container');
+            const currentSentence = sentences[currentSentenceIndex];
+
+            let sentenceHTML = currentSentence.text;
+            sentenceHTML = sentenceHTML.replace(/___/g, `<input type="text" class="blank" placeholder="Your answer" />`);
+            
+            sentenceContainer.innerHTML = sentenceHTML;
+        }
+
+        function checkGameAnswer() {
+            const userAnswers = Array.from(document.querySelectorAll('.blank')).map(input => input.value.trim().toLowerCase());
+            const correctAnswers = sentences[currentSentenceIndex].answers.map(answer => answer.toLowerCase());
+
+            const feedbackElement = document.getElementById('feedback');
+            let isCorrect = true;
+
+            userAnswers.forEach((userAnswer, index) => {
+                if (userAnswer !== correctAnswers[index]) {
+                    isCorrect = false;
+                }
+            });
+
+            if (isCorrect) {
+                feedbackElement.textContent = "Correct! Well done!";
+                feedbackElement.classList.remove('incorrect');
+                feedbackElement.classList.add('correct');
+                
+                currentSentenceIndex++;
+                
+                if (currentSentenceIndex < sentences.length) {
+                    setTimeout(() => {
+                        feedbackElement.textContent = "";
+                        generateSentence();
+                    }, 1500);
+                } else {
+                    setTimeout(() => {
+                        showGameCompletion();
+                    }, 1500);
+                }
+            } else {
+                feedbackElement.textContent = "Oops! That's not correct. Try again!";
+                feedbackElement.classList.remove('correct');
+                feedbackElement.classList.add('incorrect');
+            }
+        }
+
+        function showGameCompletion() {
+            // Get dynamic password
+            try {
+                console.log('Getting dynamic password for vocab completion...');
+                const levelInfo = window.getLevelInfo('vocab/index.html');
+                console.log('Level info:', levelInfo);
+                let nextPassword = 'command'; // fallback
+                
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                    console.log('Next password from constants.js:', nextPassword);
+                }
+                
+                document.getElementById('dynamic-password').textContent = nextPassword;
+                console.log('Dynamic password set to:', nextPassword);
+            } catch (error) {
+                console.error('Error getting level info:', error);
+                // Fallback to default
+                document.getElementById('dynamic-password').textContent = 'command';
+            }
+            
+            document.getElementById('game-completion').style.display = 'block';
+            document.getElementById('submit-btn').style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+        }
+
+        // Navigation
+        function updateProgressIndicator() {
+            const progressText = document.getElementById('progress-text');
+            const stepTitles = ['Learn About Flags', 'Fill in the Blanks Game'];
+            progressText.textContent = `Step ${currentStep} of ${totalSteps}: ${stepTitles[currentStep - 1]}`;
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn-nav');
+            
+            prevBtn.disabled = currentStep === 1;
+            
+            if (currentStep === 1) {
+                nextBtn.disabled = !flagAnswered;
+            } else {
+                nextBtn.disabled = currentStep === totalSteps;
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.textContent = 'Play Game';
+            } else {
+                nextBtn.textContent = 'Next →';
+            }
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById(`step-${i}`).classList.remove('active');
+            }
+            
+            // Show current step
+            document.getElementById(`step-${step}`).classList.add('active');
+            
+            // Initialize step-specific content
+            if (step === 2) {
+                generateSentence();
+            }
+            
+            updateProgressIndicator();
+            updateNavigationButtons();
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps && ((currentStep === 1 && flagAnswered) || currentStep > 1)) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        // Event listeners
+        document.getElementById('submit-btn').addEventListener('click', checkGameAnswer);
+
+        // Initialize
+        showStep(1);
     </script>
 </body>
 </html>

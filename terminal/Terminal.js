@@ -290,7 +290,10 @@ function showQuiz() {
 function checkQuizAnswer(answer) {
     if (answer === "lists all files") {
         printToOutput("Correct! The '-a' flag lists all files, including hidden files.");
-        printToOutput("The password is: -a");
+        const password = getNextLevelPassword();
+        if (password) {
+            printToOutput("The password is: " + password);
+        }
         nextPageButton.style.display = 'inline-block'; // Show next page button
     } else {
         printToOutput("Incorrect! The '-a' flag lists all files, including hidden ones.");
@@ -402,24 +405,12 @@ function completeLsQuiz() {
 function getNextLevelPassword() {
     if (typeof getLevelInfo === 'function') {
         // Use the full path as in constants.js
-        const info = getLevelInfo('/Terminal/Terminal.html');
+        const info = getLevelInfo('Terminal/index.html');
         if (info && info.next) {
             return info.next.password;
         }
     }
     return null;
-}
-
-// Function to navigate to the next page
-function goToNextPage() {
-    if (typeof getLevelInfo === 'function') {
-        const info = getLevelInfo('/Terminal/Terminal.html');
-        if (info && info.next) {
-            window.location.href = info.next.file;
-            return;
-        }
-    }
-    window.location.href = "../PasswordPortal/PasswordPortal.html"; // fallback
 }
 
 // Attach click event for next page button
