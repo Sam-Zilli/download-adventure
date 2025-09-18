@@ -1,3 +1,31 @@
+// Expose showNextPasswordModal globally for the Next Level button
+window.showNextPasswordModal = function() {
+    console.log('[DEBUG] showNextPasswordModal called');
+    let password = 'none';
+    if (typeof getLevelInfo === 'function') {
+        const info = getLevelInfo('/Binary/BinaryIntroAndGame.html');
+        console.log('[DEBUG] getLevelInfo result:', info);
+        if (info && info.next) password = info.next.password;
+    } else {
+        console.warn('[DEBUG] getLevelInfo is not a function');
+    }
+    if (typeof showMatrixModal === 'function') {
+        console.log('[DEBUG] showMatrixModal is a function, showing modal with password:', password);
+        showMatrixModal({
+            title: 'Level Password',
+            message: 'The password is: <b style="color:#00ff41;">' + password + '</b>',
+            buttonText: 'OK',
+            onClose: function() {
+                console.log('[DEBUG] Matrix modal closed, redirecting to PasswordPortal');
+                window.location.href = "../PasswordPortal/PasswordPortal.html";
+            }
+        });
+    } else {
+        console.warn('[DEBUG] showMatrixModal is not a function, falling back to alert. Password:', password);
+        alert('The password is: ' + password);
+        window.location.href = "../PasswordPortal/PasswordPortal.html";
+    }
+};
 
 // For 3 input fields, the correct answer is 'B', 'I', 'T' (from the binary message)
 const correctAnswer = ['B', 'I', 'T'];
@@ -47,22 +75,4 @@ function checkAnswer() {
 // Bind the check button to the checkAnswer function
 document.getElementById('check-btn').addEventListener('click', checkAnswer);
 
-// Function to handle the "Next Level" button click
-function nextLevel() {
-    // Show custom modal instead of alert
-    var modal = document.getElementById('custom-modal');
-    if (modal) {
-        modal.style.display = 'flex';
-    } else {
-        // fallback
-    window.location.href = "../PasswordPortal/PasswordPortal.html";
-    }
-}
 
-function closeModal() {
-    var modal = document.getElementById('custom-modal');
-    if (modal) {
-        modal.style.display = 'none';
-    window.location.href = "../PasswordPortal/PasswordPortal.html";
-    }
-}

@@ -1,5 +1,3 @@
-// Import shared navigation logic
-// <script src="../navigation.js"></script> should be included in HTML
 const commandInput = document.getElementById('command-input');
 const outputArea = document.getElementById('output');
 const currentTaskElement = document.getElementById('current-task');
@@ -265,7 +263,6 @@ function handleCommand(command) {
             break;
     }
 }
-
 // Handle command input and simulate terminal behavior
 commandInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
@@ -413,8 +410,17 @@ function getNextLevelPassword() {
     return null;
 }
 
-
-// Use shared goToNextPage from navigation.js
+// Function to navigate to the next page
+function goToNextPage() {
+    if (typeof getLevelInfo === 'function') {
+        const info = getLevelInfo('/Terminal/Terminal.html');
+        if (info && info.next) {
+            window.location.href = info.next.file;
+            return;
+        }
+    }
+    window.location.href = "../PasswordPortal/PasswordPortal.html"; // fallback
+}
 
 // Attach click event for next page button
 nextPageButton.addEventListener('click', goToNextPage);

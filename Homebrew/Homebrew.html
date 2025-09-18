@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homebrew Guide</title>
+    <link rel="stylesheet" href="../styles/homebrew.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body, .container, h1, h2, h3, p, button, pre, code, a {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif !important;
+        }
+        .section { display: none; }
+        .section.active { display: block; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Alternating info and quiz sections for better pacing -->
+    <div class="section active" id="section-0">
+        <h1>Homebrew</h1>
+        <p>Welcome! This guide will help you understand and use Homebrew, a package manager for macOS.</p>
+    </div>
+    <div class="section" id="section-1">
+        <form class="quiz-form" data-answer="b">
+            <p>What is this guide about?</p>
+            <label><input type="radio" name="q0" value="a"> Python</label><br>
+            <label><input type="radio" name="q0" value="b"> Homebrew</label><br>
+            <label><input type="radio" name="q0" value="c"> Java</label>
+        </form>
+    </div>
+    <div class="section" id="section-2">
+        <h2>What is a Dependency?</h2>
+        <p>In software development, a dependency is any external piece of code or software that a program needs in order to function correctly.</p>
+    </div>
+    <div class="section" id="section-3">
+        <form class="quiz-form" data-answer="a">
+            <p>Which of these is a dependency?</p>
+            <label><input type="radio" name="q1" value="a"> External code that the code depends on</label><br>
+            <label><input type="radio" name="q1" value="b"> Your keyboard</label><br>
+            <label><input type="radio" name="q1" value="c"> The weather</label>
+        </form>
+    </div>
+    <div class="section" id="section-4">
+        <p>Dependencies can be libraries, frameworks, tools, or other software that your program relies on to perform specific tasks. For example, a dog dating app might depend on external code which controls the matching algorithm.</p>
+    </div>
+    <div class="section" id="section-5">
+        <form class="quiz-form" data-answer="b">
+            <p>What would be an example of another dependency a dog dating app might have?</p>
+            <label><input type="radio" name="q2" value="a"> Code for a game physics engine.</label><br>
+            <label><input type="radio" name="q2" value="b"> Code for sending direct messages.</label><br>
+            <label><input type="radio" name="q2" value="c"> Code for 3d graphics/image rendering.</label>
+        </form>
+    </div>
+    <div class="section" id="section-6">
+        <h2>Why Manage Dependencies?</h2>
+        <p>As software projects grow, managing dependencies manually can get complicated.</p>
+    </div>
+    <div class="section" id="section-7">
+        <form class="quiz-form" data-answer="c">
+            <p>Why is managing dependencies important?</p>
+            <label><input type="radio" name="q3" value="a"> It makes your code run slower</label><br>
+            <label><input type="radio" name="q3" value="b"> It makes your computer heavier</label><br>
+            <label><input type="radio" name="q3" value="c"> It keeps your project working as it grows</label>
+        </form>
+    </div>
+    <div class="section" id="section-8">
+        <h2>How Homebrew Helps</h2>
+        <p>Homebrew handles this automatically by installing all the required dependencies when you install a software package.</p>
+    </div>
+    <div class="section" id="section-9">
+        <form class="quiz-form" data-answer="a">
+            <p>What does Homebrew do?</p>
+            <label><input type="radio" name="q4" value="a"> Installs software and its dependencies</label><br>
+            <label><input type="radio" name="q4" value="b"> Makes coffee</label><br>
+            <label><input type="radio" name="q4" value="c"> Changes your wallpaper</label>
+        </form>
+    </div>
+    <div class="section" id="section-10">
+        <h3>How Homebrew Handles Dependencies</h3>
+        <p>When you install a package with Homebrew, it automatically installs any other software or libraries that the package requires to run.</p>
+    </div>
+    <div class="section" id="section-11">
+        <form class="quiz-form" data-answer="b">
+            <p>What happens if a package needs another tool?</p>
+            <label><input type="radio" name="q5" value="a"> Homebrew ignores it</label><br>
+            <label><input type="radio" name="q5" value="b"> Homebrew installs it too</label><br>
+            <label><input type="radio" name="q5" value="c"> Your computer explodes</label>
+        </form>
+    </div>
+    <div class="section" id="section-12">
+        <p>For example, if you install <code>node</code>, Homebrew will also install <code>npm</code> (Node Package Manager), since you need npm for node.</p>
+    </div>
+    <div class="section" id="section-13">
+        <form class="quiz-form" data-answer="a">
+            <p>If you install something with brew, what else does Homebrew install?</p>
+            <label><input type="radio" name="q6" value="a"> All the things that software depends on to work.</label><br>
+            <label><input type="radio" name="q6" value="b"> Photoshop</label><br>
+            <label><input type="radio" name="q6" value="c"> Fortnite</label>
+        </form>
+    </div>
+    <div class="section" id="section-14">
+        <h2>Installing Software with Homebrew</h2>
+        <p><strong>Once Homebrew is installed</strong>, you can begin installing software with the following command:</p>
+        <pre><code>brew install &lt;software_name&gt;</code></pre>
+    </div>
+    <div class="section" id="section-15">
+        <form class="quiz-form" data-answer="c">
+            <p>When can you use Homebrew to install software?</p>
+            <label><input type="radio" name="q7" value="a"> Before it's installed</label><br>
+            <label><input type="radio" name="q7" value="b"> Never</label><br>
+            <label><input type="radio" name="q7" value="c"> After Homebrew is installed</label>
+        </form>
+    </div>
+    <div class="section" id="section-16">
+        <pre><code>brew install &lt;software_name&gt;</code></pre>
+    </div>
+    <div class="section" id="section-17">
+        <form class="quiz-form" data-answer="a">
+            <p>What is the correct command to install a package?</p>
+            <label><input type="radio" name="q8" value="a"> brew install &lt;software_name&gt;</label><br>
+            <label><input type="radio" name="q8" value="b"> install brew &lt;software_name&gt;</label><br>
+            <label><input type="radio" name="q8" value="c"> brew get &lt;software_name&gt;</label>
+        </form>
+    </div>
+    <div class="section" id="section-18">
+        <h3>Example</h3>
+        <p>If you want to install <code>git</code>, the version control system, you can simply run:</p>
+    </div>
+    <div class="section" id="section-19">
+        <form class="quiz-form" data-answer="b">
+            <p>Which command installs git?</p>
+            <label><input type="radio" name="q9" value="a"> git install brew</label><br>
+            <label><input type="radio" name="q9" value="b"> brew install git</label><br>
+            <label><input type="radio" name="q9" value="c"> install git brew</label>
+        </form>
+    </div>
+    <div class="section" id="section-20">
+        <pre><code>brew install git</code></pre>
+    </div>
+    <div class="section" id="section-21">
+        <form class="quiz-form" data-answer="a">
+            <p>What does this command do?</p>
+            <label><input type="radio" name="q10" value="a"> Installs git</label><br>
+            <label><input type="radio" name="q10" value="b"> Installs node</label><br>
+            <label><input type="radio" name="q10" value="c"> Installs brew</label>
+        </form>
+    </div>
+    <div class="section" id="section-22">
+    <h1>Homebrew</h1>
+    <p>Go to <a href="https://brew.sh" target="_blank" rel="noopener">www.brew.sh</a></p>
+    <img src="../images/homebrew.png" alt="brew" width="500" height="300">
+    <p>Under Install Homebrew there's a line of code that looks like it could go into terminal. Copy it.</p>
+    </div>
+    <div class="section" id="section-23">
+        <form class="quiz-form" data-answer="c">
+            <p>What line of code did you just copy? </p>
+            <label><input type="radio" name="q11" value="a"> brew install wget</label><br>
+            <label><input type="radio" name="q11" value="b"> I didn't copy any code</label><br>
+            <label><input type="radio" name="q11" value="c"> /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</label>
+        </form>
+    </div>
+
+
+    <div class="section" id="section-24">
+        <p>Open your terminal and paste that command in. Hit Enter. It may take a long time.</p>
+        <p>It might ask for your password. As you type, nothing will appear. However, you ARE typing. Just enter your password and hit enter.</p>
+    </div>
+    <div class="section" id="section-25">
+        <form class="quiz-form" data-answer="b">
+            <p>What color is the Homebrew logo?</p>
+            <label><input type="radio" name="q12" value="a"> Blue</label><br>
+            <label><input type="radio" name="q12" value="b"> Yellow</label><br>
+            <label><input type="radio" name="q12" value="c"> Red</label>
+        </form>
+    </div>
+
+    <div class="section" id="section-28">
+        <p>It might ask for your password. As you type, nothing will appear. However, you ARE typing. Just enter your password and hit enter.</p>
+    </div>
+    <div class="section" id="section-29">
+        <form class="quiz-form" data-answer="c">
+            <p>What happens when you type your password?</p>
+            <label><input type="radio" name="q14" value="a"> It shows stars</label><br>
+            <label><input type="radio" name="q14" value="b"> It prints your password</label><br>
+            <label><input type="radio" name="q14" value="c"> Nothing appears, but it works</label>
+        </form>
+    </div>
+    <div class="section" id="section-30">
+        <p>Did you get a big long scary error that looks like this?</p>
+    </div>
+    <div class="section" id="section-31">
+        <form class="quiz-form" data-answer="b">
+            <p>Is it normal to get errors sometimes?</p>
+            <label><input type="radio" name="q15" value="a"> Never</label><br>
+            <label><input type="radio" name="q15" value="b"> Yes, sometimes</label><br>
+            <label><input type="radio" name="q15" value="c"> Only on Windows</label>
+        </form>
+    </div>
+    <div class="section" id="section-32">
+        <img src="../images/brew-error.png" alt="brew error" width="500" height="300">
+    </div>
+    <div class="section" id="section-33">
+        <form class="quiz-form" data-answer="a">
+            <p>What should you do if you see this error?</p>
+            <label><input type="radio" name="q16" value="a"> Read the error message</label><br>
+            <label><input type="radio" name="q16" value="b"> Ignore it</label><br>
+            <label><input type="radio" name="q16" value="c"> Unplug your computer</label>
+        </form>
+    </div>
+    <div class="section" id="section-34">
+        <div class="response-buttons">
+            <button onclick="handleBrewErrorResponse('yes')" class="btn">Yes</button>
+            <button onclick="handleBrewErrorResponse('no')" class="btn">No</button>
+        </div>
+        <div class="navigation">
+            <a href="#" class="btn btn-back" id="brew-error-back">Back to start of Brew</a>
+        </div>
+        <a href="#" class="btn" id="brew-error-next" style="display:none;">If it's a DIFFERENT error - raise hand! Otherwise, let's go on...</a>
+    </div>
+    <div class="section" id="section-35">
+        <form class="quiz-form" data-answer="b">
+            <p>What should you do if it's a different error?</p>
+            <label><input type="radio" name="q17" value="a"> Ignore it</label><br>
+            <label><input type="radio" name="q17" value="b"> Raise your hand</label><br>
+            <label><input type="radio" name="q17" value="c"> Restart your computer</label>
+        </form>
+    </div>
+    <div class="section" id="section-36">
+        <h1>If that worked, then we should now be able to use 'brew'</h1>
+    </div>
+    <div class="section" id="section-37">
+        <form class="quiz-form" data-answer="a">
+            <p>What does 'brew -v' check?</p>
+            <label><input type="radio" name="q18" value="a"> If brew is installed</label><br>
+            <label><input type="radio" name="q18" value="b"> If Python is installed</label><br>
+            <label><input type="radio" name="q18" value="c"> If your computer is on</label>
+        </form>
+    </div>
+    <div class="section" id="section-38">
+        <p>Let's do a test.</p>
+        <p>Put this into your terminal: % brew -v </p>
+    </div>
+    <div class="section" id="section-39">
+        <form class="quiz-form" data-answer="c">
+            <p>What should you type in your terminal?</p>
+            <label><input type="radio" name="q19" value="a"> brew install git</label><br>
+            <label><input type="radio" name="q19" value="b"> python3</label><br>
+            <label><input type="radio" name="q19" value="c"> brew -v</label>
+        </form>
+    </div>
+    <div class="section" id="section-40">
+        <div class="image-container">
+            <div class="image-box">
+                <img src="../images/brew-version-good.png" alt="Good Brew" class="screenshot">
+                <div id="goodOverlay" class="overlay">Good</div>
+            </div>
+            <div class="image-box">
+                <img src="../images/brew-version-bad.png" alt="Bad Brew" class="screenshot">
+                <div id="badOverlay" class="overlay">Bad</div>
+            </div>
+        </div>
+    </div>
+    <div class="section" id="section-41">
+        <form class="quiz-form" data-answer="a">
+            <p>Which image shows a successful brew install?</p>
+            <label><input type="radio" name="q20" value="a"> Left</label><br>
+            <label><input type="radio" name="q20" value="b"> Right</label><br>
+            <label><input type="radio" name="q20" value="c"> Both</label>
+        </form>
+    </div>
+    <div class="section" id="section-42">
+        <p>Which result did you get?</p>
+        <div class="response-buttons">
+            <button onclick="handleBrewCheckResponse('yes')" class="btn">Left</button>
+            <button onclick="handleBrewCheckResponse('no')" class="btn">Right</button>
+        </div>
+        <div class="navigation">
+            <a href="#" class="btn" id="brew-check-next" style="display: none;" onclick="showAlertAndRedirect(); return false;">Next</a>
+            <a href="#" class="btn btn-back" id="brew-check-back">Back to Brew Install</a>
+        </div>
+    </div>
+    <div class="section" id="section-43">
+        <form class="quiz-form" data-answer="b">
+            <p>What should you do if you see the "Good" result?</p>
+            <label><input type="radio" name="q21" value="a"> Try again</label><br>
+            <label><input type="radio" name="q21" value="b"> Go to the next step</label><br>
+            <label><input type="radio" name="q21" value="c"> Uninstall brew</label>
+        </form>
+    </div>
+    <div class="nav-arrows">
+        <button class="arrow-btn" id="prevBtn" disabled>&#8592; Back</button>
+        <button class="arrow-btn" id="nextBtn" disabled>Next &#8594;</button>
+    </div>
+</div>
+<script>
+    let currentSection = 0;
+    const sections = document.querySelectorAll('.section');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const quizForms = document.querySelectorAll('.quiz-form');
+
+    // Track which sections require a quiz and which are info only
+    let quizCorrect = Array(sections.length).fill(true); // info sections default to true
+    sections.forEach((sec, i) => {
+        const quiz = sec.querySelector('.quiz-form');
+        if (quiz) quizCorrect[i] = false;
+    });
+
+    function showSection(idx) {
+        sections.forEach((sec, i) => sec.classList.toggle('active', i === idx));
+        prevBtn.disabled = idx === 0;
+        // Only enable next if quiz is correct for this section and not last section
+        nextBtn.disabled = (idx === sections.length - 1) || !quizCorrect[idx];
+    }
+
+    // Quiz logic: enable next only if correct answer is selected
+    quizForms.forEach((form, i) => {
+        // Find the section index for this form
+        const sectionIdx = Array.from(sections).findIndex(sec => sec.contains(form));
+        form.addEventListener('change', function(e) {
+            const answer = form.getAttribute('data-answer');
+            const checked = form.querySelector('input[type="radio"]:checked');
+            if (checked && checked.value === answer) {
+                quizCorrect[sectionIdx] = true;
+                if (sectionIdx === currentSection) nextBtn.disabled = false;
+                form.style.background = '#e6ffe6';
+            } else {
+                quizCorrect[sectionIdx] = false;
+                if (sectionIdx === currentSection) nextBtn.disabled = true;
+                form.style.background = '#ffe6e6';
+            }
+        });
+    });
+
+    prevBtn.onclick = function() {
+        if (currentSection > 0) {
+            currentSection--;
+            showSection(currentSection);
+        }
+    };
+    nextBtn.onclick = function() {
+        if (currentSection < sections.length - 1 && quizCorrect[currentSection]) {
+            currentSection++;
+            showSection(currentSection);
+        }
+    };
+    // On load, only enable next if quiz is already correct (info sections are true)
+    showSection(currentSection);
+
+    // Brew Error logic (unchanged)
+    function handleBrewErrorResponse(answer) {
+        const next = document.getElementById('brew-error-next');
+        if (answer === 'yes') {
+            alert("read it, maybe it tells you to do something...");
+            next.style.display = 'none';
+        } else if (answer === 'no') {
+            next.style.display = 'inline-block';
+        }
+    }
+    document.getElementById('brew-error-back').onclick = function(e) {
+        e.preventDefault();
+        currentSection = 0;
+        showSection(currentSection);
+    };
+    document.getElementById('brew-error-next').onclick = function(e) {
+        e.preventDefault();
+        currentSection = 3;
+        showSection(currentSection);
+    };
+
+    // Brew Check logic (unchanged)
+    function handleBrewCheckResponse(answer) {
+        const nextLevelButton = document.getElementById('brew-check-next');
+        const goodImageOverlay = document.getElementById('goodOverlay');
+        const badImageOverlay = document.getElementById('badOverlay');
+        goodImageOverlay.style.display = 'none';
+        badImageOverlay.style.display = 'none';
+        if (answer === 'yes') {
+            nextLevelButton.style.display = 'inline-block';
+            goodImageOverlay.style.display = 'block';
+        } else if (answer === 'no') {
+            nextLevelButton.style.display = 'none';
+            badImageOverlay.style.display = 'block';
+        }
+    }
+    document.getElementById('brew-check-back').onclick = function(e) {
+        e.preventDefault();
+        currentSection = 1;
+        showSection(currentSection);
+    };
+    function showAlertAndRedirect() {
+        alert("Next Password: i-got-brew");
+        window.location.href = "../PasswordPortal/PasswordPortal.html";
+    }
+</script>
+</body>
+</html>
