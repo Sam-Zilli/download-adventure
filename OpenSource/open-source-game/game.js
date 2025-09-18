@@ -120,7 +120,7 @@ function updateItems() {
             items.splice(index, 1);
             if (score >= 10) {
                 isGameRunning = false;
-                winModal.style.display = 'block';
+                showWinModal();
             }
         }
     });
@@ -165,6 +165,19 @@ function startGame() {
 
 function continueToPortal() {
     window.location.href = '../../PasswordPortal/PasswordPortal.html';
+}
+
+function showWinModal() {
+    // Get the next password dynamically
+    const levelInfo = window.getLevelInfo('open-source-game/index.html');
+    let nextPassword = 'game-time'; // fallback
+    
+    if (levelInfo && levelInfo.next) {
+        nextPassword = levelInfo.next.password;
+    }
+    
+    document.getElementById('dynamic-password').textContent = nextPassword;
+    winModal.style.display = 'block';
 }
 
 document.addEventListener('keydown', keyDown);

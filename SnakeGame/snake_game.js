@@ -40,9 +40,13 @@ function draw() {
     // Display the score
     document.getElementById('score').textContent = `Score: ${score}`;
     
-    // If the score is 5 or more, show the next page button
+    // If the score is 5 or more, show the next page button and password
     if (score >= 5) {
         document.getElementById('nextPageButton').style.display = 'block';
+        // Show password only once when first reaching score 5
+        if (score === 5) {
+            showPasswordAlert();
+        }
     }
 }
 
@@ -114,9 +118,22 @@ function gameLoop() {
     setTimeout(gameLoop, 100); // Repeat every 100ms
 }
 
+// Function to show password alert
+function showPasswordAlert() {
+    // Get the next password dynamically
+    const levelInfo = window.getLevelInfo('snake.html');
+    let nextPassword = 'auth'; // fallback
+    
+    if (levelInfo && levelInfo.next) {
+        nextPassword = levelInfo.next.password;
+    }
+    
+    alert('Congratulations! You reached the target score! The password is: ' + nextPassword);
+}
+
 // Function to handle "Next Page" button click
 function goToNextPage() {
-    window.location.href = "../vs-code/index.html"; // Redirect to the next page
+    window.location.href = "../PasswordPortal/PasswordPortal.html"; // Go to password portal instead
 }
 
 // Start the game

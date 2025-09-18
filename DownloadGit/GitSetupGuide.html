@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Setup Guide</title>
+    <script src="../constants.js"></script>
+    <script src="../navigation.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .section {
+            display: none;
+            min-height: 400px;
+            padding: 20px;
+        }
+        .section.active {
+            display: block;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 10px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .hidden {
+            display: none;
+        }
+        .input-box {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+        }
+        .navigation-arrows {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .response-buttons {
+            margin: 20px 0;
+        }
+        .progress {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress" id="progress">Step 1 of 3</div>
+    
+    <!-- Section 1: GitHub Account -->
+    <div class="section active" id="section-1">
+        <h1>Did you make a GitHub account?</h1>
+        <p>You should have done this last week.</p>
+        
+        <div class="response-buttons">
+            <button onclick="handleAccountResponse('yes')" class="btn">Yes</button>
+            <button onclick="handleAccountResponse('no')" class="btn">No</button>
+        </div>
+        
+        <div id="account-message" class="hidden">
+            <p style="color: green;">Great! Let's continue with setting up Git.</p>
+        </div>
+    </div>
+    
+    <!-- Section 2: What is Git -->
+    <div class="section" id="section-2">
+        <h1>What is Git?</h1>
+        <p>Git is a version control system that helps developers manage their code changes. Want to know why it's awesome?</p>
+        <button class="btn" onclick="revealAnswer()">Click to find out!</button>
+        <p id="answer" class="hidden">Git helps you track changes, collaborate with others, and manage versions of your code. It "pushes" code to GitHub, which is essential for any software project! It's used to collaborate with other engineers, to showcase your projects, and is the "google drive" of coding. It's where you can find open-source code.</p>
+    </div>
+    
+    <!-- Section 3: Installing Git -->
+    <div class="section" id="section-3">
+        <h1>Installing Git</h1>
+        <p>To install Git using Homebrew, click the link below to open the Homebrew documentation and find the installation command:</p>
+        <a href="https://formulae.brew.sh/formula/git" target="_blank" class="btn">Open Homebrew Git Documentation</a>
+        
+        <p>Once you've found the command, enter it below to continue:</p>
+        <input type="text" id="gitCommand" class="input-box" placeholder="Enter the installation command here">
+        
+        <button class="btn" onclick="checkAnswer()">Check My Answer</button>
+        
+        <p id="responseMessage" class="hidden"></p>
+        
+        <br><br>
+        
+        <p>If Git is installed correctly, click below to verify:</p>
+        <button class="btn" onclick="verifyGit()">Verify Git Installation</button>
+        <p id="verification" class="hidden">You can verify Git by typing <code>git --version</code> in your terminal!</p>
+        
+        <div id="completion-message" class="hidden">
+            <h2>Congratulations!</h2>
+            <p>You've successfully set up Git on your computer!</p>
+            <p><strong>The password is: <span id="dynamic-password">repo</span></strong></p>
+            <button class="btn" onclick="goToPasswordPortal()">Go to Password Portal</button>
+        </div>
+    </div>
+    
+    <div class="navigation-arrows">
+        <button class="btn" id="prevBtn" onclick="prevSection()" disabled>← Previous</button>
+        <button class="btn" id="nextBtn" onclick="nextSection()" disabled>Next →</button>
+    </div>
+
+    <script>
+        let currentSection = 1;
+        let accountConfirmed = false;
+        let gitAnswered = false;
+        let gitVerified = false;
+        
+        const correctCommand = 'brew install git';
+        
+        function updateProgress() {
+            document.getElementById('progress').textContent = `Step ${currentSection} of 3`;
+        }
+        
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            // Show current section
+            document.getElementById(`section-${section}`).classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = (section === 1);
+            
+            let canNext = false;
+            if (section === 1) canNext = accountConfirmed;
+            else if (section === 2) canNext = true; // Can always proceed from "What is Git"
+            else if (section === 3) canNext = false; // Can't proceed from final section
+            
+            document.getElementById('nextBtn').disabled = !canNext;
+            updateProgress();
+        }
+        
+        function nextSection() {
+            if (currentSection < 3) {
+                currentSection++;
+                showSection(currentSection);
+            }
+        }
+        
+        function prevSection() {
+            if (currentSection > 1) {
+                currentSection--;
+                showSection(currentSection);
+            }
+        }
+        
+        function handleAccountResponse(answer) {
+            if (answer === 'no') {
+                alert("Make a GitHub account: https://github.com/signup. Make sure to verify the email address.");
+                accountConfirmed = false;
+            } else if (answer === 'yes') {
+                document.getElementById('account-message').classList.remove('hidden');
+                accountConfirmed = true;
+            }
+            showSection(currentSection); // Update button states
+        }
+        
+        function revealAnswer() {
+            document.getElementById('answer').classList.remove('hidden');
+        }
+        
+        function checkAnswer() {
+            const userInput = document.getElementById('gitCommand').value.trim();
+            const responseMessage = document.getElementById('responseMessage');
+            
+            if (userInput === correctCommand) {
+                responseMessage.textContent = "Correct! Go ahead and type that into your computer's terminal to install Git for realsies."; 
+                responseMessage.style.color = "green";
+                responseMessage.classList.remove('hidden');
+                gitAnswered = true;
+            } else {
+                responseMessage.textContent = "Oops! That's not quite right. Please check the documentation and try again.";
+                responseMessage.style.color = "red";
+                responseMessage.classList.remove('hidden');
+                gitAnswered = false;
+            }
+        }
+        
+        function verifyGit() {
+            document.getElementById('verification').classList.remove('hidden');
+            gitVerified = true;
+            
+            if (gitAnswered && gitVerified) {
+                showCompletion();
+            }
+        }
+        
+        function showCompletion() {
+            // Get the next password dynamically
+            const levelInfo = window.getLevelInfo('GitSetupGuide.html');
+            let nextPassword = 'repo'; // fallback
+            
+            if (levelInfo && levelInfo.next) {
+                nextPassword = levelInfo.next.password;
+            }
+            
+            document.getElementById('dynamic-password').textContent = nextPassword;
+            document.getElementById('completion-message').classList.remove('hidden');
+        }
+        
+        function goToPasswordPortal() {
+            window.location.href = '../PasswordPortal/PasswordPortal.html';
+        }
+        
+        // Initialize the page
+        showSection(currentSection);
+    </script>
+</body>
+</html>

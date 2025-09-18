@@ -6,6 +6,8 @@
     <title>Homebrew Guide</title>
     <link rel="stylesheet" href="../styles/homebrew.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="../constants.js"></script>
+    <script src="../navigation.js"></script>
     <style>
         body, .container, h1, h2, h3, p, button, pre, code, a {
             font-family: 'Inter', 'Segoe UI', Arial, sans-serif !important;
@@ -175,10 +177,9 @@
             <label><input type="radio" name="q14" value="c"> Nothing appears, but it works</label>
         </form>
     </div>
-
-    </div>
+    
     <div class="section" id="section-30">
-        <p>Did you get a big long scary error that looks like this?</p>
+        <p>SKIM through what it printed and look for anything that says Error or Next Steps:</p>
     </div>
     <div class="section" id="section-31">
         <form class="quiz-form" data-answer="b">
@@ -189,7 +190,8 @@
         </form>
     </div>
     <div class="section" id="section-32">
-        <img src="../images/brew-error.png" alt="brew error" width="500" height="300">
+        <h2>Here's an example of what a brew error might look like:</h2>
+        <img src="../images/brew-error.png" alt="brew error" class="screenshot">
     </div>
     <div class="section" id="section-33">
         <form class="quiz-form" data-answer="a">
@@ -199,17 +201,8 @@
             <label><input type="radio" name="q16" value="c"> Unplug your computer</label>
         </form>
     </div>
+
     <div class="section" id="section-34">
-        <div class="response-buttons">
-            <button onclick="handleBrewErrorResponse('yes')" class="btn">Yes</button>
-            <button onclick="handleBrewErrorResponse('no')" class="btn">No</button>
-        </div>
-        <div class="navigation">
-            <a href="#" class="btn btn-back" id="brew-error-back">Back to start of Brew</a>
-        </div>
-        <a href="#" class="btn" id="brew-error-next" style="display:none;">If it's a DIFFERENT error - raise hand! Otherwise, let's go on...</a>
-    </div>
-    <div class="section" id="section-35">
         <form class="quiz-form" data-answer="b">
             <p>What should you do if it's a different error?</p>
             <label><input type="radio" name="q17" value="a"> Ignore it</label><br>
@@ -217,10 +210,10 @@
             <label><input type="radio" name="q17" value="c"> Restart your computer</label>
         </form>
     </div>
-    <div class="section" id="section-36">
-        <h1>If that worked, then we should now be able to use 'brew. We can check the version of brew we have by using 'brew -v' command</h1>
+    <div class="section" id="section-35">
+        <p>If that worked, then we should now be able to use 'brew'. We can check the version of brew we have by using the 'brew -v' command.</p>
     </div>
-    <div class="section" id="section-37">
+    <div class="section" id="section-36">
         <form class="quiz-form" data-answer="a">
             <p>What does 'brew -v' check?</p>
             <label><input type="radio" name="q18" value="a"> If brew is installed</label><br>
@@ -228,11 +221,11 @@
             <label><input type="radio" name="q18" value="c"> If your computer is on</label>
         </form>
     </div>
-    <div class="section" id="section-38">
+    <div class="section" id="section-37">
         <p>Let's do a test.</p>
         <p>Put this into your terminal: brew -v </p>
     </div>
-    <div class="section" id="section-39">
+    <div class="section" id="section-38">
         <form class="quiz-form" data-answer="c">
             <p>What should you type in your terminal?</p>
             <label><input type="radio" name="q19" value="a"> brew install git</label><br>
@@ -240,7 +233,7 @@
             <label><input type="radio" name="q19" value="c"> brew -v</label>
         </form>
     </div>
-    <div class="section" id="section-40">
+    <div class="section" id="section-39">
         <div class="image-container">
             <div class="image-box">
                 <img src="../images/brew-version-good.png" alt="Good Brew" class="screenshot">
@@ -252,7 +245,7 @@
             </div>
         </div>
     </div>
-    <div class="section" id="section-41">
+    <div class="section" id="section-40">
         <form class="quiz-form" data-answer="a">
             <p>Which image shows a successful brew install?</p>
             <label><input type="radio" name="q20" value="a"> Left</label><br>
@@ -260,7 +253,7 @@
             <label><input type="radio" name="q20" value="c"> Both</label>
         </form>
     </div>
-    <div class="section" id="section-42">
+    <div class="section" id="section-41">
         <p>Which result did you get?</p>
         <div class="response-buttons">
             <button onclick="handleBrewCheckResponse('yes')" class="btn">Left</button>
@@ -270,14 +263,6 @@
             <a href="#" class="btn" id="brew-check-next" style="display: none;" onclick="showAlertAndRedirect(); return false;">Next</a>
             <a href="#" class="btn btn-back" id="brew-check-back">Back to Brew Install</a>
         </div>
-    </div>
-    <div class="section" id="section-43">
-        <form class="quiz-form" data-answer="b">
-            <p>What should you do if you see the "Good" result?</p>
-            <label><input type="radio" name="q21" value="a"> Try again</label><br>
-            <label><input type="radio" name="q21" value="b"> Go to the next step</label><br>
-            <label><input type="radio" name="q21" value="c"> Uninstall brew</label>
-        </form>
     </div>
     <div class="nav-arrows">
         <button class="arrow-btn" id="prevBtn" disabled>&#8592; Back</button>
@@ -349,16 +334,22 @@
             next.style.display = 'inline-block';
         }
     }
-    document.getElementById('brew-error-back').onclick = function(e) {
-        e.preventDefault();
-        currentSection = 0;
-        showSection(currentSection);
-    };
-    document.getElementById('brew-error-next').onclick = function(e) {
-        e.preventDefault();
-        currentSection = 3;
-        showSection(currentSection);
-    };
+    const brewErrorBack = document.getElementById('brew-error-back');
+    if (brewErrorBack) {
+        brewErrorBack.onclick = function(e) {
+            e.preventDefault();
+            currentSection = 0;
+            showSection(currentSection);
+        };
+    }
+    const brewErrorNext = document.getElementById('brew-error-next');
+    if (brewErrorNext) {
+        brewErrorNext.onclick = function(e) {
+            e.preventDefault();
+            currentSection = 3;
+            showSection(currentSection);
+        };
+    }
 
     // Brew Check logic (unchanged)
     function handleBrewCheckResponse(answer) {
@@ -381,7 +372,12 @@
         showSection(currentSection);
     };
     function showAlertAndRedirect() {
-        alert("Next Password: i-got-brew");
+        const levelInfo = window.getLevelInfo('Homebrew.html');
+        if (levelInfo && levelInfo.next) {
+            alert("Next Password: " + levelInfo.next.password);
+        } else {
+            alert("Next Password: i-got-brew"); // fallback
+        }
         window.location.href = "../PasswordPortal/PasswordPortal.html";
     }
 </script>
