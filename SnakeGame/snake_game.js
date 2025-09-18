@@ -7,6 +7,7 @@ const gridSize = 20;
 const canvasWidth = canvas.width;
 const canvasHeight = canvas.height;
 let score = 0;
+let passwordShown = false; // Flag to track if password has been shown
 
 // Snake game variables
 let snake = [{ x: 100, y: 100 }];
@@ -16,6 +17,7 @@ let food = {};
 // Initialize game
 function init() {
     score = 0;
+    passwordShown = false; // Reset password shown flag
     snake = [{ x: 100, y: 100 }];
     direction = 'right';
     spawnFood();
@@ -44,8 +46,9 @@ function draw() {
     if (score >= 5) {
         document.getElementById('nextPageButton').style.display = 'block';
         // Show password only once when first reaching score 5
-        if (score === 5) {
+        if (score >= 5 && !passwordShown) {
             showPasswordAlert();
+            passwordShown = true; // Set flag to prevent showing again
         }
     }
 }
@@ -121,11 +124,15 @@ function gameLoop() {
 // Function to show password alert
 function showPasswordAlert() {
     // Get the next password dynamically
-    const levelInfo = window.getLevelInfo('snake.html');
-    let nextPassword = 'auth'; // fallback
+    let nextPassword = 'auth'; // fallback that should be correct
     
-    if (levelInfo && levelInfo.next) {
-        nextPassword = levelInfo.next.password;
+    try {
+        const levelInfo = window.getLevelInfo('snake.html');
+        if (levelInfo && levelInfo.next) {
+            nextPassword = levelInfo.next.password;
+        }
+    } catch (error) {
+        console.error('Error getting level info:', error);
     }
     
     alert('Congratulations! You reached the target score! The password is: ' + nextPassword);

@@ -404,13 +404,13 @@ function completeLsQuiz() {
 // Dynamically get the next level's password from constants.js
 function getNextLevelPassword() {
     if (typeof getLevelInfo === 'function') {
-        // Use the full path as in constants.js
-        const info = getLevelInfo('/Terminal/Terminal.html');
+        // Use the correct filename as in constants.js
+        const info = getLevelInfo('Terminal.html');
         if (info && info.next) {
             return info.next.password;
         }
     }
-    return null;
+    return 'download'; // fallback to expected password
 }
 
 
