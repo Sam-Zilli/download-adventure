@@ -17,6 +17,10 @@ window.LEVELS = [
     { file: '../End/end.html', password: 'ADVENTURE' }
 ];
 
+
+
+
+
 // Make getLevelInfo globally available
 window.getLevelInfo = function(currentFile) {
     console.log('[DEBUG] getLevelInfo called with:', currentFile);
