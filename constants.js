@@ -3,7 +3,7 @@
 window.LEVELS = [
     // Where it goes amd what the password is to get there
     { file: '../Binary/index.html', password: 'learn' },
-    { file: '../Terminal/index.html', password: 'terminal' },
+    { file: '../terminal/index.html', password: 'terminal' },
     { file: '../Homebrew/Homebrew.html', password: 'download' },
     { file: '../BooleanLogic/index.html', password: 'logic' },
     { file: '../OpenSource/index.html', password: 'source' },
