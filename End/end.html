@@ -4,7 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Over</title>
-    <link rel="stylesheet" href="end.css">
+    <style>
+        /* Body Styling */
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background: linear-gradient(135deg, #ff5e5e, #ff9e9e);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Allow the body to grow with content */
+    background-size: cover;
+    background-attachment: fixed;
+    flex-direction: column; /* Ensure the content is aligned vertically */
+}
+
+/* Container Styling */
+.container {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 15px;
+    text-align: left;
+    width: 80%;
+    max-width: 900px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 20px; /* Ensure there's space at the top */
+}
+
+/* Heading Styling */
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    font-family: 'Impact', sans-serif;
+    color: #f4e03d;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+    margin-top: 0; /* Prevent unwanted space above the heading */
+}
+
+/* Paragraph Styling */
+p {
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: #f9f9f9;
+    margin-bottom: 20px;
+}
+
+
+/* Button Styling */
+.btn {
+    text-decoration: none;
+    color: #fff;
+    background-color: #333333; /* Dark background for better contrast */
+    padding: 12px 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    display: block; /* Make buttons take full width of the parent container */
+    width: 100%; /* Make buttons span the entire width */
+    transition: transform 0.2s, background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #555555; /* Lighter shade on hover */
+    transform: scale(1.1);
+}
+
+.btn-back {
+    background-color: #0044cc; /* Strong blue for contrast */
+    margin-top: 20px;
+}
+
+.btn-back:hover {
+    background-color: #0033aa;
+}
+
+/* Terminal Code Styling */
+.terminal-code {
+    background-color: #2d2d2d;
+    padding: 20px;
+    margin-top: 30px;
+    border-radius: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.terminal-code p {
+    font-size: 1.1em;
+    color: #b0e57c;
+    margin-bottom: 15px;
+}
+
+.terminal-code a {
+    text-decoration: none;
+    color: #4db8ff;
+    font-weight: bold;
+}
+
+.terminal-code a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Styling */
+footer {
+    margin-top: 30px;
+    font-size: 1.2em;
+    color: #f9f9f9;
+}
+
+footer a {
+    color: #4db8ff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Animations for buttons */
+@keyframes glowing {
+    0% { background-color: #333333; }
+    50% { background-color: #555555; }
+    100% { background-color: #333333; }
+}
+
+.btn:hover {
+    animation: glowing 1.5s infinite alternate;
+}
+
+    </style>
 </head>
 <body>
     <div class="container">

@@ -1,22 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>How to Push Your Local File to GitHub</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and background styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Container styling */
+        #container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header Styling */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        /* Section Styling */
+        section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #f9fafb;
+            border-left: 5px solid #2980b9;
+            border-radius: 8px;
+        }
+
+        section h2 {
+            font-size: 1.8rem;
+            color: #2980b9;
+            margin-bottom: 15px;
+        }
+
+        section p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        section pre {
+            background-color: #2d3436;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 1rem;
+        }
+
+        section ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        section li {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        /* Footer and Button Styling */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        #nextPageButton button {
+            background-color: #2980b9;
+            color: #fff;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #nextPageButton button:hover {
+            background-color: #21618c;
+        }
+
+        #nextPageButton button:focus {
+            outline: none;
+        }
+
+        /* Mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            #container {
+                padding: 20px;
+            }
+
+            section h2 {
+                font-size: 1.6rem;
+            }
+
+            section p {
+                font-size: 1rem;
+            }
+
+            section pre {
+                font-size: 0.9rem;
+            }
+
+            #nextPageButton button {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+        }
+
+        img {
+            max-width: 500px;
+            /* Resize to 500px wide */
+            height: auto;
+            /* Maintain the aspect ratio */
+        }
+    </style>
     <script src="../constants.js"></script>
 </head>
+
 <body>
     <div id="container">
         <header>
-            <p>Follow the steps below to add a local file to your GitHub repository and push it to your remote repository.</p>
+            <p>Follow the steps below to add a local file to your GitHub repository and push it to your remote
+                repository.</p>
         </header>
 
         <section id="step-1">
             <h2>Step 1: Scratch File into Local Repo</h2>
-            <p>Using the commands we have learned in class, move your Scratch file (ends in .sb3) into the repository you cloned onto your computer.</p>
+            <p>Using the commands we have learned in class, move your Scratch file (ends in .sb3) into the repository
+                you cloned onto your computer.</p>
         </section>
 
         <section id="step-2">
@@ -29,22 +177,25 @@
 
         <section id="step-3">
             <h2>Step 3: Commit the Changes</h2>
-            <p>Now that your file is staged, you need to commit it. A commit is like a snapshot of your changes. Run the following command:</p>
+            <p>Now that your file is staged, you need to commit it. A commit is like a snapshot of your changes. Run the
+                following command:</p>
             <pre><code>git commit -m "Added scratch project to repo"</code></pre>
         </section>
 
         <section id="step-4">
             <h2>Step 4: Push Your Changes to GitHub</h2>
-            <p>Once you've committed your changes, push them to your remote GitHub repository using the following command:</p>
+            <p>Once you've committed your changes, push them to your remote GitHub repository using the following
+                command:</p>
             <pre><code>git push</code></pre>
             <p></p>
-            <p> <strong> NOTE:</strong> If it asks for your username, enter it. If it asks for your password ENTER THE AUTH TOKEN you generated on the last page - NOT YOUR GITHUB PASSWORD</p>
+            <p> <strong> NOTE:</strong> If it asks for your username, enter it. If it asks for your password ENTER THE
+                AUTH TOKEN you generated on the last page - NOT YOUR GITHUB PASSWORD</p>
             <p></p>
             <p>Explanation:
-                <ul>
-                    <li><strong>git push</strong> - pushes your committed changes to the remote repository.</li>
-                    <!-- <li><strong>origin</strong> - the default name for your remote GitHub repository.</li> -->
-                </ul>
+            <ul>
+                <li><strong>git push</strong> - pushes your committed changes to the remote repository.</li>
+                <!-- <li><strong>origin</strong> - the default name for your remote GitHub repository.</li> -->
+            </ul>
             </p>
             <p>After running this command, your local file will be uploaded to your GitHub repository.</p>
         </section>
@@ -61,32 +212,33 @@
                 <li>Check if your scratch file and the README.md file are both listed there.</li>
                 <img src="../images/submitted-scratch-project.png" alt="repo">
             </ul>
-            <p>If everything went smoothly, congratulations! You've successfully added a local file to your GitHub repository and pushed it to the remote.</p>
+            <p>If everything went smoothly, congratulations! You've successfully added a local file to your GitHub
+                repository and pushed it to the remote.</p>
             <p>This is how you will submit coding assignments from now on!</p>
         </section>
-        
+
 
         <footer>
             <a href="../PasswordPortal/PasswordPortal.html" id="nextPageButton">
                 <button>Next Page - the password is: <span id="dynamic-password">loading...</span></button>
-            </a> 
+            </a>
         </footer>
     </div>
 
     <script>
         // Load dynamic password when page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             try {
                 console.log('Getting dynamic password for ScratchSubmission...');
                 const levelInfo = window.getLevelInfo('ScratchSubmission/index.html');
                 console.log('Level info:', levelInfo);
                 let nextPassword = 'vscode'; // fallback
-                
+
                 if (levelInfo && levelInfo.next) {
                     nextPassword = levelInfo.next.password;
                     console.log('Next password from constants.js:', nextPassword);
                 }
-                
+
                 document.getElementById('dynamic-password').textContent = nextPassword;
                 console.log('Dynamic password set to:', nextPassword);
             } catch (error) {
@@ -97,4 +249,5 @@
         });
     </script>
 </body>
+
 </html>
