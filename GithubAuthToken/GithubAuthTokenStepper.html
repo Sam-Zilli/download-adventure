@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GitHub Auth Token Step-by-Step</title>
+  <script src="../constants.js"></script>
+  <script src="../navigation.js"></script>
   <style>
     html,
     body {
@@ -266,7 +268,7 @@
       <div class="step-title">Done!</div>
       <div class="step-desc">You’re ready to use your GitHub token! Click below to continue.</div>
       <a href="../PasswordPortal/PasswordPortal.html" id="nextPageButton">
-        <button>Next Page Password: get-git</button>
+        <button>Next Page Password: <span id="dynamic-password">loading...</span></button>
       </a>
     </div>
     <div class="nav-btns">
@@ -301,6 +303,28 @@
       }
     }
     showStep(currentStep);
+
+    // Load dynamic password when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        console.log('Getting dynamic password for GithubAuthToken...');
+        const levelInfo = window.getLevelInfo('GithubAuthTokenStepper.html');
+        console.log('Level info:', levelInfo);
+        let nextPassword = 'get-git'; // fallback
+
+        if (levelInfo && levelInfo.next) {
+          nextPassword = levelInfo.next.password;
+          console.log('Next password from constants.js:', nextPassword);
+        }
+
+        document.getElementById('dynamic-password').textContent = nextPassword;
+        console.log('Dynamic password set to:', nextPassword);
+      } catch (error) {
+        console.error('Error getting level info:', error);
+        // Fallback to default
+        document.getElementById('dynamic-password').textContent = 'get-git';
+      }
+    });
   </script>
 </body>
 
