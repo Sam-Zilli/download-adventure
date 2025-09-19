@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GitHub Auth Token Step-by-Step</title>
-  <link rel="stylesheet" href="../styles/matrixHacker.css">
   <style>
-    html, body {
+    html,
+    body {
       width: 100vw;
       height: 100vh;
       margin: 0;
@@ -15,48 +16,57 @@
       background: #f7f7f7;
       color: #222;
     }
+
     .container {
-  width: 100vw;
-  height: 100vh;
-  margin: 0;
-  background: #fff;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 32px 24px 24px 24px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+      width: 100vw;
+      height: 100vh;
+      margin: 0;
+      background: #fff;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 32px 24px 24px 24px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
     }
+
     .step {
       display: none;
       flex-direction: column;
       align-items: center;
       min-height: 320px;
     }
-    .step.active { display: flex; }
-    .step img {
-  max-width: 100%;
-  max-height: 420px;
-  margin: 24px 0 10px 0;
-  border-radius: 12px;
-  box-shadow: 0 0 18px #00ff41;
-  background: #eee;
+
+    .step.active {
+      display: flex;
     }
+
+    .step img {
+      max-width: 100%;
+      max-height: 420px;
+      margin: 24px 0 10px 0;
+      border-radius: 12px;
+      box-shadow: 0 0 18px #00ff41;
+      background: #eee;
+    }
+
     .step-title {
       font-size: 1.3em;
       color: #2980b9;
       margin-bottom: 10px;
       text-align: center;
     }
+
     .step-desc {
       font-size: 1.08em;
       color: #333;
       margin-bottom: 10px;
       text-align: center;
     }
+
     .token-warning {
       background: #fff200;
       color: #111;
@@ -69,14 +79,17 @@
       box-shadow: 0 0 18px #ff003c;
       text-align: center;
     }
+
     .token-warning span {
       color: #d80000;
     }
+
     .nav-btns {
       display: flex;
       justify-content: space-between;
       margin-top: 24px;
     }
+
     .nav-btns button {
       background: #2980b9;
       color: #fff;
@@ -87,55 +100,158 @@
       cursor: pointer;
       transition: background 0.2s;
     }
+
     .nav-btns button:disabled {
       background: #bbb;
       color: #eee;
       cursor: not-allowed;
     }
+
     .nav-btns button:hover:not(:disabled) {
       background: #21618c;
     }
+
     .step-indicator {
       text-align: center;
       margin-top: 12px;
       color: #2980b9;
       font-size: 1em;
     }
+
+    body {
+      min-height: 100vh;
+      background: #0f2027;
+      /* fallback for old browsers */
+      background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+      color: #00ff41;
+      font-family: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1,
+    h2,
+    h3,
+    p,
+    th,
+    td,
+    label {
+      color: #00ff41;
+      text-shadow: 0 0 8px #00ff41, 0 0 2px #000;
+    }
+
+    table {
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 8px;
+      box-shadow: 0 0 24px #00ff4160;
+      border-collapse: collapse;
+      margin-bottom: 32px;
+    }
+
+    th,
+    td {
+      border: 1px solid #00ff41;
+      padding: 8px 16px;
+      font-size: 1.1em;
+    }
+
+    input[type="text"] {
+      background: #111;
+      color: #00ff41;
+      border: 1.5px solid #00ff41;
+      border-radius: 4px;
+      font-size: 1.3em;
+      padding: 8px 12px;
+      margin: 0 8px;
+      outline: none;
+      box-shadow: 0 0 8px #00ff4140;
+      transition: border 0.2s, box-shadow 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border: 1.5px solid #fff;
+      box-shadow: 0 0 16px #00ff41;
+    }
+
+    button {
+      background: #00ff41;
+      color: #111;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2em;
+      font-family: inherit;
+      padding: 10px 28px;
+      margin: 0 8px;
+      cursor: pointer;
+      box-shadow: 0 0 8px #00ff41;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    button:hover {
+      background: #111;
+      color: #00ff41;
+      border: 1.5px solid #00ff41;
+    }
+
+    #feedback-message {
+      font-size: 1.2em;
+      margin-top: 18px;
+      text-shadow: 0 0 8px #00ff41;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+      background: #111;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #00ff41;
+      border-radius: 4px;
+    }
   </style>
 </head>
+
 <body>
   <div class="container">
     <div class="step active">
       <div class="step-title">Step 1: Go to Your Settings</div>
-      <div class="step-desc">Login to GitHub.com. Click your profile picture in the top right, then select <b>Settings</b>.</div>
+      <div class="step-desc">Login to GitHub.com. Click your profile picture in the top right, then select
+        <b>Settings</b>.</div>
       <img src="../images/github-settings.png" alt="GitHub Settings">
     </div>
     <div class="step">
       <div class="step-title">Step 2: Access Developer Settings</div>
-      <div class="step-desc">In the left sidebar, scroll down and click <b>Developer settings</b> (at the very bottom).</div>
+      <div class="step-desc">In the left sidebar, scroll down and click <b>Developer settings</b> (at the very bottom).
+      </div>
       <!-- <img src="../images/github-developer-settings.png" alt="Developer Settings"> -->
     </div>
     <div class="step">
       <div class="step-title">Step 3: Personal Access Tokens</div>
-      <div class="step-desc">In Developer settings, select <b>Personal access tokens</b> - then <b>Tokens (classic)</b>.</div>
+      <div class="step-desc">In Developer settings, select <b>Personal access tokens</b> - then <b>Tokens (classic)</b>.
+      </div>
       <img src="../images/github-personal-access-tokens.png" alt="Personal Access Tokens">
     </div>
     <div class="step">
       <div class="step-title">Step 4: Create a New Token</div>
-      <div class="step-desc">Click <b>Generate new token</b>. Choose Classic. You may be asked for your GitHub password.</div>
+      <div class="step-desc">Click <b>Generate new token</b>. Choose Classic. You may be asked for your GitHub password.
+      </div>
       <img src="../images/github-generate-new-token-classic.png" alt="Generate Token">
     </div>
     <div class="step">
       <div class="step-title">Step 5: Name and Permissions</div>
-      <div class="step-desc">Give your token a name (e.g., <b>lmsc261</b>).<br> 
+      <div class="step-desc">Give your token a name (e.g., <b>lmsc261</b>).<br>
         Set expiration for CUSTOM and the date 12/12/2025 (the end of the semester).<br>
         In the SELECT SCOPES selection: select ALL the boxes for permissions if new to GitHub.<br>
-         Finally, click <b>Generate Token</b>.
+        Finally, click <b>Generate Token</b>.
       </div>
     </div>
     <div class="step">
       <div class="token-warning">
-        <span style="font-size:1.2em; color:#ff003c; text-shadow:0 0 6px #fff200; font-weight: bold;">⚠️ IMPORTANT!</span><br>
+        <span style="font-size:1.2em; color:#ff003c; text-shadow:0 0 6px #fff200; font-weight: bold;">⚠️
+          IMPORTANT!</span><br>
         Copy the token and save it somewhere safe.<br>
         <b>You won't be able to see it again once you navigate away from this page!</b><br>
         <span>You will need this token OFTEN.</span>
@@ -143,7 +259,8 @@
     </div>
     <div class="step">
       <div class="step-title">Step 7: Secure Your Token</div>
-      <div class="step-desc">Treat your token like a password. If you think it’s compromised, revoke it from the Personal access tokens page.</div>
+      <div class="step-desc">Treat your token like a password. If you think it’s compromised, revoke it from the
+        Personal access tokens page.</div>
     </div>
     <div class="step">
       <div class="step-title">Done!</div>
@@ -169,7 +286,7 @@
       prevBtn.disabled = idx === 0;
       nextBtn.disabled = idx === steps.length - 1;
       nextBtn.style.display = idx === steps.length - 1 ? 'none' : '';
-      stepIndicator.textContent = `Step ${Math.min(idx+1, steps.length-1)} of ${steps.length-1}`;
+      stepIndicator.textContent = `Step ${Math.min(idx + 1, steps.length - 1)} of ${steps.length - 1}`;
     }
     function nextStep() {
       if (currentStep < steps.length - 1) {
@@ -186,4 +303,5 @@
     showStep(currentStep);
   </script>
 </body>
+
 </html>

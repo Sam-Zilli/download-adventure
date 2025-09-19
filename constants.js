@@ -3,18 +3,18 @@
 window.LEVELS = [
     // Where it goes amd what the password is to get there
     { file: '../Binary/index.html', password: 'learn' },
-    { file: '../terminal/index.html', password: 'terminal' },
-    { file: '../Homebrew/Homebrew.html', password: 'download' },
-    { file: '../BooleanLogic/index.html', password: 'logic' },
-    { file: '../OpenSource/index.html', password: 'source' },
-    { file: '../SnakeGame/snake.html', password: 'game-time' },
-    { file: '../GithubAuthToken/GithubAuthTokenStepper.html', password: 'auth' },
-    { file: '../DownloadGit/GitSetupGuide.html', password: 'get-git' },
-    { file: '../CreateGithubRepoAndClone/index.html', password: 'repo' },
-    { file: '../ScratchSubmission/index.html', password: 'IGOTGIT' },
-    { file: '../VSCode/index.html', password: 'vscode' },
-    { file: '../SubmitScratchOnCanvas/index.html', password: 'GRADES' },
-    { file: '../End/end.html', password: 'ADVENTURE' }
+    { file: '../terminal/index.html', password: 'one' },
+    { file: '../Homebrew/Homebrew.html', password: 'two' },
+    { file: '../BooleanLogic/index.html', password: 'three' },
+    { file: '../OpenSource/index.html', password: 'four' },
+    { file: '../SnakeGame/snake.html', password: 'five' },
+    { file: '../GithubAuthToken/GithubAuthTokenStepper.html', password: 'six' },
+    { file: '../DownloadGit/GitSetupGuide.html', password: 'seven' },
+    { file: '../CreateGithubRepoAndClone/index.html', password: 'eight' },
+    { file: '../ScratchSubmission/index.html', password: 'nine' },
+    { file: '../VSCode/index.html', password: 'ten' },
+    { file: '../SubmitScratchOnCanvas/index.html', password: 'eleven' },
+    { file: '../End/end.html', password: 'twelve' }
 ];
 
 

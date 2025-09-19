@@ -10,12 +10,34 @@
     <div class="container">
         <h1>ONE MORE THING...</h1>
         <p>Submit the link to your github repo on canvas for your Scratch Assignment.</p>
-        <p> The LAST password is: <strong>ADVENTURE</strong></p>
+        <p> The LAST password is: <strong><span id="dynamic-password">loading...</span></strong></p>
         <button id="nextPageButton">I've submitted my assignment!</button>
     </div>
     <script src="../constants.js"></script>
     <script src="../navigation.js"></script>
     <script>
+        // Load dynamic password when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                console.log('Getting dynamic password for SubmitScratchOnCanvas...');
+                const levelInfo = window.getLevelInfo('SubmitScratchOnCanvas/index.html');
+                console.log('Level info:', levelInfo);
+                let nextPassword = 'ADVENTURE'; // fallback
+
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                    console.log('Next password from constants.js:', nextPassword);
+                }
+
+                document.getElementById('dynamic-password').textContent = nextPassword;
+                console.log('Dynamic password set to:', nextPassword);
+            } catch (error) {
+                console.error('Error getting level info:', error);
+                // Fallback to default
+                document.getElementById('dynamic-password').textContent = 'ADVENTURE';
+            }
+        });
+
         document.getElementById('nextPageButton').addEventListener('click', goToNextPage);
     </script>
 </body>
