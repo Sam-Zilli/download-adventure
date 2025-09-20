@@ -9,8 +9,8 @@ function checkPassword() {
 
     // Find the level with the matching password
     let match = null;
-    if (typeof LEVELS !== 'undefined' && Array.isArray(LEVELS)) {
-        match = LEVELS.find(lvl => lvl.password === passwordInput);
+    if (typeof window.LEVELS !== 'undefined' && Array.isArray(window.LEVELS)) {
+        match = window.LEVELS.find(lvl => lvl.password === passwordInput);
     }
 
     if (match) {
