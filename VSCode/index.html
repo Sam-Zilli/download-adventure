@@ -112,7 +112,6 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            text-transform: uppercase;
         }
 
         #nextPageButton button:hover {
@@ -162,7 +161,7 @@
             border-radius: 4px;
         }
     </style>
-    
+    <script src="../navigation.js"></script>
 </head>
 
 <body>
@@ -196,7 +195,7 @@
 
     <footer>
         <a href="../PasswordPortal/PasswordPortal.html" id="nextPageButton">
-            <button>Next Page - the password is <span id="dynamic-password">loading...</span></button>
+            <button>The next password is: <span id="dynamic-password">loading...</span></button>
         </a>
     </footer>
     </div>
@@ -205,20 +204,25 @@
         // Load dynamic password when page loads
         document.addEventListener('DOMContentLoaded', function () {
             try {
-                console.log('Getting dynamic password for VSCode page...');
+                console.log('[DEBUG VSCode] Getting dynamic password for VSCode page...');
+                console.log('[DEBUG VSCode] window.getLevelInfo exists:', typeof window.getLevelInfo !== 'undefined');
+                console.log('[DEBUG VSCode] window.LEVELS exists:', typeof window.LEVELS !== 'undefined');
+                
                 const levelInfo = window.getLevelInfo('VSCode/index.html');
-                console.log('Level info:', levelInfo);
+                console.log('[DEBUG VSCode] Level info:', levelInfo);
                 let nextPassword = 'adventure'; // fallback
 
                 if (levelInfo && levelInfo.next) {
                     nextPassword = levelInfo.next.password;
-                    console.log('Next password from constants.js:', nextPassword);
+                    console.log('[DEBUG VSCode] Next password from navigation.js:', nextPassword);
+                } else {
+                    console.log('[DEBUG VSCode] No next level found, using fallback');
                 }
 
                 document.getElementById('dynamic-password').textContent = nextPassword;
-                console.log('Dynamic password set to:', nextPassword);
+                console.log('[DEBUG VSCode] Dynamic password set to:', nextPassword);
             } catch (error) {
-                console.error('Error getting level info:', error);
+                console.error('[DEBUG VSCode] Error getting level info:', error);
                 // Fallback to default
                 document.getElementById('dynamic-password').textContent = 'adventure';
             }

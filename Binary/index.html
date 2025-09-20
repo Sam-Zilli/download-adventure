@@ -298,20 +298,38 @@
         // Expose showNextPasswordModal globally for the Next Level button
         window.showNextPasswordModal = function() {
             console.log('[DEBUG] showNextPasswordModal called');
+            console.log('[DEBUG] window.LEVELS exists:', typeof window.LEVELS !== 'undefined');
+            console.log('[DEBUG] window.getLevelInfo exists:', typeof window.getLevelInfo !== 'undefined');
+            console.log('[DEBUG] Full LEVELS array:', window.LEVELS);
+            
             console.log('Getting dynamic password for Binary completion...');
             
             let password = 'BINARY_COMPLETE'; // fallback
             
             try {
+                console.log('[DEBUG] About to call getLevelInfo with: Binary/index.html');
                 const info = window.getLevelInfo('Binary/index.html');
-                console.log('Level info:', info);
+                console.log('[DEBUG] getLevelInfo returned:', info);
+                
+                if (info && info.current) {
+                    console.log('[DEBUG] Current level found:', info.current);
+                } else {
+                    console.log('[DEBUG] No current level found');
+                }
+                
                 if (info && info.next) {
-                    console.log('Next password from constants.js:', info.next.password);
+                    console.log('[DEBUG] Next level found:', info.next);
+                    console.log('[DEBUG] Next password from navigation.js:', info.next.password);
                     password = info.next.password;
+                } else {
+                    console.log('[DEBUG] No next level found');
                 }
             } catch (error) {
-                console.error('Error getting level info:', error);
+                console.error('[DEBUG] Error getting level info:', error);
+                console.error('[DEBUG] Error stack:', error.stack);
             }
+            
+            console.log('[DEBUG] Final password to show:', password);
             
             if (typeof showMatrixModal === 'function') {
                 console.log('[DEBUG] showMatrixModal is a function, showing modal with password:', password);
