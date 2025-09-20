@@ -46,7 +46,7 @@ window.getLevelInfo = function(currentFile) {
 };
 
 // Shared navigation logic for all levels
-function goToNextPage(currentFile) {
+window.goToNextPage = function(currentFile) {
     // Always route to the Password Portal for the next level
     window.location.href = "../PasswordPortal/PasswordPortal.html";
-}
+};
