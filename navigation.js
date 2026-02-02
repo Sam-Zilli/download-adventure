@@ -1,49 +1,81 @@
 
 // Order and passwords for all levels in the adventure
+// To reorder levels, just move the lines around in this array!
 window.LEVELS = [
-    // Where it goes amd what the password is to get there
-    { file: '../Binary/index.html', password: 'learn' },
-    { file: '../terminal/index.html', password: 'terminal' },
-    { file: '../Homebrew/Homebrew.html', password: 'brew' },
-    { file: '../BooleanLogic/index.html', password: 'bool' },
-    { file: '../OpenSource/index.html', password: 'source' },
-    { file: '../SnakeGame/snake.html', password: 'snake' },
-    { file: '../GithubAuthToken/GithubAuthTokenStepper.html', password: 'token' },
-    { file: '../DownloadGit/GitSetupGuide.html', password: 'get-git' },
-    { file: '../CreateGithubRepoAndClone/index.html', password: 'clone' },
-    { file: '../ScratchSubmission/index.html', password: 'scratch' },
-    { file: '../VSCode/index.html', password: 'vscode' },
-    { file: '../SubmitScratchOnCanvas/index.html', password: 'almost-done' },
-    { file: '../End/end.html', password: 'ADVENTURE' }
+    { path: 'binary', password: 'learn' },
+    { path: 'terminal', password: 'terminal' },
+    { path: 'homebrew', password: 'brew' },
+    { path: 'boolean-logic', password: 'bool' },
+    { path: 'open-source', password: 'source' },
+    { path: 'snake-game', password: 'snake' },
+    { path: 'github-auth-token', password: 'token' },
+    { path: 'download-git', password: 'get-git' },
+    { path: 'create-github-repo', password: 'clone' },
+    { path: 'scratch-submission', password: 'scratch' },
+    { path: 'vscode', password: 'vscode' },
+    { path: 'submit-scratch-canvas', password: 'almost-done' },
+    { path: 'end', password: 'ADVENTURE' }
 ];
 
 
-// Make getLevelInfo globally available
-window.getLevelInfo = function(currentFile) {
-    console.log('[DEBUG getLevelInfo] Called with:', currentFile);
-    console.log('[DEBUG getLevelInfo] window.LEVELS exists:', typeof window.LEVELS !== 'undefined');
-    console.log('[DEBUG getLevelInfo] LEVELS length:', window.LEVELS ? window.LEVELS.length : 'undefined');
-    console.log('[DEBUG getLevelInfo] Full LEVELS array:', window.LEVELS);
+// Helper to get the full path for a level (always uses index.html)
+window.getLevelUrl = function(levelPath) {
+    return '../' + levelPath + '/index.html';
+};
+
+// Normalize folder names (handles old PascalCase and new lowercase-with-dashes)
+window.normalizeFolderName = function(name) {
+    // Map old folder/file names to new folder names
+    const oldToNew = {
+        // Folder name mappings
+        'binary': 'binary',
+        'booleanlogic': 'boolean-logic',
+        'creategithubrepoandclone': 'create-github-repo',
+        'downloadgit': 'download-git',
+        'end': 'end',
+        'githubauthtoken': 'github-auth-token',
+        'homebrew': 'homebrew',
+        'opensource': 'open-source',
+        'scratchsubmission': 'scratch-submission',
+        'snakegame': 'snake-game',
+        'submitscratchoncanvas': 'submit-scratch-canvas',
+        'terminal': 'terminal',
+        'vocab': 'vocab',
+        'vscode': 'vscode',
+        // Old file name mappings (for backwards compatibility)
+        'snake': 'snake-game',
+        'gitsetupguide': 'download-git',
+        'githubauthokenstepper': 'github-auth-token',
+        'githubauthtokenstepper': 'github-auth-token'
+    };
     
-    const idx = window.LEVELS.findIndex(lvl => {
-        const endsWith = lvl.file.endsWith(currentFile);
-        console.log('[DEBUG getLevelInfo] Checking', lvl.file, 'endsWith', currentFile, '=', endsWith);
-        return endsWith;
-    });
+    // Normalize: lowercase, remove dashes for lookup
+    const normalized = name.toLowerCase().replace(/-/g, '');
+    return oldToNew[normalized] || name.toLowerCase();
+};
+
+// Get current level info based on current path
+window.getLevelInfo = function(currentPath) {
+    // Extract folder name from various input formats
+    // e.g., "terminal/index.html" -> "terminal", "Binary/index.html" -> "binary"
+    let folder = currentPath
+        .replace(/\.html$/, '')           // Remove .html extension
+        .replace(/\/index$/, '')          // Remove /index
+        .replace(/^\.\.\//, '')           // Remove leading ../
+        .split('/')[0];                   // Get first path segment
     
-    console.log('[DEBUG getLevelInfo] Found index:', idx);
+    // Normalize the folder name to handle old naming conventions
+    folder = window.normalizeFolderName(folder);
+    
+    const idx = window.LEVELS.findIndex(lvl => lvl.path === folder);
+    
     if (idx === -1) {
-        console.error('[DEBUG getLevelInfo] File not found in LEVELS array:', currentFile);
-        // Log the entire LEVELS array for inspection
-        console.log('[DEBUG getLevelInfo] Available levels:', window.LEVELS.map(l => l.file));
+        console.error('[getLevelInfo] Level not found:', folder, '(original:', currentPath, ')');
         return { current: null, next: null, idx: -1 };
     }
 
     const currentLevel = window.LEVELS[idx];
     const nextLevel = window.LEVELS[idx + 1] || null;
-    
-    console.log('[DEBUG getLevelInfo] Current level:', currentLevel);
-    console.log('[DEBUG getLevelInfo] Next level:', nextLevel);
 
     return {
         current: currentLevel,
@@ -52,8 +84,7 @@ window.getLevelInfo = function(currentFile) {
     };
 };
 
-// Shared navigation logic for all levels
-window.goToNextPage = function(currentFile) {
-    // Always route to the Password Portal for the next level
-    window.location.href = "../PasswordPortal/PasswordPortal.html";
+// Shared navigation logic - always go through password portal
+window.goToNextPage = function() {
+    window.location.href = "../password-portal/index.html";
 };
