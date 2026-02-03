@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clone a GitHub Repo with VS Code</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: #1e1e2e;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: #007acc;
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #888;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #007acc;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        ol {
+            list-style-type: decimal;
+            padding-left: 25px;
+            margin-bottom: 25px;
+        }
+
+        ol li {
+            padding: 8px 0;
+            font-size: 1.05em;
+            color: #ddd;
+        }
+
+        ol li strong {
+            color: #00ff41;
+        }
+
+        code {
+            background-color: #2a2a3a;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #00ff41;
+        }
+
+        .code-block {
+            display: block;
+            background-color: #2a2a3a;
+            border: 1px solid #444;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 8px;
+            color: #00ff41;
+        }
+
+        .tip {
+            background: #1a3a1a;
+            border-left: 4px solid #00ff41;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip strong {
+            color: #00ff41;
+        }
+
+        button {
+            background-color: #007acc;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #005a9e;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            background-color: #555;
+            margin-right: 10px;
+        }
+
+        .back-btn:hover {
+            background-color: #666;
+        }
+
+        .nav-buttons {
+            margin-top: 25px;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #1a3a1a 0%, #0a2a0a 100%);
+            border: 2px solid #00ff41;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .completion h2 {
+            color: #00ff41;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #007acc, #00ff41);
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .keyboard {
+            display: inline-block;
+            background: #333;
+            border: 1px solid #555;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            color: #fff;
+            margin: 0 3px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Clone a GitHub Repo with VS Code</h1>
+            <p>Using the built-in Source Control features</p>
+        </header>
+
+        <div class="step-indicator" id="step-indicator">Step 1 of 5</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 20%;"></div>
+        </div>
+
+        <div id="steps">
+            <!-- Step 1: Create Repository -->
+            <div class="step active" id="step-1">
+                <h2>Step 1: Create a New Repository on GitHub</h2>
+                <p>First, let's create a repository on GitHub.</p>
+                
+                <ol>
+                    <li>Go to <a href="https://github.com" target="_blank" style="color: #007acc;">GitHub.com</a> and make sure you're logged in</li>
+                    <li>Click the green <strong>"New"</strong> button or the <strong>"+"</strong> icon in the top right</li>
+                    <li>Select <strong>"New repository"</strong></li>
+                    <li>Name your repository: <strong>Intro-To-Programming</strong></li>
+                    <li>Set visibility to <strong>PRIVATE</strong></li>
+                    <li>Check <strong>"Add a README file"</strong></li>
+                    <li>Click <strong>"Create repository"</strong></li>
+                </ol>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 2: Add Collaborator -->
+            <div class="step" id="step-2">
+                <h2>Step 2: Add Your Instructor as a Collaborator</h2>
+                <p>Add your instructor so they can access your private repository:</p>
+                
+                <ol>
+                    <li>On your repository page, click <strong>"Settings"</strong></li>
+                    <li>In the left sidebar, click <strong>"Collaborators"</strong></li>
+                    <li>Click the green <strong>"Add people"</strong> button</li>
+                    <li>Search for: <strong>Sam-Zilli</strong></li>
+                    <li>Click on the user and then <strong>"Add Sam-Zilli to this repository"</strong></li>
+                </ol>
+                
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Copy the Clone URL -->
+            <div class="step" id="step-3">
+                <h2>Step 3: Copy the Clone URL</h2>
+                <p>Now get the URL for your repository:</p>
+                
+                <ol>
+                    <li>Go to your repository's main page (click the <strong>"Code"</strong> tab)</li>
+                    <li>Click the green <strong>"Code"</strong> button</li>
+                    <li>Make sure <strong>"HTTPS"</strong> is selected</li>
+                    <li>Click the <strong>copy button</strong> to copy the URL</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Tip:</strong> The URL will look something like:<br>
+                    <code>https://github.com/yourusername/Intro-To-Programming.git</code>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Clone in VS Code -->
+            <div class="step" id="step-4">
+                <h2>Step 4: Clone in VS Code</h2>
+                <p>Now let's clone the repository using VS Code:</p>
+                
+                <ol>
+                    <li>Open <strong>VS Code</strong></li>
+                    <li>Press <span class="keyboard">Cmd</span> + <span class="keyboard">Shift</span> + <span class="keyboard">P</span> to open the Command Palette</li>
+                    <li>Type <strong>"Git: Clone"</strong> and select it</li>
+                    <li><strong>Paste</strong> your repository URL and press Enter</li>
+                    <li>Choose where to save the folder (like your Documents folder)</li>
+                    <li>When prompted, click <strong>"Open"</strong> to open the cloned repository</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>First time?</strong> VS Code may ask you to sign in to GitHub. Click "Allow" and follow the prompts in your browser.
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Explore -->
+            <div class="step" id="step-5">
+                <h2>Step 5: Explore Your Repository</h2>
+                <p>You should now see your repository open in VS Code.</p>
+                
+                <ol>
+                    <li>In the <strong>Explorer</strong> panel (left side), you'll see your files</li>
+                    <li>Click on <strong>README.md</strong> to view it</li>
+                    <li>Notice the <strong>Source Control</strong> icon on the left sidebar (it looks like a branch)</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>What just happened?</strong> VS Code downloaded your repository from GitHub to your computer. Any changes you make can be "pushed" back to GitHub using the Source Control panel.
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="showCompletion()">Finish</button>
+                </div>
+            </div>
+
+            <!-- Completion -->
+            <div class="completion" id="completion" style="display: none;">
+                <h2>You Did It!</h2>
+                <p>You've successfully cloned a GitHub repository using VS Code.</p>
+                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #00ff41;">loading...</strong></p>
+                <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function showCompletion() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.getElementById('completion').style.display = 'block';
+            document.getElementById('step-indicator').textContent = 'Complete!';
+            document.getElementById('progress-fill').style.width = '100%';
+            
+            // Get dynamic password
+            try {
+                const levelInfo = window.getLevelInfo('github-vscode/index.html');
+                let nextPassword = 'vscode-git';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'vscode-git';
+            }
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

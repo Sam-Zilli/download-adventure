@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Boss: Submit Your Scratch Project</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: #1e1e2e;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: #ffab19;
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #888;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #ffab19;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        ol {
+            padding-left: 25px;
+            margin-bottom: 25px;
+        }
+
+        ol li {
+            padding: 10px 0;
+            font-size: 1.05em;
+            color: #ddd;
+        }
+
+        ol li strong {
+            color: #00ff41;
+        }
+
+        code {
+            background-color: #2a2a3a;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #00ff41;
+        }
+
+        .code-block {
+            display: block;
+            background-color: #2a2a3a;
+            border: 1px solid #444;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 8px;
+            color: #00ff41;
+        }
+
+        .tip {
+            background: #1a3a1a;
+            border-left: 4px solid #00ff41;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip strong {
+            color: #00ff41;
+        }
+
+        .warning {
+            background: #3a2a1a;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning strong {
+            color: #ffa500;
+        }
+
+        .checklist {
+            background: #252540;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .checklist h3 {
+            color: #ffab19;
+            margin-bottom: 15px;
+        }
+
+        .checklist ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            color: #888;
+        }
+
+        button {
+            background-color: #ffab19;
+            color: #111;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #ff8c00;
+            transform: translateY(-2px);
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #1a3a1a 0%, #0a2a0a 100%);
+            border: 2px solid #00ff41;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .completion h2 {
+            color: #00ff41;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ffab19, #00ff41);
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        a {
+            color: #ffab19;
+        }
+
+        a:hover {
+            color: #ff8c00;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #444;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Final Boss: Submit Your Scratch Project</h1>
+            <p>Download, push to GitHub, and submit on Canvas</p>
+        </header>
+
+        <div class="step-indicator" id="step-indicator">Step 1 of 6</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 16.6%;"></div>
+        </div>
+
+        <div id="steps">
+            <!-- Step 1: Download from Scratch -->
+            <div class="step active" id="step-1">
+                <h2>Step 1: Download Your Scratch Project</h2>
+                <p>First, let's download your Scratch project as a file.</p>
+                
+                <ol>
+                    <li>Go to <a href="https://scratch.mit.edu" target="_blank">scratch.mit.edu</a> and sign in</li>
+                    <li>Open your project (the one you want to submit)</li>
+                    <li>Click <strong>File</strong> in the menu bar</li>
+                    <li>Click <strong>Save to your computer</strong></li>
+                    <li>Save the <strong>.sb3</strong> file somewhere you can find it (like Downloads or Desktop)</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>What's an .sb3 file?</strong> This is a Scratch project file. It contains all your code, sprites, and sounds in one file.
+                </div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 2: Move to Your Repo -->
+            <div class="step" id="step-2">
+                <h2>Step 2: Add the File to Your Repository</h2>
+                <p>Now move the .sb3 file into your GitHub repository folder.</p>
+                
+                <ol>
+                    <li>Open <strong>Finder</strong></li>
+                    <li>Find your downloaded <strong>.sb3</strong> file</li>
+                    <li>Drag it into your <strong>Intro-To-Programming</strong> folder</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Where's my repo folder?</strong> It's wherever you cloned it earlier - probably in Documents or Desktop. You can also see it in VS Code's Explorer panel.
+                </div>
+
+                <div class="warning">
+                    <strong>Make sure</strong> the file is directly inside your repo folder, not in a subfolder (unless your instructor said otherwise).
+                </div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 3: Stage, Commit, Push -->
+            <div class="step" id="step-3">
+                <h2>Step 3: Push to GitHub</h2>
+                <p>Now let's upload your Scratch file to GitHub using the workflow you learned.</p>
+                
+                <ol>
+                    <li>Open your repo in <strong>VS Code</strong></li>
+                    <li>Click the <strong>Source Control</strong> icon (left sidebar)</li>
+                    <li>You should see your .sb3 file under "Changes"</li>
+                    <li>Click the <strong>+</strong> button to stage it</li>
+                    <li>Type a commit message like: <code>Add Scratch project</code></li>
+                    <li>Click <strong>Commit</strong></li>
+                    <li>Click <strong>Sync Changes</strong> to push to GitHub</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Remember:</strong> Add → Commit → Push
+                </div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 4: Verify on GitHub -->
+            <div class="step" id="step-4">
+                <h2>Step 4: Verify on GitHub</h2>
+                <p>Let's make sure your file made it to GitHub.</p>
+                
+                <ol>
+                    <li>Go to <a href="https://github.com" target="_blank">github.com</a></li>
+                    <li>Navigate to your <strong>Intro-To-Programming</strong> repository</li>
+                    <li>Look for your <strong>.sb3</strong> file in the file list</li>
+                    <li>Click on it to make sure it's there</li>
+                </ol>
+
+                <div class="checklist">
+                    <h3>Before continuing, verify:</h3>
+                    <ul>
+                        <li>Your .sb3 file appears in your repository on GitHub</li>
+                        <li>The file name looks correct</li>
+                    </ul>
+                </div>
+
+                <div class="warning">
+                    <strong>Don't see your file?</strong> Go back and make sure you clicked "Sync Changes" after committing. The file needs to be pushed to GitHub, not just committed locally.
+                </div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 5: Copy the Link -->
+            <div class="step" id="step-5">
+                <h2>Step 5: Copy Your Repository Link</h2>
+                <p>Now get the link to submit on Canvas.</p>
+                
+                <ol>
+                    <li>On your GitHub repository page, look at the <strong>URL in your browser</strong></li>
+                    <li>It should look like: <code>https://github.com/yourusername/Intro-To-Programming</code></li>
+                    <li><strong>Copy this URL</strong> from your browser's address bar</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>This is the link</strong> you'll submit on Canvas. It's the main page of your repository where your instructor can see all your files.
+                </div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 6: Submit on Canvas -->
+            <div class="step" id="step-6">
+                <h2>Step 6: Submit on Canvas</h2>
+                <p>Finally, submit your repository link on Canvas.</p>
+                
+                <ol>
+                    <li>Go to <strong>Canvas</strong> and find the assignment</li>
+                    <li>Click <strong>Submit Assignment</strong></li>
+                    <li>Choose <strong>Website URL</strong> as the submission type</li>
+                    <li><strong>Paste</strong> your GitHub repository link</li>
+                    <li>Click <strong>Submit</strong></li>
+                </ol>
+
+                <div class="checklist">
+                    <h3>Final checklist:</h3>
+                    <ul>
+                        <li>Your .sb3 file is visible on GitHub</li>
+                        <li>You submitted the correct repository link on Canvas</li>
+                        <li>Canvas shows your submission was received</li>
+                    </ul>
+                </div>
+                
+                <button onclick="showCompletion()">I've Submitted</button>
+            </div>
+
+            <!-- Completion -->
+            <div class="completion" id="completion" style="display: none;">
+                <h2>Submission Complete</h2>
+                <p>You've successfully submitted your Scratch project via GitHub.</p>
+                <p>This is the same workflow you'll use for future assignments:</p>
+                <p><strong>Download → Add to Repo → Push → Submit Link</strong></p>
+                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #00ff41;">loading...</strong></p>
+                <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        function showCompletion() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.getElementById('completion').style.display = 'block';
+            document.getElementById('step-indicator').textContent = 'Complete!';
+            document.getElementById('progress-fill').style.width = '100%';
+            
+            // Get dynamic password
+            try {
+                const levelInfo = window.getLevelInfo('submit-scratch/index.html');
+                let nextPassword = 'submitted';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'submitted';
+            }
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

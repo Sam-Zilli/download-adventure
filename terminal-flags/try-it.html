@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try It - See Hidden Files</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .lesson-card {
+            background: #16213e;
+            border: 3px solid #00ff41;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 0 40px #00ff4140;
+            text-align: center;
+        }
+
+        h1 {
+            color: #00ff41;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #4a90d9;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .step {
+            background: #0f0f23;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .step-number {
+            background: #00ff41;
+            color: #111;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .step-content {
+            color: #bbb;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .step-content code {
+            background: #2a2a4a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #00ff41;
+            display: inline;
+            line-height: 1;
+            vertical-align: baseline;
+        }
+
+        code {
+            background: #2a2a4a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #00ff41;
+        }
+
+        .keyboard-shortcut {
+            background: #333;
+            border: 1px solid #555;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: inherit;
+            color: #fff;
+            margin: 0 2px;
+            display: inline;
+            line-height: 1;
+            vertical-align: baseline;
+        }
+
+        .continue-btn {
+            background: linear-gradient(90deg, #00ff41 0%, #0DFF00 100%);
+            color: #111;
+            font-size: 1.3em;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            padding: 18px 50px;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 0 0 25px #00ff4180;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .continue-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px #00ff41;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-card">
+            <h1>Try It Yourself!</h1>
+            
+            <p>Let's navigate to a folder and see hidden files on your computer.</p>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">1</span> Open Terminal
+                </div>
+                <div class="step-content">
+                    Press <span class="keyboard-shortcut">Cmd</span> + <span class="keyboard-shortcut">Space</span> to open Spotlight, then type <strong>Terminal</strong> and press Enter.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">2</span> Check where you are
+                </div>
+                <div class="step-content">
+                    Type <code>pwd</code> and press Enter. This shows your current folder location.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">3</span> Navigate to your home folder
+                </div>
+                <div class="step-content">
+                    Type <code>cd ~</code> and press Enter. The <code>~</code> is a shortcut for your home folder.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">4</span> See what's in your home folder
+                </div>
+                <div class="step-content">
+                    Type <code>ls</code> and press Enter. You'll see your Documents, Desktop, Downloads folders, etc.
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">5</span> Now reveal the hidden files!
+                </div>
+                <div class="step-content">
+                    Type <code>ls -a</code> and press Enter. You should see files starting with a dot like <code>.bashrc</code> or <code>.zshrc</code> - those are hidden files!
+                </div>
+            </div>
+
+            <p style="margin-top: 25px;">Now let's learn how the <code>-a</code> flag works...</p>
+
+            <a href="flags.html" class="continue-btn">Continue</a>
+        </div>
+    </div>
+</body>
+</html>

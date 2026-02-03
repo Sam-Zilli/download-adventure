@@ -1,233 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Introduction to VS Code</title>
+    <title>Install VS Code</title>
+    
+    <script src="../navigation.js"></script>
     <style>
-        /* General reset */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
-        /* Body and background styles */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            line-height: 1.6;
-            padding: 30px;
-        }
-
-        /* Container Styling */
-        #container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1e1e 0%, #252526 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
             padding: 20px;
         }
 
-        /* Header Styling */
+        #container {
+            background-color: #2d2d30;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 1px solid #3e3e42;
+        }
+
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            color: #2980b9;
+            color: #007acc;
+            font-size: 2.2em;
+            font-weight: 600;
             margin-bottom: 10px;
-            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
 
-        /* Section Styling */
-        section {
-            margin-bottom: 30px;
+        .vscode-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #007acc, #0065a9);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            color: #007acc;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .info-box {
+            background: #37373d;
+            border-left: 4px solid #007acc;
             padding: 20px;
-            background-color: #fafafa;
-            border-left: 5px solid #2980b9;
-            border-radius: 8px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
         }
 
-        section h2 {
-            font-size: 1.8rem;
-            color: #2980b9;
-            margin-bottom: 15px;
-            text-transform: capitalize;
+        .info-box p {
+            margin-bottom: 10px;
         }
 
-        section p {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 15px;
-            line-height: 1.8;
+        .info-box p:last-child {
+            margin-bottom: 0;
         }
 
-        /* Horizontal rule styling */
-        hr {
-            border: 0;
-            height: 1px;
-            background-color: #ddd;
+        ol {
+            padding-left: 25px;
             margin: 20px 0;
         }
 
-        /* Ordered list styling */
-        ol {
-            margin-left: 20px;
-            font-size: 1.1rem;
-        }
-
         ol li {
-            margin-bottom: 10px;
+            padding: 12px 0;
+            font-size: 1.05em;
+            color: #ddd;
         }
 
-        ol li a {
-            color: #2980b9;
+        ol li strong {
+            color: #4ec9b0;
+        }
+
+        code {
+            background-color: #1e1e1e;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: #ce9178;
+            border: 1px solid #3e3e42;
+        }
+
+        .code-block {
+            display: block;
+            background-color: #1e1e1e;
+            border: 1px solid #3e3e42;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            border-radius: 8px;
+            color: #d4d4d4;
+            font-size: 1.1em;
+        }
+
+        .code-block .command {
+            color: #dcdcaa;
+        }
+
+        a {
+            color: #3794ff;
             text-decoration: none;
-            font-weight: bold;
         }
 
-        ol li a:hover {
+        a:hover {
             text-decoration: underline;
         }
 
-        /* Footer and Button Styling */
-        footer {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        #nextPageButton button {
-            background-color: #2980b9;
-            color: #fff;
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #nextPageButton button:hover {
-            background-color: #21618c;
-        }
-
-        #nextPageButton button:focus {
-            outline: none;
-        }
-
-        /* Mobile responsiveness */
-        @media screen and (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
-
-            #container {
-                padding: 15px;
-            }
-
-            section h2 {
-                font-size: 1.6rem;
-            }
-
-            section p {
-                font-size: 1rem;
-            }
-
-            ol li {
-                font-size: 1rem;
-            }
-
-            #nextPageButton button {
-                padding: 10px 20px;
-                font-size: 1rem;
-            }
-        }
-
-
-        /* Add styles for the highlighted command */
-        .highlight {
-            font-weight: bold;
-            color: #ffffff;
+        button {
             background-color: #007acc;
-            /* VS Code Blue */
-            padding: 2px 6px;
-            border-radius: 4px;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #005a9e;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            background-color: #3e3e42;
+            margin-right: 10px;
+        }
+
+        .back-btn:hover {
+            background-color: #4e4e52;
+        }
+
+        .nav-buttons {
+            margin-top: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #3e3e42;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #007acc, #4ec9b0);
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .tip {
+            background: #2a4a2a;
+            border-left: 4px solid #4ec9b0;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip strong {
+            color: #4ec9b0;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #1a3a1a 0%, #0a2a0a 100%);
+            border: 2px solid #4ec9b0;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .completion h2 {
+            color: #4ec9b0;
+            margin-bottom: 20px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: #37373d;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #4e4e52;
+        }
+
+        .feature-card .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h3 {
+            color: #007acc;
+            font-size: 1em;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.9em;
+            color: #999;
+            margin: 0;
         }
     </style>
-    <script src="../navigation.js"></script>
 </head>
-
 <body>
     <div id="container">
         <header>
-            <h1>Visual Studio Code (VS Code) - A Beginner's Guide</h1>
+            <h1>Visual Studio Code</h1>
         </header>
 
-        <section id="what-is-vs-code">
-            <p>Technically we could write all of our code in Terminal - but wouldn't it be nice to have a pretty
-                interface with helpful tools?</p>
-            <p>Writing code in Terminal is like writing a book in the old Notepad application that came with computers.
-                VS Code is like Word - many more features.</p>
-            <hr>
-            <p> VS Code is an IDE - Integrated Development Enviornment. All the things developers need to do - write
-                code, debug, project management is all included. </p>
-        </section>
+        <div class="step-indicator" id="step-indicator">Step 1 of 3</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 33%;"></div>
+        </div>
 
-        <section id="how-to-install">
-            <h2>How to Install VS Code</h2>
-            <p>Anyone remember that tool we used to install things? Oh yeah, brew...</p>
-            <ol>
-                <li>Go to the <a href="https://formulae.brew.sh/cask/visual-studio-code" target="_blank">brew page for
-                        VSCode</a>.</li>
-                <li>Copy the command into your Terminal to install VS Code.</li>
-                <li>Finally, check that it worked by entering: <code><span class="highlight">% code -v</span></code>
-                </li>
-            </ol>
-        </section>
-    </div>
+        <div id="steps">
+            <!-- Step 1: What is VS Code -->
+            <div class="step active" id="step-1">
+                <h2>What is VS Code?</h2>
+                
+                <p>VS Code is a <strong>code editor</strong> - a place to write, edit, and organize your code.</p>
 
-    <footer>
-        <a href="../password-portal/index.html" id="nextPageButton">
-            <button>The next password is: <span id="dynamic-password">loading...</span></button>
-        </a>
-    </footer>
+                <p>We <em>could</em> write code in Terminal, but VS Code gives us helpful tools like:</p>
+
+                <ul style="margin-left: 25px; margin-bottom: 20px;">
+                    <li style="padding: 8px 0;"><strong>Syntax Highlighting</strong> - colors make code easier to read</li>
+                    <li style="padding: 8px 0;"><strong>Autocomplete</strong> - suggests code as you type</li>
+                    <li style="padding: 8px 0;"><strong>Error Detection</strong> - shows mistakes before you run</li>
+                    <li style="padding: 8px 0;"><strong>File Explorer</strong> - organize your project files</li>
+                </ul>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 2: Install -->
+            <div class="step" id="step-2">
+                <h2>Install VS Code</h2>
+                
+                <p>Remember Homebrew? Let's use it to install VS Code.</p>
+                
+                <ol>
+                    <li>Go to the <a href="https://formulae.brew.sh/cask/visual-studio-code" target="_blank">Homebrew page for VS Code</a></li>
+                    <li>Find the install command and <strong>copy it</strong></li>
+                    <li>Paste it into your <strong>Terminal</strong> and press Enter</li>
+                    <li>Wait for it to install (this may take a minute)</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Hint:</strong> The command will look something like <code>brew install --cask visual-studio-code</code>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Verify -->
+            <div class="step" id="step-3">
+                <h2>Verify Installation</h2>
+                
+                <p>Let's make sure VS Code installed correctly.</p>
+                
+                <p>Type this in your Terminal:</p>
+                <div class="code-block"><span class="command">code -v</span></div>
+                
+                <p>You should see a version number like <code>1.85.0</code> (your numbers may differ).</p>
+
+                <p>VS Code is now an app installed on your computer. You can put it in your dock for easy access.</p>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="showCompletion()">I Installed It</button>
+                </div>
+            </div>
+
+            <!-- Completion -->
+            <div class="completion" id="completion" style="display: none;">
+                <h2>VS Code Ready</h2>
+                <p>You now have a professional code editor installed.</p>
+                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #4ec9b0;">loading...</strong></p>
+                <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Load dynamic password when page loads
-        document.addEventListener('DOMContentLoaded', function () {
-            try {
-                console.log('[DEBUG VSCode] Getting dynamic password for VSCode page...');
-                console.log('[DEBUG VSCode] window.getLevelInfo exists:', typeof window.getLevelInfo !== 'undefined');
-                console.log('[DEBUG VSCode] window.LEVELS exists:', typeof window.LEVELS !== 'undefined');
-                
-                const levelInfo = window.getLevelInfo('VSCode/index.html');
-                console.log('[DEBUG VSCode] Level info:', levelInfo);
-                let nextPassword = 'adventure'; // fallback
+        let currentStep = 1;
+        const totalSteps = 3;
 
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function showCompletion() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.getElementById('completion').style.display = 'block';
+            document.getElementById('step-indicator').textContent = 'Complete!';
+            document.getElementById('progress-fill').style.width = '100%';
+            
+            try {
+                const levelInfo = window.getLevelInfo('vscode/index.html');
+                let nextPassword = 'clone';
                 if (levelInfo && levelInfo.next) {
                     nextPassword = levelInfo.next.password;
-                    console.log('[DEBUG VSCode] Next password from navigation.js:', nextPassword);
-                } else {
-                    console.log('[DEBUG VSCode] No next level found, using fallback');
                 }
-
                 document.getElementById('dynamic-password').textContent = nextPassword;
-                console.log('[DEBUG VSCode] Dynamic password set to:', nextPassword);
             } catch (error) {
-                console.error('[DEBUG VSCode] Error getting level info:', error);
-                // Fallback to default
-                document.getElementById('dynamic-password').textContent = 'adventure';
+                document.getElementById('dynamic-password').textContent = 'clone';
             }
-        });
+        }
+
+        // Initialize
+        updateProgress();
     </script>
 </body>
-
 </html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Git Clone?</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: #1e1e2e;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #f14e32;
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #ffa500;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .diagram-box {
+            background: #252540;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .diagram-box.github {
+            border: 3px solid #238636;
+        }
+
+        .diagram-box.computer {
+            border: 3px solid #007acc;
+        }
+
+        .diagram-box .icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .diagram-box .label {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #fff;
+        }
+
+        .diagram-box .sublabel {
+            color: #888;
+            font-size: 0.95em;
+            margin-top: 5px;
+        }
+
+        .arrow {
+            font-size: 2.5em;
+            color: #00ff41;
+        }
+
+        .code-block {
+            background-color: #2a2a3a;
+            border: 1px solid #444;
+            padding: 15px 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 8px;
+            color: #00ff41;
+            font-size: 1.1em;
+        }
+
+        .analogy {
+            background: #1a3a2a;
+            border-left: 4px solid #00ff41;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .analogy strong {
+            color: #00ff41;
+        }
+
+        .key-points {
+            background: #252540;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .key-points h3 {
+            color: #ffa500;
+            margin-bottom: 15px;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-points li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .key-points li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #00ff41;
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #f14e32;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #d43d24;
+            transform: translateY(-2px);
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #1a3a1a 0%, #0a2a0a 100%);
+            border: 2px solid #00ff41;
+            border-radius: 15px;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .completion h2 {
+            color: #00ff41;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>What is Git Clone?</h1>
+
+        <p><strong>Clone</strong> means to make a copy. When you <strong>clone a repository</strong>, you're downloading a copy of the code from GitHub to your computer.</p>
+
+        <div class="diagram">
+            <div class="diagram-box github">
+                <div class="icon">☁️</div>
+                <div class="label">GitHub</div>
+                <div class="sublabel">Your repository online</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="diagram-box computer">
+                <div class="icon">💻</div>
+                <div class="label">Your Computer</div>
+                <div class="sublabel">Local copy of the code</div>
+            </div>
+        </div>
+
+        <h2>The Command</h2>
+        <p>In the terminal, cloning looks like this:</p>
+        <div class="code-block">git clone https://github.com/username/repository-name.git</div>
+        <p>This downloads the entire repository to your computer, including all the files and the complete history of changes.</p>
+
+        <h2>Why Clone?</h2>
+        <div class="key-points">
+            <h3>Cloning lets you:</h3>
+            <ul>
+                <li>Work on code offline, on your own computer</li>
+                <li>Make changes and test them locally</li>
+                <li>Push your changes back to GitHub when ready</li>
+                <li>Collaborate with others on the same project</li>
+            </ul>
+        </div>
+
+        <button onclick="showCompletion()">Got It</button>
+
+        <div class="completion" id="completion">
+            <h2>Now Let's Clone a Repo</h2>
+            <p>Next, you'll create a repository and clone it to your computer.</p>
+            <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #00ff41;">loading...</strong></p>
+            <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+        </div>
+    </div>
+
+    <script>
+        function showCompletion() {
+            document.getElementById('completion').style.display = 'block';
+            
+            try {
+                const levelInfo = window.getLevelInfo('git-clone/index.html');
+                let nextPassword = 'clone';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'clone';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -140,13 +140,21 @@
         <h1>Welcome, Programmers!</h1>
         <p>You are about to embark on Sam's Intro to Programming DOWNLOAD AVENTURE!</p>
 
-        Please read all instructions CAREFULLY. The first password is: learn
+        <p>Please read all instructions CAREFULLY. The first password is: <strong id="first-password">loading...</strong></p>
 
         <div class="navigation">
             <!-- Link to Next Page -->
             <a href="password-portal/index.html" class="btn">Start Level 1</a>
         </div>
     </div>
+
+    <script src="navigation.js"></script>
+    <script>
+        // Dynamically display the first level's password
+        if (window.LEVELS && window.LEVELS.length > 0) {
+            document.getElementById('first-password').textContent = window.LEVELS[0].password;
+        }
+    </script>
 </body>
 
 </html>

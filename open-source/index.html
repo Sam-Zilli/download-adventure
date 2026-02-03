@@ -243,82 +243,42 @@
 <body>
     <div class="container">
         <div class="progress-indicator">
-            <span id="progress-text">Step 1 of 3: What is Open Source Software?</span>
+            <span id="progress-text">Open Source vs Closed Source</span>
         </div>
 
-        <!-- Step 1: What is Open Source? -->
+        <!-- Step 1: Comparison -->
         <div class="step active" id="step-1">
-            <h1>What is Open Source Software?</h1>
-
-            <section>
-                <h2>Key Characteristics of Open Source Software</h2>
-                <ul>
-                    <li><strong>Transparency:</strong> The source code is open to everyone. You can inspect, modify, and improve it.</li>
-                    <li><strong>Collaboration:</strong> Developers from around the world can collaborate to improve the software.</li>
-                    <li><strong>Free to Use:</strong> Many open-source programs are free to use, although some may accept donations or offer paid services.</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Why Use Open Source Software?</h2>
-                <p>There are many benefits to using open-source software:</p>
-                <ul>
-                    <li><strong>Customization:</strong> You can adapt the software to fit your needs.</li>
-                    <li><strong>Security:</strong> With many eyes on the code, vulnerabilities are often discovered and patched quickly.</li>
-                    <li><strong>Community Support:</strong> Open source software often has vibrant communities that provide support and resources.</li>
-                    <li><strong>Learning Opportunity:</strong> Open-source code is a great way to learn how software is built and structured.</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Examples of Popular Open Source Software</h2>
-                <p>Some well-known open-source software includes:</p>
-                <ul>
-                    <li><strong>Linux:</strong> A popular open-source operating system.</li>
-                    <li><strong>Firefox:</strong> An open-source web browser.</li>
-                    <li><strong>GIMP:</strong> A powerful open-source image editing software.</li>
-                    <li><strong>VLC Media Player:</strong> An open-source media player that supports multiple formats.</li>
-                    <li><strong>git:</strong> A powerful open-source version control system.</li>
-                    <li><strong>Python:</strong> A programming language that we are going to learn!</li>
-                </ul>
-            </section>
+            <h1>Open Source vs Closed Source</h1>
+            
+            <div style="display: flex; gap: 30px; margin-top: 30px;">
+                <!-- Open Source Column -->
+                <div style="flex: 1; background: #e8f5e9; border-radius: 15px; padding: 30px;">
+                    <h2 style="color: #2e7d32; text-align: center; margin-bottom: 20px;">Open Source</h2>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Code is public - anyone can see it</li>
+                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Free to use and modify</li>
+                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Community-driven development</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-weight: 600; color: #2e7d32;">Examples:</p>
+                    <p>Linux, Firefox, Python, VLC, Git</p>
+                </div>
+                
+                <!-- Closed Source Column -->
+                <div style="flex: 1; background: #fce4ec; border-radius: 15px; padding: 30px;">
+                    <h2 style="color: #c2185b; text-align: center; margin-bottom: 20px;">Closed Source</h2>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Code is private - only the company can see it</li>
+                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Requires paid license</li>
+                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Company controls updates</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-weight: 600; color: #c2185b;">Examples:</p>
+                    <p>Windows, macOS, Photoshop, Microsoft Office</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Step 2: What is Proprietary Software? -->
-        <div class="step" id="step-2">
-            <h1>What is Proprietary Software?</h1>
-
-            <section>
-                <h2>Key Characteristics of Proprietary Software</h2>
-                <ul>
-                    <li><strong>Closed Source Code:</strong> The source code is not available to the public. Users cannot modify or inspect the code.</li>
-                    <li><strong>Licensing Restrictions:</strong> Proprietary software is typically sold under a license that restricts how it can be used, copied, or shared.</li>
-                    <li><strong>Paid Software:</strong> Most proprietary software requires users to pay for a license to use it. The price can vary based on the product and licensing terms.</li>
-                    <li><strong>Support and Updates:</strong> The vendor provides official support, updates, and maintenance for proprietary software.</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Why Use Proprietary Software?</h2>
-                <p>While open-source software has many advantages, proprietary software also has its benefits:</p>
-                <ul>
-                    <li><strong>Professional Support:</strong> Vendors often provide comprehensive customer support to users, ensuring that issues are addressed promptly.</li>
-                    <li><strong>User Experience:</strong> Proprietary software often focuses on user experience with polished interfaces and ease of use.</li>
-                    <li><strong>Specialized Features:</strong> Some proprietary software offers advanced or specialized features that may not be available in open-source alternatives.</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Examples of Proprietary Software</h2>
-                <p>Here are some well-known examples of proprietary software:</p>
-                <ul>
-                    <li><strong>Microsoft Windows:</strong> A proprietary operating system developed by Microsoft.</li>
-                    <li><strong>Adobe Photoshop:</strong> A widely used image editing software with a paid license.</li>
-                    <li><strong>Microsoft Office Suite:</strong> Includes Word, Excel, PowerPoint, and other productivity software.</li>
-                    <li><strong>Apple macOS:</strong> The proprietary operating system for Apple computers.</li>
-                </ul>
-            </section>
-        </div>
+        <!-- Step 2: Removed - skip directly to game -->
+        <div class="step" id="step-2" style="display: none;"></div>
 
         <!-- Step 3: Game -->
         <div class="step" id="step-3">
@@ -331,9 +291,7 @@
                 <button id="nextPageButton" onclick="goToNextPage()">Next Page</button>
 
                 <div class="completion" id="game-completion" style="display: none;">
-                    <h2>Congratulations! 🎉</h2>
-                    <p>You've mastered the basics of open source and proprietary software!</p>
-                    <p style="font-size:1.3em; margin-bottom:24px;">Your password is: <strong id="dynamic-password">loading...</strong></p>
+                    <p style="font-size:1.3em; margin-bottom:24px;">Password: <strong id="dynamic-password">loading...</strong></p>
                     <button class="portal-btn" onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
                 </div>
             </div>
@@ -357,17 +315,16 @@
 
         <div id="winModal" class="modal" style="display: none;">
             <div class="modal-content">
-                <h2>You Win!</h2>
-                <p>Congratulations! You've mastered the basics of open source and proprietary software.</p>
-                <p>Your password is: <strong id="win-password">loading...</strong></p>
-                <button class="game-btn" id="continueButton">Continue</button>
+                <h2 style="color: #4CAF50;">You Win!</h2>
+                <p style="font-size: 1.3em; margin: 20px 0;">Password: <strong id="win-password">loading...</strong></p>
+                <button class="game-btn" onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
             </div>
         </div>
     </div>
 
     <script>
         let currentStep = 1;
-        const totalSteps = 3;
+        const totalSteps = 1; // Just comparison, then straight to game
         
         // Game variables
         const canvas = document.getElementById('gameCanvas');
@@ -575,52 +532,34 @@
         // Navigation
         function updateProgressIndicator() {
             const progressText = document.getElementById('progress-text');
-            const stepTitles = ['What is Open Source Software?', 'What is Proprietary Software?', 'Test Your Knowledge Game'];
-            progressText.textContent = `Step ${currentStep} of ${totalSteps}: ${stepTitles[currentStep - 1]}`;
+            progressText.textContent = 'Open Source vs Closed Source';
         }
 
         function updateNavigationButtons() {
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn-nav');
             
-            prevBtn.disabled = currentStep === 1;
-            nextBtn.disabled = currentStep === totalSteps;
-            
-            if (currentStep === totalSteps) {
-                nextBtn.textContent = 'Play Game';
-            } else {
-                nextBtn.textContent = 'Next →';
-            }
+            prevBtn.style.display = 'none';
+            nextBtn.textContent = 'Play Game →';
         }
 
         function showStep(step) {
-            // Hide all steps
-            for (let i = 1; i <= totalSteps; i++) {
-                document.getElementById(`step-${i}`).classList.remove('active');
-            }
-            
-            // Show current step
-            document.getElementById(`step-${step}`).classList.add('active');
-            
-            // Initialize step-specific content
-            if (step === 3) {
-                // Show start modal for game
-                setTimeout(() => {
-                    startModal.style.display = 'block';
-                }, 500);
-                // Draw initial player state
-                drawPlayer();
-            }
-            
+            // Show comparison step
+            document.getElementById('step-1').classList.add('active');
             updateProgressIndicator();
             updateNavigationButtons();
         }
 
         function nextStep() {
-            if (currentStep < totalSteps) {
-                currentStep++;
-                showStep(currentStep);
-            }
+            // Go directly to game
+            document.getElementById('step-1').classList.remove('active');
+            document.getElementById('step-3').classList.add('active');
+            document.querySelector('.progress-indicator').style.display = 'none';
+            document.querySelector('.navigation').style.display = 'none';
+            setTimeout(() => {
+                startModal.style.display = 'block';
+            }, 500);
+            drawPlayer();
         }
 
         function previousStep() {

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Basics: Add, Commit, Push</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: #1e1e2e;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: #f14e32;
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #888;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            color: #f14e32;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            margin: 20px 0 10px 0;
+            color: #ffa500;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        ol, ul {
+            padding-left: 25px;
+            margin-bottom: 25px;
+        }
+
+        ol li, ul li {
+            padding: 8px 0;
+            font-size: 1.05em;
+            color: #ddd;
+        }
+
+        ol li strong, ul li strong {
+            color: #00ff41;
+        }
+
+        code {
+            background-color: #2a2a3a;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #00ff41;
+        }
+
+        .code-block {
+            display: block;
+            background-color: #2a2a3a;
+            border: 1px solid #444;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 8px;
+            color: #00ff41;
+        }
+
+        .concept-box {
+            background: #252540;
+            border: 2px solid #f14e32;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .concept-box h3 {
+            color: #f14e32;
+            margin-top: 0;
+        }
+
+        .workflow {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .workflow-step {
+            background: #2a2a4a;
+            border-radius: 10px;
+            padding: 15px 20px;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .workflow-step .icon {
+            font-size: 2em;
+            margin-bottom: 8px;
+        }
+
+        .workflow-step .label {
+            font-weight: bold;
+            color: #00ff41;
+        }
+
+        .workflow-arrow {
+            font-size: 1.5em;
+            color: #666;
+        }
+
+        .tip {
+            background: #1a3a1a;
+            border-left: 4px solid #00ff41;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip strong {
+            color: #00ff41;
+        }
+
+        .warning {
+            background: #3a2a1a;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning strong {
+            color: #ffa500;
+        }
+
+        button {
+            background-color: #f14e32;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            transition: background-color 0.3s ease, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #d43d24;
+            transform: translateY(-2px);
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #1a3a1a 0%, #0a2a0a 100%);
+            border: 2px solid #00ff41;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .completion h2 {
+            color: #00ff41;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f14e32, #00ff41);
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .keyboard {
+            display: inline-block;
+            background: #333;
+            border: 1px solid #555;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            color: #fff;
+            margin: 0 3px;
+        }
+
+        .comparison {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison > div {
+            flex: 1;
+            background: #252540;
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .comparison h4 {
+            color: #007acc;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Git Basics: Add, Commit, Push</h1>
+            <p>The essential workflow for saving your code</p>
+        </header>
+
+        <div class="step-indicator" id="step-indicator">Step 1 of 6</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 16.6%;"></div>
+        </div>
+
+        <div id="steps">
+            <!-- Step 1: The Workflow -->
+            <div class="step active" id="step-1">
+                <h2>The Git Workflow</h2>
+                <p>When you make changes to your code, you need to save them to GitHub. This happens in three steps:</p>
+                
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <div class="icon">📝</div>
+                        <div class="label">ADD</div>
+                        <div>Stage changes</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="icon">💾</div>
+                        <div class="label">COMMIT</div>
+                        <div>Save locally</div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="icon">☁️</div>
+                        <div class="label">PUSH</div>
+                        <div>Upload to GitHub</div>
+                    </div>
+                </div>
+
+                <div class="concept-box">
+                    <h3>Why three steps?</h3>
+                    <ul>
+                        <li><strong>Add</strong> - Choose which changes you want to save</li>
+                        <li><strong>Commit</strong> - Save those changes with a message describing what you did</li>
+                        <li><strong>Push</strong> - Upload your commits to GitHub so others can see them</li>
+                    </ul>
+                </div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 2: Make a Change -->
+            <div class="step" id="step-2">
+                <h2>Step 1: Make a Change</h2>
+                <p>First, let's make a change to your repository.</p>
+                
+                <ol>
+                    <li>Open your <strong>Intro-To-Programming</strong> folder in VS Code</li>
+                    <li>Open the <strong>README.md</strong> file</li>
+                    <li>Add a new line with some text, like:<br>
+                        <code>This is my first edit!</code>
+                    </li>
+                    <li>Save the file (<span class="keyboard">Cmd</span> + <span class="keyboard">S</span>)</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Notice:</strong> After saving, look at the Source Control icon in the left sidebar. It should show a number (1) indicating you have one changed file.
+                </div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 3: Add (Stage) -->
+            <div class="step" id="step-3">
+                <h2>Step 2: Add (Stage Your Changes)</h2>
+                <p>"Adding" tells Git which changes you want to include in your next save.</p>
+                
+                <h3>In VS Code:</h3>
+                <ol>
+                    <li>Click the <strong>Source Control</strong> icon in the left sidebar (looks like a branch)</li>
+                    <li>You'll see your changed file listed under "Changes"</li>
+                    <li>Hover over the file and click the <strong>+</strong> button to stage it</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>What happened?</strong> The file moved from "Changes" to "Staged Changes". This means it's ready to be committed.
+                </div>
+
+                <h3>Terminal Alternative:</h3>
+                <div class="code-block">git add README.md</div>
+                <p>Or to add all changed files:</p>
+                <div class="code-block">git add .</div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 4: Commit -->
+            <div class="step" id="step-4">
+                <h2>Step 3: Commit (Save Your Changes)</h2>
+                <p>A "commit" is like a save point. It records your changes with a message describing what you did.</p>
+                
+                <h3>In VS Code:</h3>
+                <ol>
+                    <li>In the Source Control panel, find the <strong>message box</strong> at the top</li>
+                    <li>Type a short message describing your change, like:<br>
+                        <code>Add first edit to README</code>
+                    </li>
+                    <li>Click the <strong>Commit</strong> button (or press <span class="keyboard">Cmd</span> + <span class="keyboard">Enter</span>)</li>
+                </ol>
+
+                <div class="warning">
+                    <strong>Good commit messages:</strong> Be specific about what you changed. "Updated README" is okay, but "Add project description to README" is better.
+                </div>
+
+                <h3>Terminal Alternative:</h3>
+                <div class="code-block">git commit -m "Add first edit to README"</div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 5: Push -->
+            <div class="step" id="step-5">
+                <h2>Step 4: Push (Upload to GitHub)</h2>
+                <p>Your changes are saved locally, but GitHub doesn't know about them yet. "Push" uploads your commits.</p>
+                
+                <h3>In VS Code:</h3>
+                <ol>
+                    <li>After committing, click the <strong>Sync Changes</strong> button (or the cloud icon with an arrow)</li>
+                    <li>If prompted, click "OK" to push and pull</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Check it worked:</strong> Go to your repository on GitHub.com and refresh the page. You should see your changes in the README file.
+                </div>
+
+                <h3>Terminal Alternative:</h3>
+                <div class="code-block">git push</div>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 6: Summary -->
+            <div class="step" id="step-6">
+                <h2>Quick Reference</h2>
+                <p>Here's the workflow you'll use every time you want to save changes:</p>
+
+                <div class="comparison">
+                    <div>
+                        <h4>VS Code</h4>
+                        <ol>
+                            <li>Save your file</li>
+                            <li>Click <strong>+</strong> to stage</li>
+                            <li>Type a message</li>
+                            <li>Click <strong>Commit</strong></li>
+                            <li>Click <strong>Sync Changes</strong></li>
+                        </ol>
+                    </div>
+                    <div>
+                        <h4>Terminal</h4>
+                        <ol>
+                            <li>Save your file</li>
+                            <li><code>git add .</code></li>
+                            <li><code>git commit -m "message"</code></li>
+                            <li><code>git push</code></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="concept-box">
+                    <h3>Remember</h3>
+                    <p><strong>Add</strong> → <strong>Commit</strong> → <strong>Push</strong></p>
+                    <p>Stage → Save locally → Upload to GitHub</p>
+                </div>
+                
+                <button onclick="showCompletion()">Finish</button>
+            </div>
+
+            <!-- Completion -->
+            <div class="completion" id="completion" style="display: none;">
+                <h2>You've Got Git!</h2>
+                <p>You now know the fundamental Git workflow that developers use every day.</p>
+                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #00ff41;">loading...</strong></p>
+                <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 6;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        function showCompletion() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.getElementById('completion').style.display = 'block';
+            document.getElementById('step-indicator').textContent = 'Complete!';
+            document.getElementById('progress-fill').style.width = '100%';
+            
+            // Get dynamic password
+            try {
+                const levelInfo = window.getLevelInfo('git-basics/index.html');
+                let nextPassword = 'push';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'push';
+            }
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

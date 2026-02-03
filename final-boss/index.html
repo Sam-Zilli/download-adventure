@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Boss: Submit Your Project</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: #1e1e2e;
+            border-radius: 15px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #ff6b6b;
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            color: #4ecdc4;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            color: #ccc;
+            font-size: 1.2em;
+            margin: 25px 0 15px 0;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        ol {
+            padding-left: 25px;
+            margin: 20px 0;
+        }
+
+        ol li {
+            padding: 10px 0;
+            font-size: 1.05em;
+            color: #ddd;
+        }
+
+        ol li strong {
+            color: #4ecdc4;
+        }
+
+        code {
+            background-color: #2a2a3a;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #ff6b6b;
+        }
+
+        button {
+            background-color: #4ecdc4;
+            color: #1a1a2e;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #45b7aa;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            background-color: #555;
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        .back-btn:hover {
+            background-color: #666;
+        }
+
+        .nav-buttons {
+            margin-top: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #1a3a1a 0%, #0a2a0a 100%);
+            border: 2px solid #4ecdc4;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .completion h2 {
+            color: #4ecdc4;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .tip {
+            background: #2a3a2a;
+            border-left: 4px solid #4ecdc4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip strong {
+            color: #4ecdc4;
+        }
+
+        .warning {
+            background: #3a2a2a;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning strong {
+            color: #ff6b6b;
+        }
+
+        .checklist {
+            background: #2a2a3a;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            color: #ccc;
+        }
+
+        .checklist-item::before {
+            content: "☐";
+            font-size: 1.2em;
+        }
+
+        .phase-header {
+            background: linear-gradient(90deg, #ff6b6b22, transparent);
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .phase-header h2 {
+            color: #ff6b6b;
+            margin: 0;
+        }
+
+        .phase-header p {
+            margin: 5px 0 0 0;
+            font-size: 0.95em;
+            color: #999;
+        }
+
+        a {
+            color: #4ecdc4;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Final Boss</h1>
+            <p class="subtitle">Submit Your Scratch Project to GitHub</p>
+        </header>
+
+        <div class="step-indicator" id="step-indicator">Step 1 of 10</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 10%;"></div>
+        </div>
+
+        <div id="steps">
+            <!-- Step 1: Overview -->
+            <div class="step active" id="step-1">
+                <h2>The Mission</h2>
+                
+                <p>You're about to complete the full developer workflow:</p>
+                
+                <ol>
+                    <li><strong>Create</strong> a repository on GitHub</li>
+                    <li><strong>Clone</strong> it to your computer</li>
+                    <li><strong>Add</strong> your Scratch project file</li>
+                    <li><strong>Push</strong> it back to GitHub</li>
+                    <li><strong>Submit</strong> the link on Canvas</li>
+                </ol>
+
+                <p>Let's do this.</p>
+                
+                <button onclick="nextStep()">Start</button>
+            </div>
+
+            <!-- Step 2: Go to GitHub -->
+            <div class="step" id="step-2">
+                <div class="phase-header">
+                    <h2>Phase 1: Create Repository</h2>
+                    <p>Make a new repo on GitHub.com</p>
+                </div>
+                
+                <h2>Go to GitHub</h2>
+                
+                <ol>
+                    <li>Open <a href="https://github.com" target="_blank">github.com</a> in your browser</li>
+                    <li>Sign in to your account</li>
+                    <li>Click the <strong>+</strong> button in the top right corner</li>
+                    <li>Select <strong>New repository</strong></li>
+                </ol>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Create Repository -->
+            <div class="step" id="step-3">
+                <div class="phase-header">
+                    <h2>Phase 1: Create Repository</h2>
+                    <p>Make a new repo on GitHub.com</p>
+                </div>
+                
+                <h2>Set Up Your Repository</h2>
+                
+                <ol>
+                    <li><strong>Repository name:</strong> Enter <code>lmsc261</code></li>
+                    <li><strong>Description:</strong> (optional) Something like "My class projects"</li>
+                    <li><strong>Public or Private:</strong> Choose <strong>Private</strong></li>
+                    <li><strong>Initialize with a README:</strong> Check this box</li>
+                    <li>Click <strong>Create repository</strong></li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Why Private?</strong> Your schoolwork should stay private. Your instructor will be added as a collaborator so they can see it.
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Add Collaborator -->
+            <div class="step" id="step-4">
+                <div class="phase-header">
+                    <h2>Phase 1: Create Repository</h2>
+                    <p>Make a new repo on GitHub.com</p>
+                </div>
+                
+                <h2>Add Your Instructor as a Collaborator</h2>
+                
+                <ol>
+                    <li>On your new repository page, click <strong>Settings</strong> (gear icon)</li>
+                    <li>In the left sidebar, click <strong>Collaborators</strong></li>
+                    <li>Click <strong>Add people</strong></li>
+                    <li>Enter your instructor's GitHub username: <code>samcarlinone</code></li>
+                    <li>Click <strong>Add samcarlinone to this repository</strong></li>
+                </ol>
+
+                <div class="warning">
+                    <strong>Important:</strong> If you skip this step, your instructor won't be able to see your submissions.
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Copy URL -->
+            <div class="step" id="step-5">
+                <div class="phase-header">
+                    <h2>Phase 2: Clone to Computer</h2>
+                    <p>Download the repo to your computer</p>
+                </div>
+                
+                <h2>Copy the Repository URL</h2>
+                
+                <ol>
+                    <li>Go back to your repository's main page (click the repo name at the top)</li>
+                    <li>Click the green <strong>Code</strong> button</li>
+                    <li>Make sure <strong>HTTPS</strong> is selected</li>
+                    <li>Click the <strong>copy</strong> icon to copy the URL</li>
+                </ol>
+
+                <p>The URL will look like: <code>https://github.com/yourusername/lmsc261.git</code></p>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Clone in VS Code -->
+            <div class="step" id="step-6">
+                <div class="phase-header">
+                    <h2>Phase 2: Clone to Computer</h2>
+                    <p>Download the repo to your computer</p>
+                </div>
+                
+                <h2>Clone in VS Code</h2>
+                
+                <ol>
+                    <li>Open <strong>VS Code</strong></li>
+                    <li>Press <code>Cmd + Shift + P</code> to open the Command Palette</li>
+                    <li>Type <strong>Git: Clone</strong> and select it</li>
+                    <li>Paste the URL you copied</li>
+                    <li>Choose where to save it (like your Documents folder)</li>
+                    <li>When asked, click <strong>Open</strong> to open the cloned repository</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>What just happened?</strong> You downloaded a copy of your GitHub repository to your computer. Now you can add files to it.
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 7: Download Scratch Project -->
+            <div class="step" id="step-7">
+                <div class="phase-header">
+                    <h2>Phase 3: Add Your Project</h2>
+                    <p>Get your Scratch file into the repo</p>
+                </div>
+                
+                <h2>Download Your Scratch Project</h2>
+                
+                <ol>
+                    <li>Go to <a href="https://scratch.mit.edu" target="_blank">scratch.mit.edu</a></li>
+                    <li>Open your project</li>
+                    <li>Click <strong>File</strong> in the menu bar</li>
+                    <li>Click <strong>Save to your computer</strong></li>
+                    <li>Save the <code>.sb3</code> file somewhere you can find it</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Tip:</strong> The file will be named something like <code>my-project.sb3</code>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 8: Add File to Repo -->
+            <div class="step" id="step-8">
+                <div class="phase-header">
+                    <h2>Phase 3: Add Your Project</h2>
+                    <p>Get your Scratch file into the repo</p>
+                </div>
+                
+                <h2>Add the File to Your Repository</h2>
+                
+                <ol>
+                    <li>Find your downloaded <code>.sb3</code> file in Finder</li>
+                    <li>Drag it into your VS Code window (into the file explorer on the left)</li>
+                    <li>You should see the file appear in VS Code</li>
+                </ol>
+
+                <p>Or use Finder to copy the file directly into your repository folder.</p>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 9: Commit and Push -->
+            <div class="step" id="step-9">
+                <div class="phase-header">
+                    <h2>Phase 4: Push to GitHub</h2>
+                    <p>Upload your changes</p>
+                </div>
+                
+                <h2>Commit and Push</h2>
+                
+                <ol>
+                    <li>In VS Code, click the <strong>Source Control</strong> icon in the left sidebar (or press <code>Ctrl + Shift + G</code>)</li>
+                    <li>You'll see your <code>.sb3</code> file listed under "Changes"</li>
+                    <li>Click the <strong>+</strong> next to the file to stage it</li>
+                    <li>Type a commit message like <strong>"Add scratch project"</strong></li>
+                    <li>Click the <strong>checkmark</strong> to commit</li>
+                    <li>Click <strong>Sync Changes</strong> (or the cloud icon) to push to GitHub</li>
+                </ol>
+
+                <div class="warning">
+                    <strong>First time?</strong> VS Code might ask you to sign in to GitHub. Follow the prompts to authorize VS Code.
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 10: Verify and Submit -->
+            <div class="step" id="step-10">
+                <div class="phase-header">
+                    <h2>Phase 5: Submit on Canvas</h2>
+                    <p>Turn in your work</p>
+                </div>
+                
+                <h2>Verify and Submit</h2>
+                
+                <h3>Verify on GitHub</h3>
+                <ol>
+                    <li>Go to your repository on <a href="https://github.com" target="_blank">github.com</a></li>
+                    <li>You should see your <code>.sb3</code> file in the file list</li>
+                </ol>
+
+                <div class="checklist">
+                    <p><strong>Before submitting, check:</strong></p>
+                    <div class="checklist-item">Your .sb3 file is visible on GitHub</div>
+                    <div class="checklist-item">samcarlinone is added as a collaborator</div>
+                </div>
+
+                <h3>Submit on Canvas</h3>
+                <ol>
+                    <li>Copy your repository URL from the browser (e.g., <code>https://github.com/yourusername/lmsc261</code>)</li>
+                    <li>Go to the assignment on Canvas</li>
+                    <li>Paste the URL and submit</li>
+                </ol>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="showCompletion()">I've Submitted</button>
+                </div>
+            </div>
+
+            <!-- Completion -->
+            <div class="completion" id="completion" style="display: none;">
+                <h2>You Did It!</h2>
+                <p style="font-size: 1.2em;">You've completed the full developer workflow.</p>
+                <p style="margin-top: 20px; color: #999;">Create → Clone → Add → Commit → Push → Submit</p>
+                <p style="font-size: 1.3em; margin-top: 30px;">Password: <strong id="dynamic-password" style="color: #4ecdc4;">loading...</strong></p>
+                <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 10;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+            window.scrollTo(0, 0);
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function showCompletion() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.getElementById('completion').style.display = 'block';
+            document.getElementById('step-indicator').textContent = 'Complete!';
+            document.getElementById('progress-fill').style.width = '100%';
+            
+            try {
+                const levelInfo = window.getLevelInfo('final-boss/index.html');
+                let nextPassword = 'ADVENTURE';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'ADVENTURE';
+            }
+            window.scrollTo(0, 0);
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

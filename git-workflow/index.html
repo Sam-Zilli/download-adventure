@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Git Works</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background-color: #fff;
+            color: #222;
+            line-height: 1.6;
+            padding: 40px 20px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-bottom: 2px solid #222;
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            font-size: 1.4em;
+            font-weight: normal;
+            margin: 0 0 25px 0;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.1em;
+            margin: 30px 0 10px 0;
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        ul, ol {
+            margin: 0 0 20px 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+        }
+
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.95em;
+            overflow-x: auto;
+        }
+
+        button {
+            background: #222;
+            color: #fff;
+            border: none;
+            padding: 10px 25px;
+            font-family: inherit;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        .back-btn {
+            background: #fff;
+            color: #222;
+            border: 1px solid #222;
+            margin-right: 10px;
+        }
+
+        .back-btn:hover {
+            background: #f5f5f5;
+        }
+
+        .nav-buttons {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .progress-bar {
+            display: none;
+        }
+
+        .step-indicator {
+            color: #999;
+            font-size: 0.85em;
+            margin-bottom: 30px;
+        }
+
+        .completion {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #222;
+        }
+
+        .completion h2 {
+            border: none;
+        }
+
+        img {
+            max-width: 100%;
+            margin: 25px 0;
+        }
+
+        .location-card {
+            background: #f9f9f9;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .location-card h3 {
+            margin: 0 0 10px 0;
+            font-weight: bold;
+        }
+
+        .location-card p {
+            margin: 0;
+        }
+
+        .command-flow {
+            margin: 25px 0;
+        }
+
+        .command-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .command-item:last-child {
+            border-bottom: none;
+        }
+
+        .command-item .from-to {
+            color: #666;
+            width: 200px;
+            flex-shrink: 0;
+        }
+
+        .arrow {
+            margin: 0 15px;
+            color: #999;
+        }
+
+        .tip {
+            background: #f0f7f0;
+            padding: 15px;
+            margin: 25px 0;
+        }
+
+        .tip strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .analogy {
+            color: #666;
+            font-style: italic;
+            margin: 20px 0;
+            padding-left: 20px;
+            border-left: 2px solid #ddd;
+        }
+
+        .analogy strong {
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>How Git Works</h1>
+        </header>
+
+        <div class="step-indicator" id="step-indicator">Step 1 of 5</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 20%;"></div>
+        </div>
+
+        <div id="steps">
+            <!-- Step 1: The Four Locations -->
+            <div class="step active" id="step-1">
+                <h2>The Four Locations</h2>
+                
+                <p>In Git, your code can exist in <strong>four different places</strong>. Understanding these locations is key to understanding Git.</p>
+
+                <img src="../images/git-locations.png" alt="The four locations in Git">
+                <p style="font-size: 0.85em; color: #999; margin-top: -15px;">Image from <a href="https://www.youtube.com/watch?v=e9lnsKot_SQ" target="_blank" style="color: #666;">this video</a>, which covers more than we'll use in this class.</p>
+
+                <p>Let's learn what each of these means.</p>
+                
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 2: Working Directory -->
+            <div class="step" id="step-2">
+                <h2>1. Working Directory</h2>
+                
+                <div class="location-card">
+                    <h3>Working Directory</h3>
+                    <p>The folder on your computer where you edit files. This is what you see in VS Code.</p>
+                </div>
+
+                <p>When you create a new file, edit existing code, or delete something—those changes happen in your Working Directory.</p>
+
+                <p class="analogy">Think of it like your desk where you're actively working on papers.</p>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Staging Area -->
+            <div class="step" id="step-3">
+                <h2>2. Staging Area</h2>
+                
+                <div class="location-card">
+                    <h3>Staging Area</h3>
+                    <p>A preparation zone where you choose which changes to include in your next save.</p>
+                </div>
+
+                <p>Before saving your work, you decide what to save. The staging area lets you select specific files.</p>
+
+                <p>This is the <strong>Add</strong> step.</p>
+
+                <p class="analogy">Like putting papers into an envelope before mailing them.</p>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Local Repository -->
+            <div class="step" id="step-4">
+                <h2>3. Local Repository</h2>
+                
+                <div class="location-card">
+                    <h3>Local Repository</h3>
+                    <p>The saved history of your project, stored on your computer.</p>
+                </div>
+
+                <p>When you commit, you save a snapshot of your staged changes. You also write a short message describing what you changed.</p>
+
+                <p>This is the <strong>Commit</strong> step.</p>
+
+                <p class="analogy">Like sealing the envelope and putting it in your outbox.</p>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Remote Repository -->
+            <div class="step" id="step-5">
+                <h2>4. Remote Repository</h2>
+                
+                <div class="location-card">
+                    <h3>Remote Repository</h3>
+                    <p>Your project stored online (like on GitHub). This is how you share code and back it up.</p>
+                </div>
+
+                <p>When you push, you upload your commits to GitHub.</p>
+
+                <p>This is the <strong>Push</strong> step.</p>
+
+                <p class="analogy">Like mailing the envelope so others can receive it.</p>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Summary -->
+            <div class="step" id="step-6">
+                <h2>The Three Steps</h2>
+                
+                <p>Every time you want to save your work to GitHub:</p>
+
+                <div class="command-flow">
+                    <div class="command-item">
+                        <span class="from-to">1. Add</span>
+                        <span style="color: #666;">Select which files to include</span>
+                    </div>
+                    <div class="command-item">
+                        <span class="from-to">2. Commit</span>
+                        <span style="color: #666;">Save with a message</span>
+                    </div>
+                    <div class="command-item">
+                        <span class="from-to">3. Push</span>
+                        <span style="color: #666;">Upload to GitHub</span>
+                    </div>
+                </div>
+
+                <p>VS Code has buttons for all of this. You'll learn exactly how in the Final Boss level.</p>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Got It</button>
+                </div>
+            </div>
+
+            <!-- Step 7: ACP Reminder -->
+            <div class="step" id="step-7">
+                <h2>Remember: A.C.P.</h2>
+                
+                <p style="font-size: 1.5em; text-align: center; margin: 30px 0;">
+                    <strong>A</strong>dd → <strong>C</strong>ommit → <strong>P</strong>ush
+                </p>
+
+                <p style="text-align: center; margin: 30px 0;">
+                    <img src="https://place.dog/400/300" alt="A cute puppy" style="border-radius: 10px;">
+                </p>
+
+                <p style="text-align: center; color: #888;">A cute puppy to celebrate your progress.</p>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 8: Password -->
+            <div class="step" id="step-8">
+                <h2>Level Complete</h2>
+                
+                <p style="margin-top: 25px;">Password: <strong id="dynamic-password">loading...</strong></p>
+                <button onclick="window.location.href='../password-portal/index.html'">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 8;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+            window.scrollTo(0, 0);
+            if (currentStep === 8) {
+                loadPassword();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgress();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        function loadPassword() {
+            try {
+                const levelInfo = window.getLevelInfo('git-workflow/index.html');
+                let nextPassword = 'python';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'python';
+            }
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

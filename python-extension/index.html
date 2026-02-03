@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install Python Extension</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #007acc;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        ol {
+            padding-left: 25px;
+            margin: 20px 0;
+        }
+
+        ol li {
+            padding: 10px 0;
+            font-size: 1.05em;
+            color: #444;
+        }
+
+        ol li strong {
+            color: #007acc;
+        }
+
+        code {
+            background-color: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        button {
+            background-color: #007acc;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #005a9e;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            background-color: #ddd;
+            color: #333;
+            margin-right: 10px;
+        }
+
+        .back-btn:hover {
+            background-color: #ccc;
+        }
+
+        .nav-buttons {
+            margin-top: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #007acc;
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            background: #f0fff0;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+
+        .completion h2 {
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+
+        .tip {
+            background: #e7f3ff;
+            border-left: 4px solid #007acc;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip strong {
+            color: #007acc;
+        }
+
+        .tour-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tour-item:last-child {
+            border-bottom: none;
+        }
+
+        .tour-number {
+            background: #007acc;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .tour-content h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .tour-content p {
+            margin: 0;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .shortcut {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            color: #555;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Install Python Extension</h1>
+        </header>
+
+        <div class="step-indicator" id="step-indicator">Step 1 of 4</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
+        </div>
+
+        <div id="steps">
+            <!-- Step 1: Open VS Code -->
+            <div class="step active" id="step-1">
+                <h2>Open VS Code</h2>
+                
+                <p>First, let's open VS Code.</p>
+                
+                <ol>
+                    <li>Press <code>Cmd + Space</code> to open Spotlight</li>
+                    <li>Type <strong>Visual Studio Code</strong></li>
+                    <li>Press Enter to open it</li>
+                </ol>
+
+                <p>You should see the VS Code welcome screen.</p>
+
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 2: Tour of VS Code -->
+            <div class="step" id="step-2">
+                <h2>Quick Tour of VS Code</h2>
+                
+                <p>Before we install the extension, let's get familiar with the interface.</p>
+
+                <div class="tour-item">
+                    <div class="tour-number">1</div>
+                    <div class="tour-content">
+                        <h3>File Explorer</h3>
+                        <p>The left sidebar shows your files and folders. Click the top icon (two pages) to see it.</p>
+                    </div>
+                </div>
+
+                <div class="tour-item">
+                    <div class="tour-number">2</div>
+                    <div class="tour-content">
+                        <h3>Editor Area</h3>
+                        <p>The main area where you write code. You can have multiple files open in tabs.</p>
+                    </div>
+                </div>
+
+                <div class="tour-item">
+                    <div class="tour-number">3</div>
+                    <div class="tour-content">
+                        <h3>Terminal<span class="shortcut">Ctrl + `</span></h3>
+                        <p>A built-in terminal at the bottom. Toggle it with the shortcut or View → Terminal.</p>
+                    </div>
+                </div>
+
+                <div class="tour-item">
+                    <div class="tour-number">4</div>
+                    <div class="tour-content">
+                        <h3>Source Control<span class="shortcut">Ctrl + Shift + G</span></h3>
+                        <p>Where you'll commit and push code to GitHub. We'll use this later.</p>
+                    </div>
+                </div>
+
+                <div class="tour-item">
+                    <div class="tour-number">5</div>
+                    <div class="tour-content">
+                        <h3>Extensions<span class="shortcut">Cmd + Shift + X</span></h3>
+                        <p>Add extra features to VS Code. We're about to use this.</p>
+                    </div>
+                </div>
+
+                <div class="tour-item">
+                    <div class="tour-number">6</div>
+                    <div class="tour-content">
+                        <h3>Command Palette<span class="shortcut">Cmd + Shift + P</span></h3>
+                        <p>Search for any VS Code command. Very useful once you learn it.</p>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Open Extensions -->
+            <div class="step" id="step-3">
+                <h2>Open the Extensions Panel</h2>
+                
+                <p>VS Code has <strong>extensions</strong> that add extra features. We need one for Python.</p>
+                
+                <ol>
+                    <li>Press <code>Cmd + Shift + X</code> to open Extensions</li>
+                    <li>Or click the Extensions icon in the left sidebar (it looks like 4 squares)</li>
+                </ol>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Install Python Extension -->
+            <div class="step" id="step-4">
+                <h2>Install the Python Extension</h2>
+                
+                <ol>
+                    <li>In the search bar, type <strong>Python</strong></li>
+                    <li>Find the one by <strong>Microsoft</strong> (it has millions of downloads)</li>
+                    <li>Click the blue <strong>Install</strong> button</li>
+                </ol>
+
+                <img src="../images/python-extension.png" alt="Python extension by Microsoft">
+
+                <div class="tip">
+                    <strong>What does this extension do?</strong> It helps VS Code understand Python code - giving you syntax highlighting, error detection, and autocomplete.
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="showCompletion()">I Installed It</button>
+                </div>
+            </div>
+
+            <!-- Completion -->
+            <div class="completion" id="completion" style="display: none;">
+                <h2>Loading...</h2>
+                <p>VS Code is now set up for Python development.</p>
+                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #28a745;">loading...</strong></p>
+                <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function showCompletion() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.getElementById('completion').style.display = 'block';
+            document.getElementById('step-indicator').textContent = 'Complete!';
+            document.getElementById('progress-fill').style.width = '100%';
+            
+            try {
+                const levelInfo = window.getLevelInfo('python-extension/index.html');
+                let nextPassword = 'clone';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'clone';
+            }
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

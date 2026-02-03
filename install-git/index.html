@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install Git</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #f14e32;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        ol {
+            padding-left: 25px;
+            margin: 20px 0;
+        }
+
+        ol li {
+            padding: 10px 0;
+            font-size: 1.05em;
+            color: #444;
+        }
+
+        ol li strong {
+            color: #f14e32;
+        }
+
+        code {
+            background-color: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        .code-block {
+            display: block;
+            background-color: #1e1e1e;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 8px;
+            color: #00ff41;
+            font-size: 1.1em;
+        }
+
+        button {
+            background-color: #f14e32;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #d43d24;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            background-color: #ddd;
+            color: #333;
+            margin-right: 10px;
+        }
+
+        .back-btn:hover {
+            background-color: #ccc;
+        }
+
+        .response-btn {
+            margin-right: 10px;
+            padding: 12px 25px;
+        }
+
+        .response-btn.success {
+            background-color: #28a745;
+        }
+
+        .response-btn.success:hover {
+            background-color: #218838;
+        }
+
+        .response-btn.fail {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .response-btn.fail:hover {
+            background-color: #ccc;
+        }
+
+        .nav-buttons {
+            margin-top: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #f14e32;
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            background: #f0fff0;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+
+        .completion h2 {
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+
+        #result-message {
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+            max-width: 400px;
+        }
+
+        .option-btn {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            color: #333;
+            font-family: 'Courier New', monospace;
+            text-align: left;
+            padding: 15px 20px;
+            font-size: 1.05em;
+            border-radius: 8px;
+        }
+
+        .option-btn:hover {
+            background-color: #fff;
+            border-color: #f14e32;
+        }
+
+        .option-btn.correct {
+            border-color: #28a745;
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .option-btn.incorrect {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .recap-list {
+            margin: 25px 0;
+        }
+
+        .recap-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .recap-item:last-child {
+            border-bottom: none;
+        }
+
+        .recap-item .checkmark {
+            color: #28a745;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .recap-item strong {
+            color: #333;
+            font-size: 1.05em;
+        }
+
+        .recap-item p {
+            margin: 4px 0 0 0;
+            font-size: 0.95em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Install Git</h1>
+        </header>
+
+        <div class="step-indicator" id="step-indicator">Step 1 of 4</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
+        </div>
+
+        <div id="steps">
+            <!-- Step 1: Quiz -->
+            <div class="step active" id="step-1">
+                <h2>Install Git with Homebrew</h2>
+                
+                <p>Git is the software that lets you track changes and sync code with GitHub.</p>
+                
+                <p>Let's use Homebrew to install Git. Do you remember the command to install something with Homebrew?</p>
+                
+                <div class="quiz-options" id="quiz-options">
+                    <button class="option-btn" onclick="checkAnswer('git install brew')">git install brew</button>
+                    <button class="option-btn" onclick="checkAnswer('brew install git')">brew install git</button>
+                    <button class="option-btn" onclick="checkAnswer('install brew git')">install brew git</button>
+                    <button class="option-btn" onclick="checkAnswer('homebrew get git')">homebrew get git</button>
+                </div>
+                
+                <p id="quiz-feedback" style="margin-top: 20px; font-size: 1.1em;"></p>
+                
+                <div id="correct-answer" style="display: none;">
+                    <p style="margin-top: 20px;">Now run this in your Terminal:</p>
+                    <div class="code-block">brew install git</div>
+                    <p>This may take a minute to download and install.</p>
+                    <button onclick="nextStep()">I ran the command</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Verify -->
+            <div class="step" id="step-2">
+                <h2>Verify Git is Installed</h2>
+                
+                <p>Check that Git installed correctly by typing:</p>
+                <div class="code-block">git --version</div>
+                
+                <p>You should see something like <code>git version 2.43.0</code> (your numbers may differ).</p>
+                
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                </div>
+                <div style="margin-top: 25px;">
+                    <button class="response-btn success" onclick="handleVerifySuccess()">I see a version number</button>
+                    <button class="response-btn fail" onclick="handleFail()">I got an error</button>
+                </div>
+                <p id="result-message"></p>
+            </div>
+
+            <!-- Step 3: Configure Git -->
+            <div class="step" id="step-3">
+                <h2>Configure Git</h2>
+                
+                <p>Git needs to know who you are so it can label your commits. Run these two commands in Terminal (replace with your actual name and email):</p>
+                
+                <div class="code-block">git config --global user.name "Your Name"</div>
+                <div class="code-block">git config --global user.email "your.email@example.com"</div>
+                
+                <p>Use the email associated with your GitHub account.</p>
+                
+                <p style="color: #888; font-size: 0.95em;">You only need to do this once on your computer.</p>
+                
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Done</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Recap -->
+            <div class="step" id="step-4">
+                <h2>Check-In: What You've Done</h2>
+                
+                <p>Take a moment to appreciate what you've accomplished:</p>
+                
+                <div class="recap-list">
+                    <div class="recap-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>Installed Homebrew</strong>
+                            <p>To download and install other software</p>
+                        </div>
+                    </div>
+                    <div class="recap-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>Used Brew to install VS Code</strong>
+                            <p>Where we write our code</p>
+                        </div>
+                    </div>
+                    <div class="recap-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>Used Brew to install Python</strong>
+                            <p>The programming language we'll learn</p>
+                        </div>
+                    </div>
+                    <div class="recap-item">
+                        <span class="checkmark">✓</span>
+                        <div>
+                            <strong>Used Brew to install Git</strong>
+                            <p>How we push our code up to GitHub</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 25px;">You now have a professional development environment set up on your Mac.</p>
+                
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="showCompletion()">Continue</button>
+                </div>
+            </div>
+
+            <!-- Completion -->
+            <div class="completion" id="completion" style="display: none;">
+                <h2>Git Installed</h2>
+                <p>You now have Git on your computer.</p>
+                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #00ff41;">loading...</strong></p>
+                <div style="margin-top: 20px;">
+                    <button class="back-btn" onclick="backFromCompletion()">← Back</button>
+                    <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function checkAnswer(answer) {
+            const buttons = document.querySelectorAll('.option-btn');
+            const feedback = document.getElementById('quiz-feedback');
+            
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === 'brew install git') {
+                    btn.classList.add('correct');
+                } else if (btn.textContent === answer && answer !== 'brew install git') {
+                    btn.classList.add('incorrect');
+                }
+            });
+            
+            if (answer === 'brew install git') {
+                feedback.innerHTML = '<span style="color: #00ff41;">Correct!</span>';
+                document.getElementById('correct-answer').style.display = 'block';
+            } else {
+                feedback.innerHTML = '<span style="color: #ff4444;">Not quite. The correct answer is highlighted.</span>';
+                setTimeout(() => {
+                    document.getElementById('correct-answer').style.display = 'block';
+                }, 1500);
+            }
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function handleVerifySuccess() {
+            document.getElementById('result-message').innerHTML = '<span style="color: #00ff41;">Git is installed.</span>';
+            setTimeout(nextStep, 1000);
+        }
+
+        function handleFail() {
+            document.getElementById('result-message').innerHTML = '<span style="color: #ffd700;">Try running <code>brew install git</code> again, or raise your hand for help.</span>';
+        }
+
+        function showCompletion() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.getElementById('completion').style.display = 'block';
+            document.getElementById('step-indicator').textContent = 'Complete!';
+            document.getElementById('progress-fill').style.width = '100%';
+            
+            try {
+                const levelInfo = window.getLevelInfo('install-git/index.html');
+                let nextPassword = 'git';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'git';
+            }
+        }
+
+        function backFromCompletion() {
+            document.getElementById('completion').style.display = 'none';
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

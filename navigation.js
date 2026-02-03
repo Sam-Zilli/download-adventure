@@ -1,20 +1,67 @@
-
 // Order and passwords for all levels in the adventure
-// To reorder levels, just move the lines around in this array!
+// To reorder levels, just move the lines around in this array
 window.LEVELS = [
-    { path: 'binary', password: 'learn' },
+
+    // { path: 'binary', password: 'learn' },
+
+    // Flags like -a to see hidden files
+    { path: 'terminal-flags', password: 'flags' },
+
+    // Terminal commands like ls -a to see hidden files
     { path: 'terminal', password: 'terminal' },
+
+    // How Brew Works + Install it
     { path: 'homebrew', password: 'brew' },
-    { path: 'boolean-logic', password: 'bool' },
+
+    // Open Source v.s. Closed Source
     { path: 'open-source', password: 'source' },
-    { path: 'snake-game', password: 'snake' },
-    { path: 'github-auth-token', password: 'token' },
-    { path: 'download-git', password: 'get-git' },
-    { path: 'create-github-repo', password: 'clone' },
-    { path: 'scratch-submission', password: 'scratch' },
+
+    // brew install vscode
     { path: 'vscode', password: 'vscode' },
-    { path: 'submit-scratch-canvas', password: 'almost-done' },
-    { path: 'end', password: 'ADVENTURE' }
+
+    // unnecessary game of snake lol
+    { path: 'snake-game', password: 'snake' },
+
+    // Install Git + recap of what they've done so far
+    { path: 'install-git', password: 'get-git' },
+
+    // How Git works: the 4 locations (working dir, staging, local repo, remote)
+    { path: 'git-workflow', password: 'workflow' },
+
+    // Open VS Code and install the Python extension
+    { path: 'python-extension', password: 'python' },
+
+    // Final Boss Level:
+    // Create a Github Repo on Github.com + add me as collaborator
+    // Clone that repo in VS Code
+    // Add Scratch project to the folder
+    // Push to Github Website
+    // Submit link on canvas
+    { path: 'final-boss', password: 'final-boss' },
+
+    // Full Game Recap
+    // The End + Ability to go back to previous levels
+    // { path: 'end', password: 'ADVENTURE' }
+
+
+    // old / unused for now
+    // Boolean Logic
+    // { path: 'boolean-logic', password: 'bool' },
+    // Clone a repo
+    // { path: 'git-clone', password: 'clone' },
+    // { path: 'github-vscode', password: 'github' },
+    // { path: 'git-basics', password: 'push' },
+
+    // { path: 'git-game', password: 'gitgame' },
+    // { path: 'submit-scratch', password: 'scratch' },
+
+    // { path: 'create-github-repo', password: 'clone' },
+    // { path: 'github-auth-token', password: 'token' },
+    // { path: 'download-git', password: 'get-git' },
+
+    // { path: 'scratch-submission', password: 'scratch' },
+    // { path: 'submit-scratch-canvas', password: 'almost-done' },,
+
 ];
 
 
@@ -40,8 +87,18 @@ window.normalizeFolderName = function(name) {
         'snakegame': 'snake-game',
         'submitscratchoncanvas': 'submit-scratch-canvas',
         'terminal': 'terminal',
+        'terminalflags': 'terminal-flags',
         'vocab': 'vocab',
         'vscode': 'vscode',
+        'githubvscode': 'github-vscode',
+        'gitbasics': 'git-basics',
+        'gitclone': 'git-clone',
+        'installgit': 'install-git',
+        'pythonextension': 'python-extension',
+        'gitworkflow': 'git-workflow',
+        'finalboss': 'final-boss',
+        'submitscratch': 'submit-scratch',
+        'gitgame': 'git-game',
         // Old file name mappings (for backwards compatibility)
         'snake': 'snake-game',
         'gitsetupguide': 'download-git',

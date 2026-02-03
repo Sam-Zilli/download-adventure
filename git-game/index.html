@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Workflow Game</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #f14e32;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .game-area {
+            background: #1e1e2e;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+
+        .level-indicator {
+            color: #00ff41;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .scenario {
+            background: #252540;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .scenario h3 {
+            color: #ffa500;
+            margin-bottom: 10px;
+        }
+
+        .scenario p {
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .commands-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .drop-zone {
+            background: #2a2a4a;
+            border: 2px dashed #555;
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .drop-zone.highlight {
+            border-color: #00ff41;
+            background: #1a3a2a;
+        }
+
+        .drop-zone.filled {
+            border-style: solid;
+            border-color: #00ff41;
+        }
+
+        .drop-zone-label {
+            color: #666;
+            font-size: 0.9em;
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: #1e1e2e;
+            padding: 0 5px;
+        }
+
+        .drop-zone-wrapper {
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .step-number {
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: #f14e32;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .commands-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 30px 0;
+            min-height: 80px;
+            padding: 15px;
+            background: #252540;
+            border-radius: 10px;
+        }
+
+        .command {
+            background: linear-gradient(135deg, #2a2a4a, #3a3a5a);
+            border: 2px solid #f14e32;
+            border-radius: 8px;
+            padding: 12px 20px;
+            cursor: grab;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #00ff41;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .command:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(241, 78, 50, 0.3);
+        }
+
+        .command.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        .command.placed {
+            background: linear-gradient(135deg, #1a3a2a, #2a4a3a);
+            border-color: #00ff41;
+        }
+
+        button {
+            background-color: #f14e32;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background-color: #d43d24;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .feedback.correct {
+            background: #1a3a1a;
+            color: #00ff41;
+            border: 2px solid #00ff41;
+        }
+
+        .feedback.incorrect {
+            background: #3a1a1a;
+            color: #ff4444;
+            border: 2px solid #ff4444;
+        }
+
+        .score-display {
+            font-size: 1.3em;
+            color: #ffa500;
+            margin-bottom: 20px;
+        }
+
+        .completion {
+            background: linear-gradient(135deg, #1a3a1a 0%, #0a2a0a 100%);
+            border: 2px solid #00ff41;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .completion h2 {
+            color: #00ff41;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .hint {
+            color: #888;
+            font-size: 0.95em;
+            margin-top: 15px;
+        }
+
+        .reset-btn {
+            background: #555;
+            padding: 10px 20px;
+            font-size: 1em;
+            margin-left: 10px;
+        }
+
+        .reset-btn:hover {
+            background: #666;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Git Workflow Game</h1>
+        <p class="subtitle">Drag the commands into the correct order</p>
+
+        <div class="game-area" id="game-area">
+            <div class="level-indicator" id="level-indicator">Level 1 of 5</div>
+            <div class="score-display" id="score-display">Score: 0</div>
+
+            <div class="scenario" id="scenario">
+                <h3>Scenario:</h3>
+                <p id="scenario-text">Loading...</p>
+            </div>
+
+            <p class="hint">Drag the commands from below into the numbered slots in the correct order:</p>
+
+            <div class="commands-container" id="drop-zones">
+                <!-- Drop zones will be generated here -->
+            </div>
+
+            <div class="commands-pool" id="commands-pool">
+                <!-- Draggable commands will be here -->
+            </div>
+
+            <div>
+                <button id="check-btn" onclick="checkAnswer()">Check Answer</button>
+                <button class="reset-btn" onclick="resetLevel()">Reset</button>
+            </div>
+
+            <div class="feedback hidden" id="feedback"></div>
+        </div>
+
+        <div class="completion hidden" id="completion">
+            <h2>Git Master!</h2>
+            <p>You've mastered the Git workflow.</p>
+            <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #00ff41;">loading...</strong></p>
+            <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+        </div>
+    </div>
+
+    <script>
+        const levels = [
+            {
+                scenario: "You just edited your README.md file and want to save it to GitHub. What's the correct order?",
+                commands: ["git add .", "git commit -m \"Update README\"", "git push"],
+                correctOrder: [0, 1, 2]
+            },
+            {
+                scenario: "You created a new file called app.py and want to upload it to your repository.",
+                commands: ["git push", "git add app.py", "git commit -m \"Add app.py\""],
+                correctOrder: [1, 2, 0]
+            },
+            {
+                scenario: "You fixed a bug in your code. Time to save your changes to GitHub!",
+                commands: ["git commit -m \"Fix bug\"", "git add .", "git push origin main"],
+                correctOrder: [1, 0, 2]
+            },
+            {
+                scenario: "You added your Scratch project (.sb3 file) to your repo folder. Now push it to GitHub.",
+                commands: ["git push", "git commit -m \"Add Scratch project\"", "git add project.sb3"],
+                correctOrder: [2, 1, 0]
+            },
+            {
+                scenario: "Final challenge! You made multiple changes to several files. Get them all to GitHub.",
+                commands: ["git commit -m \"Update all files\"", "git push", "git add ."],
+                correctOrder: [2, 0, 1]
+            }
+        ];
+
+        let currentLevel = 0;
+        let score = 0;
+        let placedCommands = [];
+        let draggedElement = null;
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function loadLevel() {
+            const level = levels[currentLevel];
+            placedCommands = [null, null, null];
+
+            document.getElementById('level-indicator').textContent = `Level ${currentLevel + 1} of ${levels.length}`;
+            document.getElementById('scenario-text').textContent = level.scenario;
+            document.getElementById('feedback').classList.add('hidden');
+
+            // Create drop zones
+            const dropZonesContainer = document.getElementById('drop-zones');
+            dropZonesContainer.innerHTML = '';
+            for (let i = 0; i < 3; i++) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'drop-zone-wrapper';
+                wrapper.style.marginLeft = '50px';
+                
+                const stepNum = document.createElement('div');
+                stepNum.className = 'step-number';
+                stepNum.textContent = i + 1;
+                
+                const dropZone = document.createElement('div');
+                dropZone.className = 'drop-zone';
+                dropZone.dataset.index = i;
+                dropZone.textContent = 'Drop command here';
+                
+                dropZone.addEventListener('dragover', handleDragOver);
+                dropZone.addEventListener('drop', handleDrop);
+                dropZone.addEventListener('dragleave', handleDragLeave);
+                
+                wrapper.appendChild(stepNum);
+                wrapper.appendChild(dropZone);
+                dropZonesContainer.appendChild(wrapper);
+            }
+
+            // Create shuffled commands
+            const pool = document.getElementById('commands-pool');
+            pool.innerHTML = '';
+            const shuffledCommands = shuffleArray(level.commands.map((cmd, idx) => ({ cmd, originalIdx: idx })));
+            
+            shuffledCommands.forEach((item, idx) => {
+                const cmd = document.createElement('div');
+                cmd.className = 'command';
+                cmd.textContent = item.cmd;
+                cmd.draggable = true;
+                cmd.dataset.originalIndex = item.originalIdx;
+                
+                cmd.addEventListener('dragstart', handleDragStart);
+                cmd.addEventListener('dragend', handleDragEnd);
+                
+                pool.appendChild(cmd);
+            });
+        }
+
+        function handleDragStart(e) {
+            draggedElement = e.target;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+            document.querySelectorAll('.drop-zone').forEach(zone => {
+                zone.classList.remove('highlight');
+            });
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('highlight');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('highlight');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            const dropZone = e.currentTarget;
+            dropZone.classList.remove('highlight');
+            
+            if (draggedElement && !dropZone.classList.contains('filled')) {
+                const index = parseInt(dropZone.dataset.index);
+                placedCommands[index] = parseInt(draggedElement.dataset.originalIndex);
+                
+                dropZone.textContent = draggedElement.textContent;
+                dropZone.classList.add('filled');
+                dropZone.dataset.commandIndex = draggedElement.dataset.originalIndex;
+                
+                // Make drop zone clickable to remove
+                dropZone.style.cursor = 'pointer';
+                dropZone.onclick = function() {
+                    removeFromDropZone(this);
+                };
+                
+                draggedElement.remove();
+            }
+        }
+
+        function removeFromDropZone(dropZone) {
+            const index = parseInt(dropZone.dataset.index);
+            const commandIndex = parseInt(dropZone.dataset.commandIndex);
+            const level = levels[currentLevel];
+            
+            // Return command to pool
+            const pool = document.getElementById('commands-pool');
+            const cmd = document.createElement('div');
+            cmd.className = 'command';
+            cmd.textContent = level.commands[commandIndex];
+            cmd.draggable = true;
+            cmd.dataset.originalIndex = commandIndex;
+            cmd.addEventListener('dragstart', handleDragStart);
+            cmd.addEventListener('dragend', handleDragEnd);
+            pool.appendChild(cmd);
+            
+            // Reset drop zone
+            dropZone.textContent = 'Drop command here';
+            dropZone.classList.remove('filled');
+            dropZone.onclick = null;
+            dropZone.style.cursor = 'default';
+            placedCommands[index] = null;
+        }
+
+        function resetLevel() {
+            loadLevel();
+        }
+
+        function checkAnswer() {
+            const level = levels[currentLevel];
+            const feedback = document.getElementById('feedback');
+            
+            // Check if all slots are filled
+            if (placedCommands.includes(null)) {
+                feedback.textContent = 'Place all commands first!';
+                feedback.className = 'feedback incorrect';
+                feedback.classList.remove('hidden');
+                return;
+            }
+            
+            // Check if order is correct
+            const isCorrect = placedCommands.every((cmd, idx) => cmd === level.correctOrder[idx]);
+            
+            if (isCorrect) {
+                score += 10;
+                document.getElementById('score-display').textContent = `Score: ${score}`;
+                feedback.textContent = 'Correct! ' + (currentLevel < levels.length - 1 ? 'Moving to next level...' : 'You completed all levels!');
+                feedback.className = 'feedback correct';
+                feedback.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    currentLevel++;
+                    if (currentLevel < levels.length) {
+                        loadLevel();
+                    } else {
+                        showCompletion();
+                    }
+                }, 1500);
+            } else {
+                feedback.textContent = 'Not quite right. Remember: Add → Commit → Push';
+                feedback.className = 'feedback incorrect';
+                feedback.classList.remove('hidden');
+            }
+        }
+
+        function showCompletion() {
+            document.getElementById('game-area').classList.add('hidden');
+            document.getElementById('completion').classList.remove('hidden');
+            
+            try {
+                const levelInfo = window.getLevelInfo('git-game/index.html');
+                let nextPassword = 'gitgame';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'gitgame';
+            }
+        }
+
+        // Initialize
+        loadLevel();
+    </script>
+</body>
+</html>
