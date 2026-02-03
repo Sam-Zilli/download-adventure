@@ -41,7 +41,7 @@ window.LEVELS = [
 
     // Full Game Recap
     // The End + Ability to go back to previous levels
-    // { path: 'end', password: 'ADVENTURE' }
+    { path: 'end', password: 'ADVENTURE' }
 
 
     // old / unused for now
