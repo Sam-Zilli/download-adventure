@@ -17,7 +17,7 @@ window.LEVELS = [
     { path: 'open-source', password: 'source' },
 
     // brew install vscode
-    { path: 'vscode', password: 'vscode' },
+    { path: 'VSCode', password: 'vscode' },
 
     // unnecessary game of snake lol
     { path: 'snake-game', password: 'snake' },
@@ -89,7 +89,7 @@ window.normalizeFolderName = function(name) {
         'terminal': 'terminal',
         'terminalflags': 'terminal-flags',
         'vocab': 'vocab',
-        'vscode': 'vscode',
+        'vscode': 'VSCode',
         'githubvscode': 'github-vscode',
         'gitbasics': 'git-basics',
         'gitclone': 'git-clone',
