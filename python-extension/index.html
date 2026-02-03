@@ -229,9 +229,9 @@
             <h1>Install Python Extension</h1>
         </header>
 
-        <div class="step-indicator" id="step-indicator">Step 1 of 4</div>
+        <div class="step-indicator" id="step-indicator">Step 1 of 3</div>
         <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
+            <div class="progress-fill" id="progress-fill" style="width: 33%;"></div>
         </div>
 
         <div id="steps">
@@ -252,74 +252,14 @@
                 <button onclick="nextStep()">Next</button>
             </div>
 
-            <!-- Step 2: Tour of VS Code -->
+            <!-- Step 2: Open Extensions -->
             <div class="step" id="step-2">
-                <h2>Quick Tour of VS Code</h2>
-                
-                <p>Before we install the extension, let's get familiar with the interface.</p>
-
-                <div class="tour-item">
-                    <div class="tour-number">1</div>
-                    <div class="tour-content">
-                        <h3>File Explorer</h3>
-                        <p>The left sidebar shows your files and folders. Click the top icon (two pages) to see it.</p>
-                    </div>
-                </div>
-
-                <div class="tour-item">
-                    <div class="tour-number">2</div>
-                    <div class="tour-content">
-                        <h3>Editor Area</h3>
-                        <p>The main area where you write code. You can have multiple files open in tabs.</p>
-                    </div>
-                </div>
-
-                <div class="tour-item">
-                    <div class="tour-number">3</div>
-                    <div class="tour-content">
-                        <h3>Terminal<span class="shortcut">Ctrl + `</span></h3>
-                        <p>A built-in terminal at the bottom. Toggle it with the shortcut or View → Terminal.</p>
-                    </div>
-                </div>
-
-                <div class="tour-item">
-                    <div class="tour-number">4</div>
-                    <div class="tour-content">
-                        <h3>Source Control<span class="shortcut">Ctrl + Shift + G</span></h3>
-                        <p>Where you'll commit and push code to GitHub. We'll use this later.</p>
-                    </div>
-                </div>
-
-                <div class="tour-item">
-                    <div class="tour-number">5</div>
-                    <div class="tour-content">
-                        <h3>Extensions<span class="shortcut">Cmd + Shift + X</span></h3>
-                        <p>Add extra features to VS Code. We're about to use this.</p>
-                    </div>
-                </div>
-
-                <div class="tour-item">
-                    <div class="tour-number">6</div>
-                    <div class="tour-content">
-                        <h3>Command Palette<span class="shortcut">Cmd + Shift + P</span></h3>
-                        <p>Search for any VS Code command. Very useful once you learn it.</p>
-                    </div>
-                </div>
-
-                <div class="nav-buttons">
-                    <button class="back-btn" onclick="prevStep()">← Back</button>
-                    <button onclick="nextStep()">Next</button>
-                </div>
-            </div>
-
-            <!-- Step 3: Open Extensions -->
-            <div class="step" id="step-3">
                 <h2>Open the Extensions Panel</h2>
                 
                 <p>VS Code has <strong>extensions</strong> that add extra features. We need one for Python.</p>
                 
                 <ol>
-                    <li>Press <code>Cmd + Shift + X</code> to open Extensions</li>
+                    <li>In VS Code, go to <strong>View</strong> → <strong>Extensions</strong></li>
                     <li>Or click the Extensions icon in the left sidebar (it looks like 4 squares)</li>
                 </ol>
 
@@ -329,8 +269,8 @@
                 </div>
             </div>
 
-            <!-- Step 4: Install Python Extension -->
-            <div class="step" id="step-4">
+            <!-- Step 3: Install Python Extension -->
+            <div class="step" id="step-3">
                 <h2>Install the Python Extension</h2>
                 
                 <ol>
@@ -363,7 +303,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 4;
+        const totalSteps = 3;
 
         function updateProgress() {
             const progress = (currentStep / totalSteps) * 100;

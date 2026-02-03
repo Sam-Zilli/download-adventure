@@ -249,7 +249,7 @@
             <p class="subtitle">Submit Your Scratch Project to GitHub</p>
         </header>
 
-        <div class="step-indicator" id="step-indicator">Step 1 of 10</div>
+        <div class="step-indicator" id="step-indicator">Step 1 of 11</div>
         <div class="progress-bar">
             <div class="progress-fill" id="progress-fill" style="width: 10%;"></div>
         </div>
@@ -313,10 +313,6 @@
                     <li>Click <strong>Create repository</strong></li>
                 </ol>
 
-                <div class="tip">
-                    <strong>Why Private?</strong> Your schoolwork should stay private. Your instructor will be added as a collaborator so they can see it.
-                </div>
-
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
                     <button onclick="nextStep()">Next</button>
@@ -336,8 +332,8 @@
                     <li>On your new repository page, click <strong>Settings</strong> (gear icon)</li>
                     <li>In the left sidebar, click <strong>Collaborators</strong></li>
                     <li>Click <strong>Add people</strong></li>
-                    <li>Enter your instructor's GitHub username: <code>samcarlinone</code></li>
-                    <li>Click <strong>Add samcarlinone to this repository</strong></li>
+                    <li>Enter your instructor's GitHub username: <code>Sam-Zilli</code></li>
+                    <li>Click <strong>Add Sam-Zilli to this repository</strong></li>
                 </ol>
 
                 <div class="warning">
@@ -388,7 +384,7 @@
                     <li>Press <code>Cmd + Shift + P</code> to open the Command Palette</li>
                     <li>Type <strong>Git: Clone</strong> and select it</li>
                     <li>Paste the URL you copied</li>
-                    <li>Choose where to save it (like your Documents folder)</li>
+                    <li>Choose where to save it (like your Desktop or Documents folder)</li>
                     <li>When asked, click <strong>Open</strong> to open the cloned repository</li>
                 </ol>
 
@@ -444,8 +440,6 @@
                     <li>You should see the file appear in VS Code</li>
                 </ol>
 
-                <p>Or use Finder to copy the file directly into your repository folder.</p>
-
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
                     <button onclick="nextStep()">Next</button>
@@ -480,28 +474,41 @@
                 </div>
             </div>
 
-            <!-- Step 10: Verify and Submit -->
+            <!-- Step 10: Verify on GitHub -->
             <div class="step" id="step-10">
                 <div class="phase-header">
-                    <h2>Phase 5: Submit on Canvas</h2>
-                    <p>Turn in your work</p>
+                    <h2>Phase 5: Verify on GitHub</h2>
+                    <p>Make sure your file is there</p>
                 </div>
                 
-                <h2>Verify and Submit</h2>
+                <h2>Verify on GitHub</h2>
                 
-                <h3>Verify on GitHub</h3>
                 <ol>
                     <li>Go to your repository on <a href="https://github.com" target="_blank">github.com</a></li>
                     <li>You should see your <code>.sb3</code> file in the file list</li>
                 </ol>
 
                 <div class="checklist">
-                    <p><strong>Before submitting, check:</strong></p>
+                    <p><strong>Check:</strong></p>
                     <div class="checklist-item">Your .sb3 file is visible on GitHub</div>
-                    <div class="checklist-item">samcarlinone is added as a collaborator</div>
+                    <div class="checklist-item">Sam-Zilli is added as a collaborator</div>
                 </div>
 
-                <h3>Submit on Canvas</h3>
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 11: Submit on Canvas -->
+            <div class="step" id="step-11">
+                <div class="phase-header">
+                    <h2>Phase 6: Submit on Canvas</h2>
+                    <p>Turn in your work</p>
+                </div>
+                
+                <h2>Submit on Canvas</h2>
+                
                 <ol>
                     <li>Copy your repository URL from the browser (e.g., <code>https://github.com/yourusername/lmsc261</code>)</li>
                     <li>Go to the assignment on Canvas</li>
@@ -527,7 +534,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 10;
+        const totalSteps = 11;
 
         function updateProgress() {
             const progress = (currentStep / totalSteps) * 100;

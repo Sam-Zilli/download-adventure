@@ -3,153 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Over</title>
+    <title>Adventure Complete!</title>
+    <script src="../navigation.js"></script>
     <style>
-        /* Body Styling */
-body {
-    font-family: 'Courier New', Courier, monospace;
-    background: linear-gradient(135deg, #ff5e5e, #ff9e9e);
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; /* Allow the body to grow with content */
-    background-size: cover;
-    background-attachment: fixed;
-    flex-direction: column; /* Ensure the content is aligned vertically */
-}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-/* Container Styling */
-.container {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 40px;
-    border-radius: 15px;
-    text-align: left;
-    width: 80%;
-    max-width: 900px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    margin-top: 20px; /* Ensure there's space at the top */
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
 
-/* Heading Styling */
-h1 {
-    font-size: 3em;
-    margin-bottom: 20px;
-    font-family: 'Impact', sans-serif;
-    color: #f4e03d;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-    margin-top: 0; /* Prevent unwanted space above the heading */
-}
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
 
-/* Paragraph Styling */
-p {
-    font-size: 1.2em;
-    line-height: 1.5;
-    color: #f9f9f9;
-    margin-bottom: 20px;
-}
+        h1 {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 10px;
+            color: #4ecdc4;
+        }
 
+        .subtitle {
+            text-align: center;
+            color: #888;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+        }
 
-/* Button Styling */
-.btn {
-    text-decoration: none;
-    color: #fff;
-    background-color: #333333; /* Dark background for better contrast */
-    padding: 12px 20px;
-    margin: 10px 0;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: bold;
-    display: block; /* Make buttons take full width of the parent container */
-    width: 100%; /* Make buttons span the entire width */
-    transition: transform 0.2s, background-color 0.3s ease;
-}
+        .recap {
+            background: #1e1e2e;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
 
-.btn:hover {
-    background-color: #555555; /* Lighter shade on hover */
-    transform: scale(1.1);
-}
+        .recap h2 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
 
-.btn-back {
-    background-color: #0044cc; /* Strong blue for contrast */
-    margin-top: 20px;
-}
+        .recap ul {
+            list-style: none;
+            padding: 0;
+        }
 
-.btn-back:hover {
-    background-color: #0033aa;
-}
+        .recap li {
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+            color: #ccc;
+        }
 
-/* Terminal Code Styling */
-.terminal-code {
-    background-color: #2d2d2d;
-    padding: 20px;
-    margin-top: 30px;
-    border-radius: 10px;
-    font-family: 'Courier New', Courier, monospace;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
+        .recap li:last-child {
+            border-bottom: none;
+        }
 
-.terminal-code p {
-    font-size: 1.1em;
-    color: #b0e57c;
-    margin-bottom: 15px;
-}
+        .recap li::before {
+            content: "✓ ";
+            color: #4ecdc4;
+        }
 
-.terminal-code a {
-    text-decoration: none;
-    color: #4db8ff;
-    font-weight: bold;
-}
+        .levels-section {
+            background: #1e1e2e;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
 
-.terminal-code a:hover {
-    text-decoration: underline;
-}
+        .levels-section h2 {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            color: #fff;
+        }
 
-/* Footer Styling */
-footer {
-    margin-top: 30px;
-    font-size: 1.2em;
-    color: #f9f9f9;
-}
+        .level-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
 
-footer a {
-    color: #4db8ff;
-    text-decoration: none;
-}
+        .level-link {
+            display: block;
+            padding: 12px 15px;
+            background: #2a2a3a;
+            border-radius: 8px;
+            color: #ccc;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
 
-footer a:hover {
-    text-decoration: underline;
-}
+        .level-link:hover {
+            background: #3a3a4a;
+            color: #fff;
+        }
 
-/* Animations for buttons */
-@keyframes glowing {
-    0% { background-color: #333333; }
-    50% { background-color: #555555; }
-    100% { background-color: #333333; }
-}
+        .level-link span {
+            color: #666;
+            font-size: 0.9em;
+            margin-right: 10px;
+        }
 
-.btn:hover {
-    animation: glowing 1.5s infinite alternate;
-}
+        .home-btn {
+            display: block;
+            text-align: center;
+            padding: 15px 30px;
+            background: #4ecdc4;
+            color: #1a1a2e;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: background 0.2s;
+        }
 
+        .home-btn:hover {
+            background: #45b7aa;
+        }
+
+        .powered-by {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <p>Here's what you did today:<p>
-        <ul>
-            <li>Installed Homebrew</li>
-            <li>Installed Git</li>
-            <li>Installed VSCode</li>
-            <li>Created a Github repo and cloned it to your computer</li>
-            <li>Used Terminal Commands</li>
-            <li>Learned some stuff along the way?!</li>
-        </ul>
-        <h1>GAME OVER</h1>
-        <p>Congratulations! You have completed the adventure.</p>
-        <a href="../index.html" class="btn btn-back">Back to Start</a>
+        <h1>Adventure Complete!</h1>
+        <p class="subtitle">You did it.</p>
+
+        <div class="recap">
+            <h2>What you accomplished:</h2>
+            <ul>
+                <li>Learned terminal commands</li>
+                <li>Installed Homebrew</li>
+                <li>Installed VS Code, Python, and Git</li>
+                <li>Learned how Git works (Add, Commit, Push)</li>
+                <li>Created a GitHub repository</li>
+                <li>Cloned it to your computer</li>
+                <li>Submitted your Scratch project</li>
+            </ul>
+        </div>
+
+        <div class="levels-section">
+            <h2>Revisit any level:</h2>
+            <div class="level-list" id="level-list">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <a href="../index.html" class="home-btn">Back to Start</a>
+
+        <p class="powered-by">*powered by AI and Gatorade</p>
     </div>
-</body>
-</html>
+
+    <script>
+        // Populate level list from navigation.js
+        const levelList = document.getElementById('level-list');
+        
+        const levelNames = {
+            'terminal-flags': 'Terminal Flags',
+            'terminal': 'Terminal Commands',
+            'homebrew': 'Install Homebrew',
+            'open-source': 'Open Source vs Closed Source',
+            'vscode': 'Install VS Code',
+            'snake-game': 'Snake Game',
+            'install-git': 'Install Git',
+            'git-workflow': 'How Git Works',
+            'python-extension': 'Python Extension',
+            'final-boss': 'Final Boss: Submit Project'
+        };
+
+        if (window.LEVELS) {
+            window.LEVELS.forEach((level, index) => {
+                if (level.path !== 'end') {
+                    const link = document.createElement('a');
+                    link.href = `../${level.path}/index.html`;
+                    link.className = 'level-link';
+                    const name = levelNames[level.path] || level.path;
+                    link.innerHTML = `<span>${index + 1}.</span> ${name}`;
+                    levelList.appendChild(link);
+                }
+            });
+        }
+    </script>
 </body>
 </html>
