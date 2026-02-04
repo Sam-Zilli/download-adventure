@@ -35,11 +35,11 @@
 
         .progress-bar {
             height: 20px;
-            background: linear-gradient(90deg, #00ff41, #0DFF00);
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
             border-radius: 15px;
             width: 0%;
             transition: width 0.5s ease;
-            box-shadow: 0 0 10px #00ff41;
+            box-shadow: 0 0 10px #5cd65c;
         }
 
         .progress-text {
@@ -54,10 +54,10 @@
         .section {
             display: none;
             background: #16213e;
-            border: 3px solid #00ff41;
+            border: 3px solid #5cd65c;
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 0 30px #00ff4130;
+            box-shadow: 0 0 30px #5cd65c30;
             animation: slideIn 0.4s ease;
         }
 
@@ -77,10 +77,10 @@
         }
 
         h1 {
-            color: #00ff41;
+            color: #5cd65c;
             font-size: 28px;
             margin-bottom: 20px;
-            text-shadow: 0 0 10px #00ff4150;
+            text-shadow: 0 0 10px #5cd65c50;
         }
 
         h2 {
@@ -98,7 +98,7 @@
         /* Code blocks */
         code, pre {
             background: #0f0f23;
-            color: #00ff41;
+            color: #5cd65c;
             padding: 4px 10px;
             border-radius: 5px;
             font-family: 'Courier New', monospace;
@@ -108,7 +108,7 @@
             padding: 15px;
             margin: 15px 0;
             overflow-x: auto;
-            border-left: 4px solid #00ff41;
+            border-left: 4px solid #5cd65c;
         }
 
         /* Quiz styling */
@@ -121,8 +121,8 @@
         }
 
         .quiz-box.correct {
-            border-color: #00ff41;
-            box-shadow: 0 0 15px #00ff4150;
+            border-color: #5cd65c;
+            box-shadow: 0 0 15px #5cd65c50;
         }
 
         .quiz-box.wrong {
@@ -165,7 +165,7 @@
         }
 
         .nav-btn {
-            background: linear-gradient(90deg, #00ff41, #0DFF00);
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
             color: #111;
             border: none;
             border-radius: 8px;
@@ -179,7 +179,7 @@
 
         .nav-btn:hover:not(:disabled) {
             transform: scale(1.05);
-            box-shadow: 0 0 20px #00ff41;
+            box-shadow: 0 0 20px #5cd65c;
         }
 
         .nav-btn:disabled {
@@ -237,7 +237,7 @@
         }
 
         .response-btn.success {
-            background: #00ff41;
+            background: #5cd65c;
             color: #111;
         }
 
@@ -247,7 +247,7 @@
 
         /* Link styling */
         a {
-            color: #00ff41;
+            color: #5cd65c;
         }
 
         /* Fun facts */
@@ -373,7 +373,7 @@
             <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <div style="text-align: center;">
                     <img src="../images/brew-version-good.png" alt="Success" style="max-width: 250px;">
-                    <p style="color: #00ff41;">✓ Success!</p>
+                    <p style="color: #5cd65c;">✓ Success!</p>
                 </div>
                 <div style="text-align: center;">
                     <img src="../images/brew-version-bad.png" alt="Error" style="max-width: 250px;">
@@ -438,7 +438,7 @@
             <h2>You're Ready</h2>
             <p>You now have Homebrew and Python.</p>
             <p id="password-display" style="margin-top: 20px; padding: 15px; background: #0f0f23; border-radius: 8px; text-align: center;">
-                Password to the next level: <strong id="next-password" style="color: #00ff41;">loading...</strong>
+                Password to the next level: <strong id="next-password" style="color: #5cd65c;">loading...</strong>
             </p>
             <button class="nav-btn" onclick="goToPortal()" style="margin-top: 20px; display: block; margin-left: auto; margin-right: auto;">Continue →</button>
         </div>
@@ -515,7 +515,7 @@
         });
 
         function handleSuccess() {
-            document.getElementById('result-message').innerHTML = '<span style="color: #00ff41;">Homebrew is installed.</span>';
+            document.getElementById('result-message').innerHTML = '<span style="color: #5cd65c;">Homebrew is installed.</span>';
             // Mark current section as complete and enable next button
             quizAnswered[currentSection] = true;
             document.getElementById('nextBtn').disabled = false;
@@ -526,7 +526,7 @@
         }
 
         function handlePythonSuccess() {
-            document.getElementById('python-result').innerHTML = '<span style="color: #00ff41;">Python is installed.</span>';
+            document.getElementById('python-result').innerHTML = '<span style="color: #5cd65c;">Python is installed.</span>';
             quizAnswered[currentSection] = true;
             document.getElementById('nextBtn').disabled = false;
         }

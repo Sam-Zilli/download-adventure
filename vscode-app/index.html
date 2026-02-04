@@ -303,42 +303,41 @@
                 <button onclick="nextStep()">Next</button>
             </div>
 
-            <!-- Step 2: Install -->
+            <!-- Step 2: Download -->
             <div class="step" id="step-2">
-                <h2>Install VS Code</h2>
-                
-                <p>Remember Homebrew? Let's use it to install VS Code.</p>
+                <h2>Download VS Code</h2>
                 
                 <ol>
-                    <li>Go to the <a href="https://formulae.brew.sh/cask/visual-studio-code" target="_blank">Homebrew page for VS Code</a></li>
-                    <li>Find the install command and <strong>copy it</strong></li>
-                    <li>Paste it into your <strong>Terminal</strong> and press Enter</li>
-                    <li>Wait for it to install (this may take a minute)</li>
+                    <li>Go to <a href="https://code.visualstudio.com" target="_blank">code.visualstudio.com</a></li>
+                    <li>Click the big <strong>Download for Mac</strong> button</li>
+                    <li>The <code>.zip</code> file will download to your Downloads folder</li>
                 </ol>
 
                 <div class="tip">
-                    <strong>Hint:</strong> The command will look something like this:
-                    <code>brew install --cask visual-studio-code</code>
+                    <strong>Note:</strong> The website automatically detects your Mac type (Intel or Apple Silicon) and gives you the right version. If it asks, you can check yours by running <code>uname -m</code> in Terminal (<code>arm64</code> = Apple Silicon, <code>x86_64</code> = Intel).
                 </div>
 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
-                    <button onclick="nextStep()">Next</button>
+                    <button onclick="nextStep()">Downloaded</button>
                 </div>
             </div>
 
-            <!-- Step 3: Verify -->
+            <!-- Step 3: Install -->
             <div class="step" id="step-3">
-                <h2>Verify Installation</h2>
+                <h2>Install VS Code</h2>
                 
-                <p>Let's make sure VS Code installed correctly.</p>
-                
-                <p>Type this in your Terminal:</p>
-                <div class="code-block"><span class="command">code -v</span></div>
-                
-                <p>You should see a version number like <code>1.85.0</code> (your numbers may differ).</p>
+                <ol>
+                    <li>Go to your Downloads folder and find <code>VSCode-darwin.zip</code></li>
+                    <li>Double-click the zip file to unzip it</li>
+                    <li>You'll see an app called <strong>Visual Studio Code</strong></li>
+                    <li>Drag that app to your <strong>Applications</strong> folder</li>
+                    <li>Open it from Applications (or Spotlight: Cmd + Space, type "Visual Studio Code")</li>
+                </ol>
 
-                <p>VS Code is now an app installed on your computer. You can put it in your dock for easy access.</p>
+                <div class="tip">
+                    <strong>Tip:</strong> You can drag VS Code to your Dock for easy access later.
+                </div>
 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
@@ -389,14 +388,14 @@
             document.getElementById('progress-fill').style.width = '100%';
             
             try {
-                const levelInfo = window.getLevelInfo('VSCode/index.html');
-                let nextPassword = 'clone';
+                const levelInfo = window.getLevelInfo('vscode-app/index.html');
+                let nextPassword = 'snake';
                 if (levelInfo && levelInfo.next) {
                     nextPassword = levelInfo.next.password;
                 }
                 document.getElementById('dynamic-password').textContent = nextPassword;
             } catch (error) {
-                document.getElementById('dynamic-password').textContent = 'clone';
+                document.getElementById('dynamic-password').textContent = 'snake';
             }
         }
 

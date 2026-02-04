@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wait for the Prompt</title>
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .lesson-card {
+            background: #16213e;
+            border: 3px solid #5cd65c;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 0 40px #5cd65c40;
+            text-align: center;
+        }
+
+        h1 {
+            color: #5cd65c;
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px #5cd65c50;
+        }
+
+        .intro {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .rule {
+            background: #0f0f23;
+            border: 2px solid #ff6b6b;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: #ff6b6b;
+        }
+
+        .question {
+            font-size: 1.3em;
+            color: #5cd65c;
+            margin-bottom: 20px;
+        }
+
+        .terminal-display {
+            background: #0f0f23;
+            border: 2px solid #5cd65c;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+            min-height: 150px;
+            font-size: 1em;
+        }
+
+        .terminal-line {
+            margin: 8px 0;
+        }
+
+        .prompt {
+            color: #5cd65c;
+            font-weight: bold;
+        }
+        
+        .user-host {
+            color: #4a90d9;
+        }
+
+        .output {
+            color: #888;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background: #5cd65c;
+            animation: blink 1s infinite;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        .answer-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .answer-btn {
+            background: #0f0f23;
+            border: 3px solid #333;
+            color: #ccc;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            transition: all 0.2s;
+        }
+
+        .answer-btn:hover {
+            border-color: #5cd65c;
+            transform: scale(1.05);
+        }
+
+        .answer-btn.correct {
+            border-color: #5cd65c;
+            background: #0f0f23;
+            color: #5cd65c;
+            box-shadow: 0 0 20px #5cd65c50;
+        }
+
+        .answer-btn.incorrect {
+            border-color: #ff6b6b;
+            background: #0f0f23;
+            color: #ff6b6b;
+        }
+
+        .feedback {
+            font-size: 1.2em;
+            margin: 20px 0;
+            min-height: 30px;
+        }
+
+        .feedback.correct {
+            color: #5cd65c;
+        }
+
+        .feedback.incorrect {
+            color: #ff6b6b;
+        }
+
+        .score {
+            font-size: 1.1em;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .score span {
+            color: #5cd65c;
+            font-weight: bold;
+        }
+
+        .completion {
+            display: none;
+        }
+
+        .completion.show {
+            display: block;
+        }
+
+        .password-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #0f0f23;
+            border: 2px solid #5cd65c;
+            border-radius: 8px;
+        }
+
+        .password-box strong {
+            color: #5cd65c;
+            font-size: 1.3em;
+        }
+
+        .continue-btn {
+            background: linear-gradient(90deg, #5cd65c 0%, #6de06d 100%);
+            color: #111;
+            font-size: 1.3em;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            padding: 18px 50px;
+            margin-top: 25px;
+            cursor: pointer;
+            box-shadow: 0 0 25px #5cd65c80;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .continue-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px #5cd65c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="lesson-card">
+            <h1>Wait for the Prompt</h1>
+            
+            <p class="intro">The terminal shows <span style="color: #4a90d9;">yourname@your-computer</span> <strong style="color: #5cd65c;">$ </strong> or <strong style="color: #5cd65c;">% </strong> when it's ready for a command.</p>
+
+            <div class="rule">
+                <strong>Rule:</strong> Don't type until you see the prompt!
+            </div>
+
+            <div id="game-area">
+                <p class="score">Score: <span id="score">0</span> / 5</p>
+                <p class="question">Is this terminal ready for a new command?</p>
+
+                <div class="terminal-display" id="terminal-display"></div>
+
+                <div class="answer-buttons">
+                    <button class="answer-btn" onclick="checkAnswer(true)">READY</button>
+                    <button class="answer-btn" onclick="checkAnswer(false)">BUSY</button>
+                </div>
+
+                <p class="feedback" id="feedback"></p>
+            </div>
+
+            <div class="completion" id="completion">
+                <h2 style="color: #5cd65c; margin-bottom: 20px;">You got it!</h2>
+                <p style="color: #ccc; font-size: 1.1em;">Always wait for the prompt before typing a new command.</p>
+                
+                <div class="password-box">
+                    <p>Password to the next level:</p>
+                    <p><strong id="next-password">loading...</strong></p>
+                </div>
+
+                <button class="continue-btn" onclick="window.location.href='../password-portal/index.html'">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const scenarios = [
+            {
+                html: '<div class="terminal-line"><span class="user-host">yourname@your-computer</span> <span class="prompt">$ </span><span class="cursor"></span></div>',
+                ready: true
+            },
+            {
+                html: '<div class="terminal-line"><span class="user-host">yourname@your-computer</span> <span class="prompt">% </span><span class="cursor"></span></div>',
+                ready: true
+            },
+            {
+                html: '<div class="terminal-line"><span class="user-host">yourname@your-computer</span> <span class="prompt">$ </span>brew install python</div><div class="terminal-line output">==&gt; Downloading python...</div><div class="terminal-line output">==&gt; Installing dependencies...</div>',
+                ready: false
+            },
+            {
+                html: '<div class="terminal-line"><span class="user-host">yourname@your-computer</span> <span class="prompt">$ </span>ls -a</div><div class="terminal-line output">file1.txt  file2.txt  .hidden</div><div class="terminal-line"><span class="user-host">yourname@your-computer</span> <span class="prompt">$ </span><span class="cursor"></span></div>',
+                ready: true
+            },
+            {
+                html: '<div class="terminal-line output">Installing packages...</div><div class="terminal-line output">This may take a few minutes...</div>',
+                ready: false
+            },
+            {
+                html: '<div class="terminal-line"><span class="user-host">yourname@your-computer</span> <span class="prompt">% </span>pwd</div><div class="terminal-line output">/Users/student</div><div class="terminal-line"><span class="user-host">yourname@your-computer</span> <span class="prompt">% </span><span class="cursor"></span></div>',
+                ready: true
+            },
+            {
+                html: '<div class="terminal-line output">Pouring python...</div><div class="terminal-line output">python installed!</div><div class="terminal-line"><span class="user-host">yourname@your-computer</span> <span class="prompt">$ </span><span class="cursor"></span></div>',
+                ready: true
+            },
+            {
+                html: '<div class="terminal-line"><span class="user-host">yourname@your-computer</span> <span class="prompt">$ </span>git clone https://github.com/user/repo</div><div class="terminal-line output">Cloning into \'repo\'...</div><div class="terminal-line output">remote: Counting objects...</div>',
+                ready: false
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answeredCorrectly = false;
+
+        // Shuffle scenarios
+        scenarios.sort(() => Math.random() - 0.5);
+
+        function showQuestion() {
+            if (currentQuestion >= 5) {
+                showCompletion();
+                return;
+            }
+
+            const scenario = scenarios[currentQuestion];
+            document.getElementById('terminal-display').innerHTML = scenario.html;
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').className = 'feedback';
+            answeredCorrectly = false;
+
+            // Re-enable buttons
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.disabled = false;
+                btn.className = 'answer-btn';
+            });
+        }
+
+        function checkAnswer(userAnswer) {
+            if (answeredCorrectly) return;
+
+            const scenario = scenarios[currentQuestion];
+            const correct = userAnswer === scenario.ready;
+            const feedback = document.getElementById('feedback');
+            const buttons = document.querySelectorAll('.answer-btn');
+
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                if ((btn.textContent.includes('READY') && userAnswer === true) ||
+                    (btn.textContent.includes('BUSY') && userAnswer === false)) {
+                    btn.className = correct ? 'answer-btn correct' : 'answer-btn incorrect';
+                }
+            });
+
+            if (correct) {
+                score++;
+                document.getElementById('score').textContent = score;
+                feedback.textContent = 'Correct!';
+                feedback.className = 'feedback correct';
+                answeredCorrectly = true;
+
+                setTimeout(() => {
+                    currentQuestion++;
+                    showQuestion();
+                }, 1500);
+            } else {
+                feedback.textContent = scenario.ready ? 'Wrong! It\'s READY (see the yourname@your-computer $ or % prompt)' : 'Wrong! It\'s BUSY (no prompt yet)';
+                feedback.className = 'feedback incorrect';
+
+                setTimeout(() => {
+                    feedback.textContent = 'Try again!';
+                    buttons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.className = 'answer-btn';
+                    });
+                }, 2000);
+            }
+        }
+
+        function showCompletion() {
+            document.getElementById('game-area').style.display = 'none';
+            document.getElementById('completion').className = 'completion show';
+
+            // Get dynamic password
+            if (typeof getLevelInfo === 'function') {
+                const info = getLevelInfo('terminal-prompt/index.html');
+                if (info && info.next) {
+                    document.getElementById('next-password').textContent = info.next.password;
+                } else {
+                    document.getElementById('next-password').textContent = 'brew';
+                }
+            } else {
+                document.getElementById('next-password').textContent = 'brew';
+            }
+        }
+
+        // Start the game
+        showQuestion();
+    </script>
+</body>
+</html>

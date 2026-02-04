@@ -13,7 +13,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Courier New', monospace;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: #e0e0e0;
             min-height: 100vh;
@@ -29,7 +29,8 @@
             font-size: 2.5em;
             text-align: center;
             margin-bottom: 10px;
-            color: #4ecdc4;
+            color: #5cd65c;
+            text-shadow: 0 0 10px #5cd65c50;
         }
 
         .subtitle {
@@ -40,10 +41,12 @@
         }
 
         .recap {
-            background: #1e1e2e;
+            background: #16213e;
+            border: 3px solid #5cd65c;
             border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
+            box-shadow: 0 0 30px #5cd65c30;
         }
 
         .recap h2 {
@@ -69,14 +72,16 @@
 
         .recap li::before {
             content: "✓ ";
-            color: #4ecdc4;
+            color: #5cd65c;
         }
 
         .levels-section {
-            background: #1e1e2e;
+            background: #16213e;
+            border: 3px solid #5cd65c;
             border-radius: 12px;
             padding: 30px;
             margin-bottom: 30px;
+            box-shadow: 0 0 30px #5cd65c30;
         }
 
         .levels-section h2 {
@@ -94,16 +99,18 @@
         .level-link {
             display: block;
             padding: 12px 15px;
-            background: #2a2a3a;
+            background: #0f0f23;
+            border: 2px solid #333;
             border-radius: 8px;
             color: #ccc;
             text-decoration: none;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
         .level-link:hover {
-            background: #3a3a4a;
-            color: #fff;
+            background: #1a1a2e;
+            border-color: #5cd65c;
+            color: #5cd65c;
         }
 
         .level-link span {
@@ -116,17 +123,19 @@
             display: block;
             text-align: center;
             padding: 15px 30px;
-            background: #4ecdc4;
-            color: #1a1a2e;
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
             text-decoration: none;
             border-radius: 8px;
-            font-weight: 600;
+            font-weight: bold;
             font-size: 1.1em;
-            transition: background 0.2s;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px #5cd65c80;
         }
 
         .home-btn:hover {
-            background: #45b7aa;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #5cd65c;
         }
 
         .powered-by {
@@ -142,18 +151,9 @@
         <h1>Adventure Complete!</h1>
         <p class="subtitle">You did it.</p>
 
-        <div class="recap">
-            <h2>What you accomplished:</h2>
-            <ul>
-                <li>Learned terminal commands</li>
-                <li>Installed Homebrew</li>
-                <li>Installed VS Code, Python, and Git</li>
-                <li>Learned how Git works (Add, Commit, Push)</li>
-                <li>Created a GitHub repository</li>
-                <li>Cloned it to your computer</li>
-                <li>Submitted your Scratch project</li>
-            </ul>
-        </div>
+        <p style="text-align: center; font-size: 1.2em; color: #5cd65c; margin-bottom: 30px; font-weight: bold;">
+            Tell your instructor you're done to get your next assignment!
+        </p>
 
         <div class="levels-section">
             <h2>Revisit any level:</h2>
@@ -174,11 +174,15 @@
         const levelNames = {
             'terminal-flags': 'Terminal Flags',
             'terminal': 'Terminal Commands',
+            'terminal-prompt': 'Wait for the Prompt',
             'homebrew': 'Install Homebrew',
             'open-source': 'Open Source vs Closed Source',
             'VSCode': 'Install VS Code',
+            'vscode-app': 'Install VS Code (App)',
             'snake-game': 'Snake Game',
             'install-git': 'Install Git',
+            'install-github-desktop': 'Install GitHub Desktop',
+            'install-node': 'Install Node.js',
             'git-workflow': 'How Git Works',
             'python-extension': 'Python Extension',
             'final-boss': 'Final Boss: Submit Project'

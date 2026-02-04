@@ -10,26 +10,38 @@ window.LEVELS = [
     // Terminal commands like ls -a to see hidden files
     { path: 'terminal', password: 'terminal' },
 
+    // Wait for the prompt before typing new commands
+    { path: 'terminal-prompt', password: 'ready' },
+
     // How Brew Works + Install it
-    { path: 'homebrew', password: 'brew' },
+    // { path: 'homebrew', password: 'brew' },
 
     // Open Source v.s. Closed Source
     { path: 'open-source', password: 'source' },
 
     // brew install vscode
-    { path: 'VSCode', password: 'vscode' },
+    // { path: 'VSCode', password: 'vscode' },
+
+    // Alternative: Download VS Code from website
+    { path: 'vscode-app', password: 'vscode' },
 
     // unnecessary game of snake lol
     { path: 'snake-game', password: 'snake' },
 
     // Install Git + recap of what they've done so far
-    { path: 'install-git', password: 'get-git' },
+    // { path: 'install-git', password: 'get-git' },
+
+    // Install GitHub Desktop
+    { path: 'install-github-desktop', password: 'get-github-desktop' },
 
     // How Git works: the 4 locations (working dir, staging, local repo, remote)
     { path: 'git-workflow', password: 'workflow' },
 
     // Open VS Code and install the Python extension
     { path: 'python-extension', password: 'python' },
+
+    // Download and install Node.js from nodejs.org
+    { path: 'install-node', password: 'nodejs' },
 
     // Final Boss Level:
     // Create a Github Repo on Github.com + add me as collaborator
@@ -88,12 +100,16 @@ window.normalizeFolderName = function(name) {
         'submitscratchoncanvas': 'submit-scratch-canvas',
         'terminal': 'terminal',
         'terminalflags': 'terminal-flags',
+        'terminalprompt': 'terminal-prompt',
         'vocab': 'vocab',
         'vscode': 'VSCode',
+        'vscodeapp': 'vscode-app',
         'githubvscode': 'github-vscode',
         'gitbasics': 'git-basics',
         'gitclone': 'git-clone',
         'installgit': 'install-git',
+        'installgithubdesktop': 'install-github-desktop',
+        'installnode': 'install-node',
         'pythonextension': 'python-extension',
         'gitworkflow': 'git-workflow',
         'finalboss': 'final-boss',

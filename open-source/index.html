@@ -15,9 +15,9 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
             line-height: 1.6;
             min-height: 100vh;
         }
@@ -31,11 +31,12 @@
         .step {
             display: none;
             min-height: 600px;
-            background: rgba(255, 255, 255, 0.95);
+            background: #16213e;
+            border: 3px solid #5cd65c;
             border-radius: 15px;
             padding: 40px;
             margin-bottom: 100px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 30px #5cd65c30;
         }
 
         .step.active {
@@ -53,27 +54,26 @@
         }
 
         .nav-btn {
-            background: #667eea;
-            color: white;
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
             border: none;
-            border-radius: 25px;
+            border-radius: 8px;
             font-size: 1.1em;
-            padding: 12px 24px;
+            padding: 12px 30px;
             cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 0 20px #5cd65c80;
         }
 
         .nav-btn:hover {
-            background: #5a67d8;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #5cd65c;
         }
 
         .nav-btn:disabled {
-            background: #ccc;
+            background: #333;
             color: #666;
             cursor: not-allowed;
             transform: none;
@@ -85,19 +85,20 @@
             margin-bottom: 30px;
             font-size: 1.2em;
             font-weight: 600;
-            color: #667eea;
+            color: #5cd65c;
         }
 
         h1 {
-            color: #667eea;
+            color: #5cd65c;
             font-size: 2.5em;
             font-weight: 600;
             margin-bottom: 20px;
             text-align: center;
+            text-shadow: 0 0 10px #5cd65c50;
         }
 
         h2 {
-            color: #764ba2;
+            color: #5cd65c;
             font-size: 1.8em;
             font-weight: 600;
             margin: 30px 0 15px 0;
@@ -114,7 +115,11 @@
         }
 
         strong {
-            color: #667eea;
+            color: #5cd65c;
+        }
+        
+        p {
+            color: #ccc;
         }
 
         section {
@@ -127,40 +132,42 @@
         }
 
         canvas {
-            border: 3px solid #667eea;
+            border: 3px solid #5cd65c;
             margin: 20px 0;
-            background-color: #f8f9ff;
+            background-color: #0f0f23;
             border-radius: 10px;
         }
 
         #score {
             font-size: 24px;
             margin: 20px 0;
-            color: #667eea;
+            color: #5cd65c;
             font-weight: 600;
         }
 
         .game-btn {
-            background: #4CAF50;
-            color: white;
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
             border: none;
-            border-radius: 25px;
+            border-radius: 8px;
             font-size: 18px;
-            padding: 12px 24px;
+            padding: 12px 30px;
             cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
             margin: 10px;
             transition: all 0.3s ease;
+            box-shadow: 0 0 20px #5cd65c80;
         }
 
         .game-btn:hover {
-            background: #45a049;
-            transform: translateY(-2px);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #5cd65c;
         }
 
         .game-btn:disabled {
-            background: #ccc;
+            background: #333;
+            color: #666;
             cursor: not-allowed;
             transform: none;
         }
@@ -174,65 +181,70 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.8);
         }
 
         .modal-content {
-            background-color: white;
+            background-color: #16213e;
+            border: 3px solid #5cd65c;
             margin: 15% auto;
             padding: 30px;
             border-radius: 15px;
             width: 400px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 40px #5cd65c50;
         }
 
         .modal h2 {
-            color: #667eea;
+            color: #5cd65c;
             margin-bottom: 15px;
         }
 
         .modal p {
             margin: 10px 0;
-            color: #666;
+            color: #ccc;
         }
 
         .completion {
             text-align: center;
             margin-top: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: #16213e;
+            border: 3px solid #5cd65c;
+            color: #eee;
             border-radius: 15px;
             padding: 40px;
+            box-shadow: 0 0 30px #5cd65c30;
         }
 
         .completion h2 {
-            color: white;
+            color: #5cd65c;
             margin-bottom: 20px;
         }
 
         .completion p {
             font-size: 1.2em;
             margin: 15px 0;
+            color: #ccc;
         }
 
         .portal-btn {
-            background: white;
-            color: #667eea;
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
             border: none;
-            border-radius: 25px;
+            border-radius: 8px;
             font-size: 1.2em;
             padding: 15px 30px;
             cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
             margin-top: 20px;
             transition: all 0.3s ease;
+            box-shadow: 0 0 20px #5cd65c80;
         }
 
         .portal-btn:hover {
-            background: #f0f0f0;
-            transform: translateY(-2px);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #5cd65c;
         }
 
         #nextPageButton {
@@ -252,27 +264,27 @@
             
             <div style="display: flex; gap: 30px; margin-top: 30px;">
                 <!-- Open Source Column -->
-                <div style="flex: 1; background: #e8f5e9; border-radius: 15px; padding: 30px;">
-                    <h2 style="color: #2e7d32; text-align: center; margin-bottom: 20px;">Open Source</h2>
+                <div style="flex: 1; background: #0f0f23; border: 2px solid #ff69b4; border-radius: 15px; padding: 30px;">
+                    <h2 style="color: #ff69b4; text-align: center; margin-bottom: 20px;">Open Source</h2>
                     <ul style="list-style: none; padding: 0;">
-                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Code is public - anyone can see it</li>
-                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Free to use and modify</li>
-                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Community-driven development</li>
+                        <li style="margin: 15px 0; padding: 10px; background: #1a1a2e; border-radius: 8px; color: #ccc;">Code is public - anyone can see it</li>
+                        <li style="margin: 15px 0; padding: 10px; background: #1a1a2e; border-radius: 8px; color: #ccc;">Free to use and modify</li>
+                        <li style="margin: 15px 0; padding: 10px; background: #1a1a2e; border-radius: 8px; color: #ccc;">Community-driven development</li>
                     </ul>
-                    <p style="margin-top: 20px; font-weight: 600; color: #2e7d32;">Examples:</p>
-                    <p>Linux, Firefox, Python, VLC, Git</p>
+                    <p style="margin-top: 20px; font-weight: 600; color: #ff69b4;">Examples:</p>
+                    <p style="color: #ccc;">Linux, Firefox, Python, VLC, Git</p>
                 </div>
                 
                 <!-- Closed Source Column -->
-                <div style="flex: 1; background: #fce4ec; border-radius: 15px; padding: 30px;">
-                    <h2 style="color: #c2185b; text-align: center; margin-bottom: 20px;">Closed Source</h2>
+                <div style="flex: 1; background: #0f0f23; border: 2px solid #4a90d9; border-radius: 15px; padding: 30px;">
+                    <h2 style="color: #4a90d9; text-align: center; margin-bottom: 20px;">Closed Source</h2>
                     <ul style="list-style: none; padding: 0;">
-                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Code is private - only the company can see it</li>
-                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Requires paid license</li>
-                        <li style="margin: 15px 0; padding: 10px; background: white; border-radius: 8px;">Company controls updates</li>
+                        <li style="margin: 15px 0; padding: 10px; background: #1a1a2e; border-radius: 8px; color: #ccc;">Code is private - only the company can see it</li>
+                        <li style="margin: 15px 0; padding: 10px; background: #1a1a2e; border-radius: 8px; color: #ccc;">Requires paid license</li>
+                        <li style="margin: 15px 0; padding: 10px; background: #1a1a2e; border-radius: 8px; color: #ccc;">Company controls updates</li>
                     </ul>
-                    <p style="margin-top: 20px; font-weight: 600; color: #c2185b;">Examples:</p>
-                    <p>Windows, macOS, Photoshop, Microsoft Office</p>
+                    <p style="margin-top: 20px; font-weight: 600; color: #4a90d9;">Examples:</p>
+                    <p style="color: #ccc;">Windows, macOS, Photoshop, Microsoft Office</p>
                 </div>
             </div>
         </div>
@@ -374,14 +386,14 @@
         const itemSpeed = 2;
 
         function drawPlayer() {
-            ctx.fillStyle = '#667eea';
+            ctx.fillStyle = '#5cd65c';
             ctx.fillRect(player.x, player.y, player.width, player.height);
         }
 
         function drawItems() {
             items.forEach(item => {
-                ctx.fillStyle = 'black';
-                ctx.font = '16px Poppins';
+                ctx.fillStyle = '#eee'; // Same color for all items - students must read the content
+                ctx.font = '16px "Courier New"';
                 ctx.fillText(item.text, item.x, item.y);
             });
         }

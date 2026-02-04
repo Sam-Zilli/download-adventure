@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Install VS Code</title>
+    <title>Install Node.js</title>
     
     <script src="../navigation.js"></script>
     <style>
@@ -16,17 +16,17 @@
         body {
             font-family: 'Courier New', monospace;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #e0e0e0;
+            color: #eee;
             min-height: 100vh;
             padding: 20px;
         }
 
         #container {
             background-color: #16213e;
-            border-radius: 15px;
+            border-radius: 12px;
             box-shadow: 0 0 30px #5cd65c30;
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 40px;
             border: 3px solid #5cd65c;
@@ -39,26 +39,10 @@
 
         header h1 {
             color: #5cd65c;
-            font-size: 2.2em;
+            font-size: 2em;
             font-weight: 600;
             margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
             text-shadow: 0 0 10px #5cd65c50;
-        }
-
-        .vscode-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #007acc, #0065a9);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5em;
-            color: white;
         }
 
         .step {
@@ -82,31 +66,15 @@
             line-height: 1.7;
         }
 
-        .info-box {
-            background: #0f0f23;
-            border-left: 4px solid #5cd65c;
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .info-box p {
-            margin-bottom: 10px;
-        }
-
-        .info-box p:last-child {
-            margin-bottom: 0;
-        }
-
         ol {
             padding-left: 25px;
             margin: 20px 0;
         }
 
         ol li {
-            padding: 12px 0;
+            padding: 10px 0;
             font-size: 1.05em;
-            color: #ddd;
+            color: #ccc;
         }
 
         ol li strong {
@@ -124,27 +92,14 @@
 
         .code-block {
             display: block;
-            background-color: #1e1e1e;
-            border: 1px solid #3e3e42;
+            background-color: #0f0f23;
             padding: 15px 20px;
             margin: 15px 0;
-            font-family: 'Consolas', 'Courier New', monospace;
+            font-family: 'Courier New', monospace;
             border-radius: 8px;
-            color: #d4d4d4;
+            border: 2px solid #5cd65c;
+            color: #5cd65c;
             font-size: 1.1em;
-        }
-
-        .code-block .command {
-            color: #dcdcaa;
-        }
-
-        a {
-            color: #3794ff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
         }
 
         button {
@@ -178,6 +133,29 @@
             background: #444;
         }
 
+        .response-btn {
+            margin-right: 10px;
+            padding: 12px 25px;
+        }
+
+        .response-btn.success {
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
+        }
+
+        .response-btn.success:hover {
+            transform: scale(1.05);
+        }
+
+        .response-btn.fail {
+            background: #333;
+            color: #eee;
+        }
+
+        .response-btn.fail:hover {
+            background: #444;
+        }
+
         .nav-buttons {
             margin-top: 30px;
         }
@@ -185,7 +163,7 @@
         .progress-bar {
             width: 100%;
             height: 6px;
-            background: #3e3e42;
+            background: #333;
             border-radius: 3px;
             margin-bottom: 30px;
             overflow: hidden;
@@ -204,29 +182,12 @@
             font-size: 0.95em;
         }
 
-        .tip {
-            background: #0f0f23;
-            border-left: 4px solid #5cd65c;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        .tip strong {
-            color: #5cd65c;
-        }
-        
-        .tip code {
-            display: block;
-            margin-top: 10px;
-        }
-
         .completion {
             text-align: center;
             padding: 30px;
             background: #0f0f23;
             border: 3px solid #5cd65c;
-            border-radius: 15px;
+            border-radius: 12px;
             margin-top: 30px;
             box-shadow: 0 0 30px #5cd65c30;
         }
@@ -240,43 +201,38 @@
             color: #5cd65c;
         }
 
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .feature-card {
-            background: #0f0f23;
-            border-radius: 10px;
-            padding: 20px;
+        #result-message {
             text-align: center;
-            border: 2px solid #5cd65c;
+            font-size: 1.1em;
+            margin-top: 15px;
         }
 
-        .feature-card .icon {
-            font-size: 2em;
-            margin-bottom: 10px;
+        .tip {
+            background: #0f0f23;
+            border-left: 4px solid #5cd65c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
         }
 
-        .feature-card h3 {
+        .tip strong {
             color: #5cd65c;
-            font-size: 1em;
-            margin-bottom: 8px;
         }
 
-        .feature-card p {
-            font-size: 0.9em;
-            color: #999;
-            margin: 0;
+        a {
+            color: #5cd65c;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div id="container">
         <header>
-            <h1>Visual Studio Code</h1>
+            <h1>Install Node.js</h1>
         </header>
 
         <div class="step-indicator" id="step-indicator">Step 1 of 3</div>
@@ -285,80 +241,94 @@
         </div>
 
         <div id="steps">
-            <!-- Step 1: What is VS Code -->
+            <!-- Step 1: What is Node -->
             <div class="step active" id="step-1">
-                <h2>What is VS Code?</h2>
+                <h2>What is Node.js?</h2>
                 
-                <p>VS Code (or Visual Studio Code) is an <strong>IDE</strong> - a place to write, edit, and organize your code.</p>
-
-                <p>We <em>could</em> write code in Terminal, but VS Code gives us helpful tools like:</p>
-
-                <ul style="margin-left: 25px; margin-bottom: 20px;">
-                    <li style="padding: 8px 0;"><strong>Syntax Highlighting</strong> - colors make code easier to read</li>
-                    <li style="padding: 8px 0;"><strong>Autocomplete</strong> - suggests code as you type</li>
-                    <li style="padding: 8px 0;"><strong>Error Detection</strong> - shows mistakes before you run</li>
-                    <li style="padding: 8px 0;"><strong>File Explorer</strong> - organize your project files</li>
-                </ul>
+                <p>Node.js lets you run JavaScript code on your computer (not just in a web browser).</p>
                 
+                <p>We'll use it to run JavaScript programs in the terminal and in VS Code.</p>
+
                 <button onclick="nextStep()">Next</button>
             </div>
 
-            <!-- Step 2: Install -->
+            <!-- Step 2: Download -->
             <div class="step" id="step-2">
-                <h2>Install VS Code</h2>
-                
-                <p>Remember Homebrew? Let's use it to install VS Code.</p>
+                <h2>Download Node.js</h2>
                 
                 <ol>
-                    <li>Go to the <a href="https://formulae.brew.sh/cask/visual-studio-code" target="_blank">Homebrew page for VS Code</a></li>
-                    <li>Find the install command and <strong>copy it</strong></li>
-                    <li>Paste it into your <strong>Terminal</strong> and press Enter</li>
-                    <li>Wait for it to install (this may take a minute)</li>
+                    <li>Go to <a href="https://nodejs.org" target="_blank">nodejs.org</a></li>
+                    <li>Click the <strong>LTS</strong> download button (the one on the left)</li>
+                    <li>The installer file will download to your Downloads folder</li>
                 </ol>
 
                 <div class="tip">
-                    <strong>Hint:</strong> The command will look something like this:
-                    <code>brew install --cask visual-studio-code</code>
+                    <strong>What is LTS?</strong> It stands for "Long Term Support" - the stable, recommended version.
+                </div>
+
+                <div class="tip">
+                    <strong>Note:</strong> The website automatically detects your Mac type. If it asks, you can check yours by running <code>uname -m</code> in Terminal (<code>arm64</code> = Apple Silicon, <code>x86_64</code> = Intel).
                 </div>
 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
-                    <button onclick="nextStep()">Next</button>
+                    <button onclick="nextStep()">Downloaded</button>
                 </div>
             </div>
 
-            <!-- Step 3: Verify -->
+            <!-- Step 3: Install -->
             <div class="step" id="step-3">
-                <h2>Verify Installation</h2>
+                <h2>Install Node.js</h2>
                 
-                <p>Let's make sure VS Code installed correctly.</p>
-                
-                <p>Type this in your Terminal:</p>
-                <div class="code-block"><span class="command">code -v</span></div>
-                
-                <p>You should see a version number like <code>1.85.0</code> (your numbers may differ).</p>
-
-                <p>VS Code is now an app installed on your computer. You can put it in your dock for easy access.</p>
+                <ol>
+                    <li>Open the <code>.pkg</code> file from your Downloads folder</li>
+                    <li>Follow the installer steps (just keep clicking "Continue" and "Agree")</li>
+                    <li>Enter your Mac password when prompted</li>
+                    <li>Click "Install" and wait for it to finish</li>
+                </ol>
 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
-                    <button onclick="showCompletion()">I Installed It</button>
+                    <button onclick="nextStep()">Installed</button>
                 </div>
+            </div>
+
+            <!-- Step 4: Verify -->
+            <div class="step" id="step-4">
+                <h2>Verify It Worked</h2>
+                
+                <p>Open Terminal and type:</p>
+                <div class="code-block">node --version</div>
+                
+                <p>You should see something like <code>v20.10.0</code> (your numbers may differ).</p>
+
+                <div class="tip">
+                    <strong>If it says "command not found":</strong> Close Terminal completely (Cmd + Q), then open it again and try the command.
+                </div>
+                
+                <div style="margin-top: 25px;">
+                    <button class="response-btn success" onclick="handleVerifySuccess()">I see a version number</button>
+                    <button class="response-btn fail" onclick="handleFail()">I got an error</button>
+                </div>
+                <p id="result-message"></p>
             </div>
 
             <!-- Completion -->
             <div class="completion" id="completion" style="display: none;">
-                <h2>VS Code Ready</h2>
-                <p>You now have a professional code editor installed.</p>
-                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #4ec9b0;">loading...</strong></p>
-                <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+                <h2>Node.js Installed</h2>
+                <p>You can now run JavaScript on your computer.</p>
+                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #5cd65c;">loading...</strong></p>
+                <div style="margin-top: 20px;">
+                    <button class="back-btn" onclick="backFromCompletion()">← Back</button>
+                    <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         let currentStep = 1;
-        const totalSteps = 3;
+        const totalSteps = 4;
 
         function updateProgress() {
             const progress = (currentStep / totalSteps) * 100;
@@ -382,6 +352,15 @@
             }
         }
 
+        function handleVerifySuccess() {
+            document.getElementById('result-message').innerHTML = '<span style="color: #5cd65c;">Node.js is installed.</span>';
+            setTimeout(showCompletion, 1000);
+        }
+
+        function handleFail() {
+            document.getElementById('result-message').innerHTML = '<span style="color: #ffd700;">Close and reopen Terminal, then try again. If it still doesn\'t work, raise your hand for help.</span>';
+        }
+
         function showCompletion() {
             document.getElementById(`step-${currentStep}`).classList.remove('active');
             document.getElementById('completion').style.display = 'block';
@@ -389,15 +368,21 @@
             document.getElementById('progress-fill').style.width = '100%';
             
             try {
-                const levelInfo = window.getLevelInfo('VSCode/index.html');
-                let nextPassword = 'clone';
+                const levelInfo = window.getLevelInfo('install-node/index.html');
+                let nextPassword = 'node';
                 if (levelInfo && levelInfo.next) {
                     nextPassword = levelInfo.next.password;
                 }
                 document.getElementById('dynamic-password').textContent = nextPassword;
             } catch (error) {
-                document.getElementById('dynamic-password').textContent = 'clone';
+                document.getElementById('dynamic-password').textContent = 'node';
             }
+        }
+
+        function backFromCompletion() {
+            document.getElementById('completion').style.display = 'none';
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
         }
 
         // Initialize

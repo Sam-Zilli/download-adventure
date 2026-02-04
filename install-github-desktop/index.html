@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Install Git</title>
+    <title>Install GitHub Desktop</title>
     
     <script src="../navigation.js"></script>
     <style>
@@ -290,7 +290,7 @@
 <body>
     <div id="container">
         <header>
-            <h1>Install Git</h1>
+            <h1>Install GitHub Desktop</h1>
         </header>
 
         <div class="step-indicator" id="step-indicator">Step 1 of 4</div>
@@ -301,24 +301,24 @@
         <div id="steps">
             <!-- Step 1: Quiz -->
             <div class="step active" id="step-1">
-                <h2>Install Git with Homebrew</h2>
+                <h2>Install GitHub Desktop with Homebrew</h2>
                 
-                <p>Git is the software that lets you track changes and sync code with GitHub.</p>
+                <p>GitHub Desktop is a visual app that makes it easy to save your code to GitHub.</p>
                 
-                <p>Let's use Homebrew to install Git. Do you remember the command to install something with Homebrew?</p>
+                <p>Let's use Homebrew to install GitHub Desktop. Do you remember the command to install something with Homebrew?</p>
                 
                 <div class="quiz-options" id="quiz-options">
-                    <button class="option-btn" onclick="checkAnswer('git install brew')">git install brew</button>
-                    <button class="option-btn" onclick="checkAnswer('brew install git')">brew install git</button>
-                    <button class="option-btn" onclick="checkAnswer('install brew git')">install brew git</button>
-                    <button class="option-btn" onclick="checkAnswer('homebrew get git')">homebrew get git</button>
+                    <button class="option-btn" onclick="checkAnswer('github install brew')">github install brew</button>
+                    <button class="option-btn" onclick="checkAnswer('brew install --cask github')">brew install --cask github</button>
+                    <button class="option-btn" onclick="checkAnswer('install brew github')">install brew github</button>
+                    <button class="option-btn" onclick="checkAnswer('homebrew get github')">homebrew get github</button>
                 </div>
                 
                 <p id="quiz-feedback" style="margin-top: 20px; font-size: 1.1em;"></p>
                 
                 <div id="correct-answer" style="display: none;">
                     <p style="margin-top: 20px;">Now run this in your Terminal:</p>
-                    <div class="code-block">brew install git</div>
+                    <div class="code-block">brew install --cask github</div>
                     <p>This may take a minute to download and install.</p>
                     <button onclick="nextStep()">I ran the command</button>
                 </div>
@@ -326,35 +326,42 @@
 
             <!-- Step 2: Verify -->
             <div class="step" id="step-2">
-                <h2>Verify Git is Installed</h2>
+                <h2>Open GitHub Desktop</h2>
                 
-                <p>Check that Git installed correctly by typing:</p>
-                <div class="code-block">git --version</div>
+                <p>GitHub Desktop should now be installed. Let's open it:</p>
                 
-                <p>You should see something like <code>git version 2.43.0</code> (your numbers may differ).</p>
+                <ol>
+                    <li>Press <code>Cmd + Space</code> to open Spotlight</li>
+                    <li>Type <strong>GitHub Desktop</strong></li>
+                    <li>Press Enter to open it</li>
+                </ol>
+                
+                <p>You should see the GitHub Desktop welcome screen.</p>
                 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
                 </div>
                 <div style="margin-top: 25px;">
-                    <button class="response-btn success" onclick="handleVerifySuccess()">I see a version number</button>
+                    <button class="response-btn success" onclick="handleVerifySuccess()">GitHub Desktop opened</button>
                     <button class="response-btn fail" onclick="handleFail()">I got an error</button>
                 </div>
                 <p id="result-message"></p>
             </div>
 
-            <!-- Step 3: Configure Git -->
+            <!-- Step 3: Sign In -->
             <div class="step" id="step-3">
-                <h2>Configure Git</h2>
+                <h2>Sign In to GitHub</h2>
                 
-                <p>Git needs to know who you are so it can label your commits. Run these two commands in Terminal (replace with your actual name and email):</p>
+                <p>GitHub Desktop needs to connect to your GitHub account.</p>
                 
-                <div class="code-block">git config --global user.name "Your Name"</div>
-                <div class="code-block">git config --global user.email "your.email@example.com"</div>
+                <ol>
+                    <li>In GitHub Desktop, click <strong>Sign in to GitHub.com</strong></li>
+                    <li>Your web browser will open - sign in with your GitHub username and password</li>
+                    <li>Click <strong>Authorize desktop</strong> to give GitHub Desktop permission</li>
+                    <li>Return to GitHub Desktop</li>
+                </ol>
                 
-                <p>Use the email associated with your GitHub account.</p>
-                
-                <p style="color: #888; font-size: 0.95em;">You only need to do this once on your computer.</p>
+                <p style="color: #999; font-size: 0.95em;">GitHub Desktop will automatically configure everything for you - no terminal commands needed!</p>
                 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
@@ -393,8 +400,8 @@
                     <div class="recap-item">
                         <span class="checkmark">✓</span>
                         <div>
-                            <strong>Used Brew to install Git</strong>
-                            <p>How we push our code up to GitHub</p>
+                            <strong>Used Brew to install GitHub Desktop</strong>
+                            <p>A visual app to save our code to GitHub</p>
                         </div>
                     </div>
                 </div>
@@ -409,8 +416,8 @@
 
             <!-- Completion -->
             <div class="completion" id="completion" style="display: none;">
-                <h2>Git Installed</h2>
-                <p>You now have Git on your computer.</p>
+                <h2>GitHub Desktop Installed</h2>
+                <p>You now have GitHub Desktop on your computer.</p>
                 <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #5cd65c;">loading...</strong></p>
                 <div style="margin-top: 20px;">
                     <button class="back-btn" onclick="backFromCompletion()">← Back</button>
@@ -436,14 +443,14 @@
             
             buttons.forEach(btn => {
                 btn.disabled = true;
-                if (btn.textContent === 'brew install git') {
+                if (btn.textContent === 'brew install --cask github') {
                     btn.classList.add('correct');
-                } else if (btn.textContent === answer && answer !== 'brew install git') {
+                } else if (btn.textContent === answer && answer !== 'brew install --cask github') {
                     btn.classList.add('incorrect');
                 }
             });
             
-            if (answer === 'brew install git') {
+            if (answer === 'brew install --cask github') {
                 feedback.innerHTML = '<span style="color: #5cd65c;">Correct!</span>';
                 document.getElementById('correct-answer').style.display = 'block';
             } else {
@@ -471,12 +478,12 @@
         }
 
         function handleVerifySuccess() {
-            document.getElementById('result-message').innerHTML = '<span style="color: #5cd65c;">Git is installed.</span>';
+            document.getElementById('result-message').innerHTML = '<span style="color: #5cd65c;">GitHub Desktop is installed.</span>';
             setTimeout(nextStep, 1000);
         }
 
         function handleFail() {
-            document.getElementById('result-message').innerHTML = '<span style="color: #ffd700;">Try running <code>brew install git</code> again, or raise your hand for help.</span>';
+            document.getElementById('result-message').innerHTML = '<span style="color: #ffd700;">Try running <code>brew install --cask github</code> again, or raise your hand for help.</span>';
         }
 
         function showCompletion() {
@@ -486,14 +493,14 @@
             document.getElementById('progress-fill').style.width = '100%';
             
             try {
-                const levelInfo = window.getLevelInfo('install-git/index.html');
-                let nextPassword = 'git';
+                const levelInfo = window.getLevelInfo('install-github-desktop/index.html');
+                let nextPassword = 'workflow';
                 if (levelInfo && levelInfo.next) {
                     nextPassword = levelInfo.next.password;
                 }
                 document.getElementById('dynamic-password').textContent = nextPassword;
             } catch (error) {
-                document.getElementById('dynamic-password').textContent = 'git';
+                document.getElementById('dynamic-password').textContent = 'workflow';
             }
         }
 

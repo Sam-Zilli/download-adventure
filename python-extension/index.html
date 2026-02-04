@@ -14,21 +14,22 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
             min-height: 100vh;
             padding: 20px;
         }
 
         #container {
-            background-color: #fff;
+            background-color: #16213e;
             border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 30px #5cd65c30;
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
             padding: 40px;
+            border: 3px solid #5cd65c;
         }
 
         header {
@@ -37,10 +38,11 @@
         }
 
         header h1 {
-            color: #007acc;
+            color: #5cd65c;
             font-size: 2em;
             font-weight: 600;
             margin-bottom: 10px;
+            text-shadow: 0 0 10px #5cd65c50;
         }
 
         .step {
@@ -52,14 +54,14 @@
         }
 
         h2 {
-            color: #333;
+            color: #5cd65c;
             font-size: 1.5em;
             margin-bottom: 20px;
         }
 
         p {
             font-size: 1.1em;
-            color: #555;
+            color: #ccc;
             margin-bottom: 15px;
             line-height: 1.7;
         }
@@ -72,47 +74,51 @@
         ol li {
             padding: 10px 0;
             font-size: 1.05em;
-            color: #444;
+            color: #ccc;
         }
 
         ol li strong {
-            color: #007acc;
+            color: #5cd65c;
         }
 
         code {
-            background-color: #f0f0f0;
+            background-color: #0f0f23;
             padding: 4px 10px;
             border-radius: 4px;
             font-family: 'Courier New', monospace;
-            color: #d63384;
+            color: #5cd65c;
+            border: 1px solid #5cd65c;
         }
 
         button {
-            background-color: #007acc;
-            color: white;
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
             padding: 12px 30px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1.1em;
-            font-weight: 600;
+            font-weight: bold;
             margin-top: 20px;
             transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 20px #5cd65c80;
         }
 
         button:hover {
-            background-color: #005a9e;
-            transform: translateY(-2px);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #5cd65c;
         }
 
         .back-btn {
-            background-color: #ddd;
-            color: #333;
+            background: #333;
+            color: #eee;
             margin-right: 10px;
+            box-shadow: none;
         }
 
         .back-btn:hover {
-            background-color: #ccc;
+            background: #444;
         }
 
         .nav-buttons {
@@ -122,7 +128,7 @@
         .progress-bar {
             width: 100%;
             height: 6px;
-            background: #e0e0e0;
+            background: #333;
             border-radius: 3px;
             margin-bottom: 30px;
             overflow: hidden;
@@ -130,7 +136,7 @@
 
         .progress-fill {
             height: 100%;
-            background: #007acc;
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
             transition: width 0.3s ease;
         }
 
@@ -144,14 +150,20 @@
         .completion {
             text-align: center;
             padding: 30px;
-            background: #f0fff0;
+            background: #0f0f23;
+            border: 3px solid #5cd65c;
             border-radius: 12px;
             margin-top: 30px;
+            box-shadow: 0 0 30px #5cd65c30;
         }
 
         .completion h2 {
-            color: #28a745;
+            color: #5cd65c;
             margin-bottom: 20px;
+        }
+        
+        .completion p strong {
+            color: #5cd65c;
         }
 
         img {
@@ -162,15 +174,15 @@
         }
 
         .tip {
-            background: #e7f3ff;
-            border-left: 4px solid #007acc;
+            background: #0f0f23;
+            border-left: 4px solid #5cd65c;
             padding: 15px;
             margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
 
         .tip strong {
-            color: #007acc;
+            color: #5cd65c;
         }
 
         .tour-item {
@@ -178,7 +190,7 @@
             align-items: flex-start;
             gap: 15px;
             padding: 15px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #333;
         }
 
         .tour-item:last-child {
@@ -186,8 +198,8 @@
         }
 
         .tour-number {
-            background: #007acc;
-            color: white;
+            background: #5cd65c;
+            color: #111;
             width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -202,13 +214,13 @@
         .tour-content h3 {
             margin: 0 0 5px 0;
             font-size: 1.1em;
-            color: #333;
+            color: #5cd65c;
         }
 
         .tour-content p {
             margin: 0;
             font-size: 0.95em;
-            color: #666;
+            color: #999;
         }
 
         .shortcut {
