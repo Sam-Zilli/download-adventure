@@ -37,6 +37,9 @@ window.LEVELS = [
     // How Git works: the 4 locations (working dir, staging, local repo, remote)
     { path: 'git-workflow', password: 'workflow' },
 
+    // Download and install Python from python.org
+    { path: 'install-python', password: 'install-python' },
+
     // Open VS Code and install the Python extension
     { path: 'python-extension', password: 'python' },
 
@@ -109,6 +112,7 @@ window.normalizeFolderName = function(name) {
         'gitclone': 'git-clone',
         'installgit': 'install-git',
         'installgithubdesktop': 'install-github-desktop',
+        'installpython': 'install-python',
         'installnode': 'install-node',
         'pythonextension': 'python-extension',
         'gitworkflow': 'git-workflow',

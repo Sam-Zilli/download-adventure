@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install Python</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: #16213e;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #5cd65c30;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 3px solid #5cd65c;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #5cd65c;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #5cd65c50;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            color: #5cd65c;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        ol {
+            padding-left: 25px;
+            margin: 20px 0;
+        }
+
+        ol li {
+            padding: 10px 0;
+            font-size: 1.05em;
+            color: #ccc;
+        }
+
+        ol li strong {
+            color: #5cd65c;
+        }
+
+        code {
+            background-color: #0f0f23;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #5cd65c;
+            border: 1px solid #5cd65c;
+        }
+
+        .code-block {
+            display: block;
+            background-color: #0f0f23;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 8px;
+            border: 2px solid #5cd65c;
+            color: #5cd65c;
+            font-size: 1.1em;
+        }
+
+        button {
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 20px #5cd65c80;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #5cd65c;
+        }
+
+        .back-btn {
+            background: #333;
+            color: #eee;
+            margin-right: 10px;
+            box-shadow: none;
+        }
+
+        .back-btn:hover {
+            background: #444;
+        }
+
+        .response-btn {
+            margin-right: 10px;
+            padding: 12px 25px;
+        }
+
+        .response-btn.success {
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
+        }
+
+        .response-btn.success:hover {
+            transform: scale(1.05);
+        }
+
+        .response-btn.fail {
+            background: #333;
+            color: #eee;
+        }
+
+        .response-btn.fail:hover {
+            background: #444;
+        }
+
+        .nav-buttons {
+            margin-top: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            background: #0f0f23;
+            border: 3px solid #5cd65c;
+            border-radius: 12px;
+            margin-top: 30px;
+            box-shadow: 0 0 30px #5cd65c30;
+        }
+
+        .completion h2 {
+            color: #5cd65c;
+            margin-bottom: 20px;
+        }
+        
+        .completion p strong {
+            color: #5cd65c;
+        }
+
+        #result-message {
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 15px;
+        }
+
+        .tip {
+            background: #0f0f23;
+            border-left: 4px solid #5cd65c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip strong {
+            color: #5cd65c;
+        }
+
+        a {
+            color: #5cd65c;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Install Python</h1>
+        </header>
+
+        <div class="step-indicator" id="step-indicator">Step 1 of 3</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 33%;"></div>
+        </div>
+
+        <div id="steps">
+            <!-- Step 1: What is Python -->
+            <div class="step active" id="step-1">
+                <h2>What is Python?</h2>
+                
+                <p>Python is a programming language. You'll use it to write code that tells the computer what to do.</p>
+                
+                <p>We need to download Python so your computer can understand and run Python programs.</p>
+
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 2: Download -->
+            <div class="step" id="step-2">
+                <h2>Download Python</h2>
+                
+                <ol>
+                    <li>Go to <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads/</a></li>
+                    <li>Click the big <strong>Download Python</strong> button (it will show the latest version)</li>
+                    <li>The installer file will download to your Downloads folder</li>
+                </ol>
+
+                <div class="tip">
+                    <strong>Note:</strong> The website automatically detects your Mac type. If it asks, you can check yours by running <code>uname -m</code> in Terminal (<code>arm64</code> = Apple Silicon, <code>x86_64</code> = Intel).
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Downloaded</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Install -->
+            <div class="step" id="step-3">
+                <h2>Install Python</h2>
+                
+                <ol>
+                    <li>Open the <code>.pkg</code> file from your Downloads folder</li>
+                    <li>Follow the installer steps (just keep clicking "Continue" and "Agree")</li>
+                    <li><strong>IMPORTANT:</strong> Make sure to check the box that says <strong>"Add Python to PATH"</strong> if you see it</li>
+                    <li>Enter your Mac password when prompted</li>
+                    <li>Click "Install" and wait for it to finish</li>
+                </ol>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Installed</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Verify -->
+            <div class="step" id="step-4">
+                <h2>Verify It Worked</h2>
+                
+                <p>Open Terminal and type:</p>
+                <div class="code-block">python3 --version</div>
+                
+                <p>You should see something like <code>Python 3.12.0</code> (your numbers may differ).</p>
+
+                <div class="tip">
+                    <strong>If it says "command not found":</strong> Close Terminal completely (Cmd + Q), then open it again and try the command.
+                </div>
+                
+                <div style="margin-top: 25px;">
+                    <button class="response-btn success" onclick="handleVerifySuccess()">I see a version number</button>
+                    <button class="response-btn fail" onclick="handleFail()">I got an error</button>
+                </div>
+                <p id="result-message"></p>
+            </div>
+
+            <!-- Completion -->
+            <div class="completion" id="completion" style="display: none;">
+                <h2>Python Installed</h2>
+                <p>You can now write and run Python programs on your computer.</p>
+                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #5cd65c;">loading...</strong></p>
+                <div style="margin-top: 20px;">
+                    <button class="back-btn" onclick="backFromCompletion()">← Back</button>
+                    <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function handleVerifySuccess() {
+            document.getElementById('result-message').innerHTML = '<span style="color: #5cd65c;">Python is installed.</span>';
+            setTimeout(showCompletion, 1000);
+        }
+
+        function handleFail() {
+            document.getElementById('result-message').innerHTML = '<span style="color: #ffd700;">Close and reopen Terminal, then try again. If it still doesn\'t work, raise your hand for help.</span>';
+        }
+
+        function showCompletion() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.getElementById('completion').style.display = 'block';
+            document.getElementById('step-indicator').textContent = 'Complete!';
+            document.getElementById('progress-fill').style.width = '100%';
+            
+            try {
+                const levelInfo = window.getLevelInfo('install-python/index.html');
+                let nextPassword = 'python';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (error) {
+                document.getElementById('dynamic-password').textContent = 'python';
+            }
+        }
+
+        function backFromCompletion() {
+            document.getElementById('completion').style.display = 'none';
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        // Initialize
+        updateProgress();
+    </script>
+</body>
+</html>

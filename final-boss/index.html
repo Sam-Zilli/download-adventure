@@ -384,22 +384,22 @@
                 </div>
             </div>
 
-            <!-- Step 6: Clone in VS Code -->
+            <!-- Step 6: Clone in GitHub Desktop -->
             <div class="step" id="step-6">
                 <div class="phase-header">
                     <h2>Phase 2: Clone to Computer</h2>
                     <p>Download the repo to your computer</p>
                 </div>
                 
-                <h2>Clone in VS Code</h2>
+                <h2>Clone in GitHub Desktop</h2>
                 
                 <ol>
-                    <li>Open <strong>VS Code</strong></li>
-                    <li>Press <code>Cmd + Shift + P</code> to open the Command Palette</li>
-                    <li>Type <strong>Git: Clone</strong> and select it</li>
-                    <li>Paste the URL you copied</li>
-                    <li>Choose where to save it (like your Desktop or Documents folder)</li>
-                    <li>When asked, click <strong>Open</strong> to open the cloned repository</li>
+                    <li>Open <strong>GitHub Desktop</strong></li>
+                    <li>Click <strong>File</strong> → <strong>Clone Repository</strong></li>
+                    <li>Click the <strong>URL</strong> tab</li>
+                    <li>Paste the URL you copied into the first box</li>
+                    <li>Choose where to save it (the default location is fine, or pick Documents/Desktop)</li>
+                    <li>Click <strong>Clone</strong></li>
                 </ol>
 
                 <div class="tip">
@@ -450,14 +450,13 @@
                 
                 <ol>
                     <li>Find your downloaded <code>.sb3</code> file in Finder</li>
-                    <li>Drag it into your VS Code window (into the file explorer on the left)</li>
-                    <li>You should see your file in VS Code (but it won't be able to read it) like this:</li>
+                    <li>Open another Finder window and navigate to where you cloned your repository (probably in Documents/GitHub/lmsc261)</li>
+                    <li>Drag your <code>.sb3</code> file into the <strong>lmsc261</strong> folder</li>
+                    <li>You should now see your Scratch file in the same folder as the README.md</li>
                 </ol>
 
-                <img src="../images/vscode-sb3-file.png" alt="VS Code showing .sb3 file warning" style="margin: 20px 0; max-width: 100%;">
-
                 <div class="tip">
-                    <strong>Note:</strong> VS Code can't open <code>.sb3</code> files because they're Scratch project files, not text files. This is totally normal! You just need the file to exist in your repository.
+                    <strong>Tip:</strong> In GitHub Desktop, you can click <strong>Repository</strong> → <strong>Show in Finder</strong> to quickly open the folder.
                 </div>
 
                 <div class="nav-buttons">
@@ -476,16 +475,15 @@
                 <h2>Commit and Push</h2>
                 
                 <ol>
-                    <li>In VS Code, click the <strong>Source Control</strong> icon in the left sidebar (or press <code>Ctrl + Shift + G</code>)</li>
+                    <li>Go back to <strong>GitHub Desktop</strong></li>
                     <li>You'll see your <code>.sb3</code> file listed under "Changes"</li>
-                    <li>Click the <strong>+</strong> next to the file to stage it</li>
-                    <li>Type a commit message like <strong>"Add scratch project"</strong></li>
-                    <li>Click the <strong>checkmark</strong> to commit</li>
-                    <li>Click <strong>Sync Changes</strong> (or the cloud icon) to push to GitHub</li>
+                    <li>In the bottom left, type a commit message like <strong>"Add scratch project"</strong></li>
+                    <li>Click the blue <strong>Commit to main</strong> button</li>
+                    <li>Click <strong>Push origin</strong> to upload to GitHub</li>
                 </ol>
 
-                <div class="warning">
-                    <strong>First time?</strong> VS Code might ask you to sign in to GitHub. Follow the prompts to authorize VS Code.
+                <div class="tip">
+                    <strong>What just happened?</strong> You saved your changes locally (commit), then uploaded them to GitHub (push).
                 </div>
 
                 <div class="nav-buttons">
