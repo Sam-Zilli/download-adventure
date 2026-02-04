@@ -299,45 +299,45 @@
         </div>
 
         <div id="steps">
-            <!-- Step 1: Quiz -->
+            <!-- Step 1: What is GitHub Desktop -->
             <div class="step active" id="step-1">
-                <h2>Install GitHub Desktop with Homebrew</h2>
+                <h2>What is GitHub Desktop?</h2>
                 
                 <p>GitHub Desktop is a visual app that makes it easy to save your code to GitHub.</p>
                 
-                <p>Let's use Homebrew to install GitHub Desktop. Do you remember the command to install something with Homebrew?</p>
+                <p>Instead of using terminal commands, you'll use buttons and menus to save and upload your work.</p>
+
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 2: Download -->
+            <div class="step" id="step-2">
+                <h2>Download GitHub Desktop</h2>
                 
-                <div class="quiz-options" id="quiz-options">
-                    <button class="option-btn" onclick="checkAnswer('github install brew')">github install brew</button>
-                    <button class="option-btn" onclick="checkAnswer('brew install --cask github')">brew install --cask github</button>
-                    <button class="option-btn" onclick="checkAnswer('install brew github')">install brew github</button>
-                    <button class="option-btn" onclick="checkAnswer('homebrew get github')">homebrew get github</button>
-                </div>
-                
-                <p id="quiz-feedback" style="margin-top: 20px; font-size: 1.1em;"></p>
-                
-                <div id="correct-answer" style="display: none;">
-                    <p style="margin-top: 20px;">Now run this in your Terminal:</p>
-                    <div class="code-block">brew install --cask github</div>
-                    <p>This may take a minute to download and install.</p>
-                    <button onclick="nextStep()">I ran the command</button>
+                <ol>
+                    <li>Go to <a href="https://desktop.github.com" target="_blank">desktop.github.com</a></li>
+                    <li>Click <strong>Download for macOS</strong></li>
+                    <li>The <code>.zip</code> file will download to your Downloads folder</li>
+                </ol>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Downloaded</button>
                 </div>
             </div>
 
-            <!-- Step 2: Verify -->
-            <div class="step" id="step-2">
-                <h2>Open GitHub Desktop</h2>
-                
-                <p>GitHub Desktop should now be installed. Let's open it:</p>
+            <!-- Step 3: Install -->
+            <div class="step" id="step-3">
+                <h2>Install GitHub Desktop</h2>
                 
                 <ol>
-                    <li>Press <code>Cmd + Space</code> to open Spotlight</li>
-                    <li>Type <strong>GitHub Desktop</strong></li>
-                    <li>Press Enter to open it</li>
+                    <li>Go to your Downloads folder and find <code>GitHubDesktop.zip</code></li>
+                    <li>Double-click the zip file to unzip it</li>
+                    <li>You'll see an app called <strong>GitHub Desktop</strong></li>
+                    <li>Drag that app to your <strong>Applications</strong> folder</li>
+                    <li>Open it from Applications (or Spotlight: Cmd + Space, type "GitHub Desktop")</li>
                 </ol>
-                
-                <p>You should see the GitHub Desktop welcome screen.</p>
-                
+
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
                 </div>
@@ -348,8 +348,8 @@
                 <p id="result-message"></p>
             </div>
 
-            <!-- Step 3: Sign In -->
-            <div class="step" id="step-3">
+            <!-- Step 4: Sign In -->
+            <div class="step" id="step-4">
                 <h2>Sign In to GitHub</h2>
                 
                 <p>GitHub Desktop needs to connect to your GitHub account.</p>
@@ -365,52 +365,7 @@
                 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
-                    <button onclick="nextStep()">Done</button>
-                </div>
-            </div>
-
-            <!-- Step 4: Recap -->
-            <div class="step" id="step-4">
-                <h2>Check-In: What You've Done</h2>
-                
-                <p>Take a moment to appreciate what you've accomplished:</p>
-                
-                <div class="recap-list">
-                    <div class="recap-item">
-                        <span class="checkmark">✓</span>
-                        <div>
-                            <strong>Installed Homebrew</strong>
-                            <p>To download and install other software</p>
-                        </div>
-                    </div>
-                    <div class="recap-item">
-                        <span class="checkmark">✓</span>
-                        <div>
-                            <strong>Used Brew to install VS Code</strong>
-                            <p>Where we write our code</p>
-                        </div>
-                    </div>
-                    <div class="recap-item">
-                        <span class="checkmark">✓</span>
-                        <div>
-                            <strong>Used Brew to install Python</strong>
-                            <p>The programming language we'll learn</p>
-                        </div>
-                    </div>
-                    <div class="recap-item">
-                        <span class="checkmark">✓</span>
-                        <div>
-                            <strong>Used Brew to install GitHub Desktop</strong>
-                            <p>A visual app to save our code to GitHub</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <p style="margin-top: 25px;">You now have a professional development environment set up on your Mac.</p>
-                
-                <div class="nav-buttons">
-                    <button class="back-btn" onclick="prevStep()">← Back</button>
-                    <button onclick="showCompletion()">Continue</button>
+                    <button onclick="showCompletion()">Done</button>
                 </div>
             </div>
 
@@ -437,30 +392,6 @@
             document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
         }
 
-        function checkAnswer(answer) {
-            const buttons = document.querySelectorAll('.option-btn');
-            const feedback = document.getElementById('quiz-feedback');
-            
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                if (btn.textContent === 'brew install --cask github') {
-                    btn.classList.add('correct');
-                } else if (btn.textContent === answer && answer !== 'brew install --cask github') {
-                    btn.classList.add('incorrect');
-                }
-            });
-            
-            if (answer === 'brew install --cask github') {
-                feedback.innerHTML = '<span style="color: #5cd65c;">Correct!</span>';
-                document.getElementById('correct-answer').style.display = 'block';
-            } else {
-                feedback.innerHTML = '<span style="color: #ff4444;">Not quite. The correct answer is highlighted.</span>';
-                setTimeout(() => {
-                    document.getElementById('correct-answer').style.display = 'block';
-                }, 1500);
-            }
-        }
-
         function nextStep() {
             document.getElementById(`step-${currentStep}`).classList.remove('active');
             currentStep++;
@@ -483,7 +414,7 @@
         }
 
         function handleFail() {
-            document.getElementById('result-message').innerHTML = '<span style="color: #ffd700;">Try running <code>brew install --cask github</code> again, or raise your hand for help.</span>';
+            document.getElementById('result-message').innerHTML = '<span style="color: #ffd700;">Try downloading and installing again, or raise your hand for help.</span>';
         }
 
         function showCompletion() {
