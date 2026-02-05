@@ -365,11 +365,8 @@
             <p>Type this command to check if Homebrew installed:</p>
             <pre><code>brew -v</code></pre>
             <p>You should see a version number like <code>Homebrew 4.x.x</code></p>
-        </div>
-
-        <!-- Section 13: Final check -->
-        <div class="section" id="section-13">
-            <h2>What did you see?</h2>
+            
+            <h2 style="margin-top: 30px;">What did you see?</h2>
             <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
                 <div style="text-align: center;">
                     <img src="../images/brew-version-good.png" alt="Success" style="max-width: 250px;">
@@ -387,56 +384,10 @@
             <p id="result-message" style="text-align: center; font-size: 20px; margin-top: 20px;"></p>
         </div>
 
-        <!-- Section 14: Now learn to use it -->
+        <!-- Section 14: Done -->
         <div class="section" id="section-14">
-            <h2>Using Homebrew</h2>
-            <p>Now that Homebrew is installed, here's how to use it.</p>
-            <p>Installing software is simple:</p>
-            <pre><code>brew install &lt;software_name&gt;</code></pre>
-            <p>For example, to install Python:</p>
-            <pre><code>brew install python</code></pre>
-            <p>Homebrew will download Python AND everything Python needs to work.</p>
-        </div>
-
-        <!-- Section 15: Quiz -->
-        <div class="section" id="section-15">
-            <div class="quiz-box" id="quiz-15">
-                <p class="quiz-question">What's the correct command to install Python?</p>
-                <label class="quiz-option"><input type="radio" name="q15" value="wrong1"> python install brew</label>
-                <label class="quiz-option"><input type="radio" name="q15" value="correct"> brew install python</label>
-                <label class="quiz-option"><input type="radio" name="q15" value="wrong2"> install python brew</label>
-            </div>
-        </div>
-
-        <!-- Section 16: Install Python -->
-        <div class="section" id="section-16">
-            <h2>Install Python</h2>
-            <p>Now run this command in your terminal to install Python:</p>
-            <pre><code>brew install python</code></pre>
-            <p>This may take a minute. When it's done, verify it worked by typing:</p>
-            <pre><code>python3 --version</code></pre>
-            <p>You should see something like <code>Python 3.12.0</code> (the numbers may be different).</p>
-            <div class="response-buttons" style="margin-top: 20px;">
-                <button class="response-btn success" onclick="handlePythonSuccess()">I see a version number</button>
-                <button class="response-btn fail" onclick="handlePythonFail()">I got an error</button>
-            </div>
-            <p id="python-result" style="text-align: center; font-size: 18px; margin-top: 15px;"></p>
-        </div>
-
-        <!-- Section 17: Version Flag Quiz -->
-        <div class="section" id="section-17">
-            <div class="quiz-box" id="quiz-17">
-                <p class="quiz-question">What does the <code>--version</code> flag do?</p>
-                <label class="quiz-option"><input type="radio" name="q17" value="correct"> Shows what version of the software is installed</label>
-                <label class="quiz-option"><input type="radio" name="q17" value="wrong1"> Installs the latest version</label>
-                <label class="quiz-option"><input type="radio" name="q17" value="wrong2"> Deletes old versions</label>
-            </div>
-        </div>
-
-        <!-- Section 18: Done -->
-        <div class="section" id="section-18">
             <h2>You're Ready</h2>
-            <p>You now have Homebrew and Python.</p>
+            <p>You now have Homebrew installed.</p>
             <p id="password-display" style="margin-top: 20px; padding: 15px; background: #0f0f23; border-radius: 8px; text-align: center;">
                 Password to the next level: <strong id="next-password" style="color: #5cd65c;">loading...</strong>
             </p>
@@ -523,16 +474,6 @@
 
         function handleFail() {
             document.getElementById('result-message').innerHTML = '<span style="color: #ffd700;">Raise your hand for help.</span>';
-        }
-
-        function handlePythonSuccess() {
-            document.getElementById('python-result').innerHTML = '<span style="color: #5cd65c;">Python is installed.</span>';
-            quizAnswered[currentSection] = true;
-            document.getElementById('nextBtn').disabled = false;
-        }
-
-        function handlePythonFail() {
-            document.getElementById('python-result').innerHTML = '<span style="color: #ffd700;">Try running the command again, or raise your hand for help.</span>';
         }
 
         function goToPortal() {

@@ -14,7 +14,7 @@ window.LEVELS = [
     { path: 'terminal-prompt', password: 'ready' },
 
     // How Brew Works + Install it
-    // { path: 'homebrew', password: 'brew' },
+    { path: 'homebrew', password: 'brew' },
 
     // Open Source v.s. Closed Source
     { path: 'open-source', password: 'source' },
