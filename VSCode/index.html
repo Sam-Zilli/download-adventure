@@ -167,6 +167,19 @@
             box-shadow: 0 0 30px #5cd65c;
         }
 
+        button:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        button:disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
         .back-btn {
             background: #333;
             color: #eee;
@@ -195,6 +208,75 @@
             height: 100%;
             background: linear-gradient(90deg, #5cd65c, #6de06d);
             transition: width 0.3s ease;
+        }
+
+        /* Quiz styling */
+        .quiz-box {
+            background: #0f0f23;
+            border: 2px solid #5cd65c;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .quiz-question {
+            font-size: 1.2em;
+            color: #5cd65c;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .quiz-option {
+            display: block;
+            background: #16213e;
+            border: 2px solid #444;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.05em;
+        }
+
+        .quiz-option:hover {
+            border-color: #5cd65c;
+            background: #1a2537;
+        }
+
+        .quiz-option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .quiz-box.correct {
+            border-color: #5cd65c;
+            background: rgba(92, 214, 92, 0.1);
+        }
+
+        .quiz-box.wrong {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .quiz-feedback {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-feedback.correct {
+            background: rgba(92, 214, 92, 0.2);
+            color: #5cd65c;
+            display: block;
+        }
+
+        .quiz-feedback.wrong {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            display: block;
         }
 
         .step-indicator {
@@ -279,9 +361,9 @@
             <h1>Visual Studio Code</h1>
         </header>
 
-        <div class="step-indicator" id="step-indicator">Step 1 of 3</div>
+        <div class="step-indicator" id="step-indicator">Step 1 of 4</div>
         <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill" style="width: 33%;"></div>
+            <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
         </div>
 
         <div id="steps">
@@ -338,11 +420,37 @@
                 
                 <p>You should see a version number like <code>1.85.0</code> (your numbers may differ).</p>
 
-                <p>VS Code is now an app installed on your computer. You can put it in your dock for easy access.</p>
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Quiz -->
+            <div class="step" id="step-4">
+                <h2>Quick Quiz</h2>
+                
+                <p>Let's review what you just typed: <code>code -v</code></p>
+
+                <div class="quiz-box" id="quiz-1">
+                    <p class="quiz-question">In the command <code>code -v</code>, what is <code>code</code>?</p>
+                    <label class="quiz-option"><input type="radio" name="q1" value="correct"> Command</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="wrong1"> Argument</label>
+                    <label class="quiz-option"><input type="radio" name="q1" value="wrong2"> Flag</label>
+                    <div class="quiz-feedback" id="feedback-1"></div>
+                </div>
+
+                <div class="quiz-box" id="quiz-2">
+                    <p class="quiz-question">In the command <code>code -v</code>, what is <code>-v</code>?</p>
+                    <label class="quiz-option"><input type="radio" name="q2" value="wrong1"> Command</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="wrong2"> Argument</label>
+                    <label class="quiz-option"><input type="radio" name="q2" value="correct"> Flag</label>
+                    <div class="quiz-feedback" id="feedback-2"></div>
+                </div>
 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
-                    <button onclick="showCompletion()">I Installed It</button>
+                    <button id="quiz-next-btn" onclick="showCompletion()" disabled>Continue</button>
                 </div>
             </div>
 
@@ -358,7 +466,9 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 3;
+        const totalSteps = 4;
+        let quiz1Correct = false;
+        let quiz2Correct = false;
 
         function updateProgress() {
             const progress = (currentStep / totalSteps) * 100;
@@ -381,6 +491,61 @@
                 updateProgress();
             }
         }
+
+        function checkQuizProgress() {
+            const nextBtn = document.getElementById('quiz-next-btn');
+            if (quiz1Correct && quiz2Correct) {
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+
+        // Quiz 1 logic
+        document.querySelectorAll('input[name="q1"]').forEach(input => {
+            input.addEventListener('change', () => {
+                const quiz1 = document.getElementById('quiz-1');
+                const feedback1 = document.getElementById('feedback-1');
+                
+                if (input.value === 'correct') {
+                    quiz1.classList.remove('wrong');
+                    quiz1.classList.add('correct');
+                    feedback1.textContent = '✓ Correct! "code" is the command.';
+                    feedback1.className = 'quiz-feedback correct';
+                    quiz1Correct = true;
+                } else {
+                    quiz1.classList.remove('correct');
+                    quiz1.classList.add('wrong');
+                    feedback1.textContent = '✗ Not quite. Try again!';
+                    feedback1.className = 'quiz-feedback wrong';
+                    quiz1Correct = false;
+                }
+                checkQuizProgress();
+            });
+        });
+
+        // Quiz 2 logic
+        document.querySelectorAll('input[name="q2"]').forEach(input => {
+            input.addEventListener('change', () => {
+                const quiz2 = document.getElementById('quiz-2');
+                const feedback2 = document.getElementById('feedback-2');
+                
+                if (input.value === 'correct') {
+                    quiz2.classList.remove('wrong');
+                    quiz2.classList.add('correct');
+                    feedback2.textContent = '✓ Correct! "-v" is a flag (shows version).';
+                    feedback2.className = 'quiz-feedback correct';
+                    quiz2Correct = true;
+                } else {
+                    quiz2.classList.remove('correct');
+                    quiz2.classList.add('wrong');
+                    feedback2.textContent = '✗ Not quite. Try again!';
+                    feedback2.className = 'quiz-feedback wrong';
+                    quiz2Correct = false;
+                }
+                checkQuizProgress();
+            });
+        });
 
         function showCompletion() {
             document.getElementById(`step-${currentStep}`).classList.remove('active');

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Anatomy</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            min-height: 100vh;
+            padding: 20px;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+
+        #container {
+            background-color: #16213e;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #5cd65c30;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 3px solid #5cd65c;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #5cd65c;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #5cd65c50;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .intro {
+            background: #0f0f23;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .intro h2 {
+            color: #5cd65c;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            line-height: 1.7;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        .example {
+            background: #0f0f23;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .command-display {
+            font-size: 1.5em;
+            text-align: center;
+            padding: 20px;
+            background: #0f0f23;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .command-part {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .cmd {
+            background: #4a90d9;
+            color: white;
+            font-weight: bold;
+        }
+
+        .arg {
+            background: #ff69b4;
+            color: white;
+        }
+
+        .quiz-container {
+            background: #0f0f23;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .question {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #5cd65c;
+        }
+
+        .option-group {
+            margin: 15px 0;
+        }
+
+        .option {
+            display: block;
+            background: #1a1a2e;
+            border: 1px solid #2a2a4e;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            border-color: #5cd65c;
+            background: #2a2a4e;
+        }
+
+        .option input {
+            margin-right: 10px;
+        }
+
+        .feedback {
+            font-size: 1.1em;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .feedback.correct {
+            background: #5cd65c30;
+            color: #5cd65c;
+            border: 2px solid #5cd65c;
+        }
+
+        .feedback.incorrect {
+            background: #ff6b6b30;
+            color: #ff6b6b;
+            border: 2px solid #ff6b6b;
+        }
+
+        button {
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 20px #5cd65c80;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #5cd65c;
+        }
+
+        button:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .scenario {
+            display: none;
+        }
+
+        .scenario.active {
+            display: block;
+        }
+
+        .progress {
+            text-align: center;
+            color: #888;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+
+        .completion.active {
+            display: block;
+        }
+
+        .completion h2 {
+            color: #5cd65c;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
+            font-size: 1.5em;
+            color: #5cd65c;
+            margin: 20px 0;
+        }
+
+        code {
+            background: #0f0f23;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #5cd65c;
+        }
+
+        /* Screenshot Warning Modal */
+        .screenshot-warning {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .screenshot-warning.active {
+            display: flex;
+        }
+
+        .warning-content {
+            background: #16213e;
+            border: 3px solid #ff6b6b;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 50px #ff6b6b80;
+        }
+
+        .warning-content h2 {
+            color: #ff6b6b;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .warning-content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .warning-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .warning-close {
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .warning-close:hover {
+            background: #ff5555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Screenshot Warning Modal -->
+    <div class="screenshot-warning" id="screenshot-warning">
+        <div class="warning-content">
+            <div class="warning-icon">⚠️</div>
+            <h2>Screenshot Detected</h2>
+            <p>A notification has been sent to your professor.</p>
+            <p style="font-size: 0.9em; color: #999;">Please complete the assignment without external assistance.</p>
+            <button class="warning-close" onclick="closeWarning()">I Understand</button>
+        </div>
+    </div>
+
+    <div id="container">
+        <header>
+            <!-- <div style="background: #3a2a2a; border: 2px solid #ff6b6b; padding: 12px; border-radius: 8px; margin-top: 15px; text-align: center;">
+                <p style="color: #ff6b6b; margin: 0; font-size: 0.9em;">WARNING: This page is monitored.</p>
+            </div> -->
+        </header>
+
+        <div id="intro" class="intro">
+            <h2>Understanding what we put into Terminal</h2>
+            
+            <div class="example">
+                <div class="command-display">
+                    <span class="command-part cmd">cd</span>
+                    <span class="command-part arg">Documents</span>
+                </div>
+                <p style="text-align: center; margin-top: 15px; color: #ccc;">
+                    <span style="color: #4a90d9;">■</span> Command = What to do<br>
+                    <span style="color: #ff69b4;">■</span> Arguments = Details about how to do it
+                </p>
+            </div>
+
+            <button onclick="startQuiz()">Start Practice</button>
+        </div>
+
+        <div id="quiz-area" style="display: none;">
+            <div class="progress" id="progress">Question 1 of 6</div>
+
+            <!-- Scenario 1 -->
+            <div class="scenario active" data-scenario="1">
+                <div class="command-display">
+                    <span style="color: #5cd65c;">pwd</span>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="question">What is the COMMAND?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s1-cmd" value="pwd">
+                            <span>pwd</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s1-cmd" value="print">
+                            <span>print</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s1-cmd" value="working">
+                            <span>working</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What are the ARGUMENTS?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s1-arg" value="pwd">
+                            <span>pwd</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s1-arg" value="directory">
+                            <span>directory</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s1-arg" value="none">
+                            <span>There are no arguments</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What does this command do?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s1-action" value="wrong1">
+                            <span>Delete the current folder</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s1-action" value="correct">
+                            <span>Show what folder you're currently in</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s1-action" value="wrong2">
+                            <span>Create a new folder</span>
+                        </label>
+                    </div>
+
+                    <div id="feedback-1" class="feedback" style="display: none;"></div>
+                    <button onclick="checkScenario(1)">Check Answer</button>
+                </div>
+            </div>
+
+            <!-- Scenario 2 -->
+            <div class="scenario" data-scenario="2">
+                <div class="command-display">
+                    <span style="color: #5cd65c;">cd Documents</span>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="question">What is the COMMAND?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s2-cmd" value="cd">
+                            <span>cd</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s2-cmd" value="Documents">
+                            <span>Documents</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s2-cmd" value="cd Documents">
+                            <span>cd Documents</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What are the ARGUMENTS?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s2-arg" value="cd">
+                            <span>cd</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s2-arg" value="Documents">
+                            <span>Documents</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s2-arg" value="none">
+                            <span>There are no arguments</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What does this command do?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s2-action" value="wrong1">
+                            <span>Create a folder named Documents</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s2-action" value="correct">
+                            <span>Change directory to Documents folder</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s2-action" value="wrong2">
+                            <span>Copy Documents folder</span>
+                        </label>
+                    </div>
+
+                    <div id="feedback-2" class="feedback" style="display: none;"></div>
+                    <button onclick="checkScenario(2)">Check Answer</button>
+                </div>
+            </div>
+
+            <!-- Scenario 3 -->
+            <div class="scenario" data-scenario="3">
+                <div class="command-display">
+                    <span style="color: #5cd65c;">mkdir new-project</span>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="question">What is the COMMAND?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s3-cmd" value="mkdir">
+                            <span>mkdir</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s3-cmd" value="new-project">
+                            <span>new-project</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s3-cmd" value="mk">
+                            <span>mk</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What are the ARGUMENTS?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s3-arg" value="mkdir">
+                            <span>mkdir</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s3-arg" value="new-project">
+                            <span>new-project</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s3-arg" value="none">
+                            <span>There are no arguments</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What does this command do?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s3-action" value="wrong1">
+                            <span>Delete a folder named new-project</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s3-action" value="correct">
+                            <span>Create a new folder named new-project</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s3-action" value="wrong2">
+                            <span>Rename a folder to new-project</span>
+                        </label>
+                    </div>
+
+                    <div id="feedback-3" class="feedback" style="display: none;"></div>
+                    <button onclick="checkScenario(3)">Check Answer</button>
+                </div>
+            </div>
+
+            <!-- Scenario 4 -->
+            <div class="scenario" data-scenario="4">
+                <div class="command-display">
+                    <span style="color: #5cd65c;">touch hello.txt</span>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="question">What is the COMMAND?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s4-cmd" value="touch">
+                            <span>touch</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s4-cmd" value="hello.txt">
+                            <span>hello.txt</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s4-cmd" value="txt">
+                            <span>txt</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What are the ARGUMENTS?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s4-arg" value="touch">
+                            <span>touch</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s4-arg" value="hello.txt">
+                            <span>hello.txt</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s4-arg" value="none">
+                            <span>There are no arguments</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What does this command do?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s4-action" value="wrong1">
+                            <span>Delete a file named hello.txt</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s4-action" value="correct">
+                            <span>Create a new file named hello.txt</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s4-action" value="wrong2">
+                            <span>Open hello.txt in an editor</span>
+                        </label>
+                    </div>
+
+                    <div id="feedback-4" class="feedback" style="display: none;"></div>
+                    <button onclick="checkScenario(4)">Check Answer</button>
+                </div>
+            </div>
+
+            <!-- Scenario 5 -->
+            <div class="scenario" data-scenario="5">
+                <div class="command-display">
+                    <span style="color: #5cd65c;">ls</span>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="question">What is the COMMAND?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s5-cmd" value="ls">
+                            <span>ls</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s5-cmd" value="list">
+                            <span>list</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s5-cmd" value="show">
+                            <span>show</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What are the ARGUMENTS?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s5-arg" value="ls">
+                            <span>ls</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s5-arg" value="files">
+                            <span>files</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s5-arg" value="none">
+                            <span>There are no arguments</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What does this command do?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s5-action" value="wrong1">
+                            <span>Delete all files</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s5-action" value="correct">
+                            <span>List files and folders in current directory</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s5-action" value="wrong2">
+                            <span>Create a new folder</span>
+                        </label>
+                    </div>
+
+                    <div id="feedback-5" class="feedback" style="display: none;"></div>
+                    <button onclick="checkScenario(5)">Check Answer</button>
+                </div>
+            </div>
+
+            <!-- Scenario 6 -->
+            <div class="scenario" data-scenario="6">
+                <div class="command-display">
+                    <span style="color: #5cd65c;">rm notes.txt</span>
+                </div>
+
+                <div class="quiz-container">
+                    <div class="question">What is the COMMAND?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s6-cmd" value="rm">
+                            <span>rm</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s6-cmd" value="notes.txt">
+                            <span>notes.txt</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s6-cmd" value="remove">
+                            <span>remove</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What are the ARGUMENTS?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s6-arg" value="rm">
+                            <span>rm</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s6-arg" value="notes.txt">
+                            <span>notes.txt</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s6-arg" value="none">
+                            <span>There are no arguments</span>
+                        </label>
+                    </div>
+
+                    <div class="question" style="margin-top: 25px;">What does this command do?</div>
+                    <div class="option-group">
+                        <label class="option">
+                            <input type="radio" name="s6-action" value="wrong1">
+                            <span>Rename notes.txt</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s6-action" value="correct">
+                            <span>Delete the file notes.txt</span>
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="s6-action" value="wrong2">
+                            <span>Create a file called notes.txt</span>
+                        </label>
+                    </div>
+
+                    <div id="feedback-6" class="feedback" style="display: none;"></div>
+                    <button onclick="checkScenario(6)">Check Answer</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="completion" class="completion">
+            <h2>Great Work!</h2>
+            <div class="score-display">
+                Score: <span id="final-score">0</span>/6
+            </div>
+            <div id="perfect-score-message" style="display: none;">
+                <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #5cd65c;">loading...</strong></p>
+                <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+            </div>
+            <div id="retry-message" style="display: none;">
+                <p style="font-size: 1.1em; margin-top: 20px; color: #ff6b6b;">You need a perfect score to get the password!</p>
+                <button onclick="location.reload()" style="margin-top: 15px;">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScenario = 1;
+        let score = 0;
+        const totalScenarios = 6;
+        const completedScenarios = new Set(); // Track which scenarios have been completed
+        let isTransitioning = false; // Prevent clicking during transitions
+
+        const answers = {
+            1: { cmd: 'pwd', arg: 'none', action: 'correct' },
+            2: { cmd: 'cd', arg: 'Documents', action: 'correct' },
+            3: { cmd: 'mkdir', arg: 'new-project', action: 'correct' },
+            4: { cmd: 'touch', arg: 'hello.txt', action: 'correct' },
+            5: { cmd: 'ls', arg: 'none', action: 'correct' },
+            6: { cmd: 'rm', arg: 'notes.txt', action: 'correct' }
+        };
+
+        function startQuiz() {
+            document.getElementById('intro').style.display = 'none';
+            document.getElementById('quiz-area').style.display = 'block';
+        }
+
+        function checkScenario(num) {
+            console.log(`[checkScenario] Called for scenario ${num}, currentScenario: ${currentScenario}, isTransitioning: ${isTransitioning}`);
+            
+            // Prevent checking if we're transitioning between questions
+            if (isTransitioning) {
+                console.log('[checkScenario] BLOCKED - Currently transitioning');
+                return;
+            }
+            
+            // Prevent checking wrong scenario number
+            if (num !== currentScenario) {
+                console.log(`[checkScenario] BLOCKED - Wrong scenario number (checking ${num} but current is ${currentScenario})`);
+                return;
+            }
+
+            const cmdAnswer = document.querySelector(`input[name="s${num}-cmd"]:checked`);
+            const argAnswer = document.querySelector(`input[name="s${num}-arg"]:checked`);
+            const actionAnswer = document.querySelector(`input[name="s${num}-action"]:checked`);
+
+            console.log(`[checkScenario] Answers - cmd: ${cmdAnswer?.value}, arg: ${argAnswer?.value}, action: ${actionAnswer?.value}`);
+
+            const feedback = document.getElementById(`feedback-${num}`);
+            
+            if (!cmdAnswer || !argAnswer || !actionAnswer) {
+                console.log('[checkScenario] Incomplete answers');
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = 'Please answer all three questions!';
+                feedback.style.display = 'block';
+                return;
+            }
+
+            const correct = answers[num];
+            const cmdCorrect = cmdAnswer.value === correct.cmd;
+            const argCorrect = argAnswer.value === correct.arg;
+            const actionCorrect = actionAnswer.value === correct.action;
+
+            console.log(`[checkScenario] Correctness - cmd: ${cmdCorrect}, arg: ${argCorrect}, action: ${actionCorrect}`);
+
+            if (cmdCorrect && argCorrect && actionCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = 'Perfect! All three parts are correct!';
+                
+                // Only increment score if this scenario hasn't been completed before
+                if (!completedScenarios.has(num)) {
+                    score++;
+                    completedScenarios.add(num);
+                    console.log(`[checkScenario] Score incremented to ${score}`);
+                } else {
+                    console.log(`[checkScenario] Scenario ${num} already completed, no score change`);
+                }
+                
+                // Set transitioning flag to prevent rapid clicks
+                isTransitioning = true;
+                console.log('[checkScenario] Starting transition in 1.5s');
+                
+                setTimeout(() => {
+                    if (currentScenario < totalScenarios) {
+                        nextScenario();
+                    } else {
+                        showCompletion();
+                    }
+                    isTransitioning = false;
+                    console.log('[checkScenario] Transition complete, isTransitioning set to false');
+                }, 1500);
+            } else {
+                feedback.className = 'feedback incorrect';
+                let message = 'Not quite. ';
+                if (!cmdCorrect) message += 'Check the command. ';
+                if (!argCorrect) message += 'Check the arguments. ';
+                if (!actionCorrect) message += 'Check what it does. ';
+                feedback.textContent = message;
+                console.log(`[checkScenario] Incorrect answer: ${message}`);
+            }
+            
+            feedback.style.display = 'block';
+        }
+
+        function nextScenario() {
+            console.log(`[nextScenario] Moving from scenario ${currentScenario} to ${currentScenario + 1}`);
+            document.querySelector(`[data-scenario="${currentScenario}"]`).classList.remove('active');
+            currentScenario++;
+            document.querySelector(`[data-scenario="${currentScenario}"]`).classList.add('active');
+            document.getElementById('progress').textContent = `Question ${currentScenario} of ${totalScenarios}`;
+            console.log(`[nextScenario] Now on scenario ${currentScenario}`);
+        }
+
+        function showCompletion() {
+            document.getElementById('quiz-area').style.display = 'none';
+            document.getElementById('completion').classList.add('active');
+            document.getElementById('final-score').textContent = score;
+            
+            // Only show password if perfect score
+            if (score === totalScenarios) {
+                document.getElementById('perfect-score-message').style.display = 'block';
+                document.getElementById('retry-message').style.display = 'none';
+                
+                try {
+                    const levelInfo = window.getLevelInfo('terminal-command-parts/index.html');
+                    let nextPassword = 'parts';
+                    if (levelInfo && levelInfo.next) {
+                        nextPassword = levelInfo.next.password;
+                    }
+                    document.getElementById('dynamic-password').textContent = nextPassword;
+                } catch (error) {
+                    document.getElementById('dynamic-password').textContent = 'parts';
+                }
+            } else {
+                document.getElementById('perfect-score-message').style.display = 'none';
+                document.getElementById('retry-message').style.display = 'block';
+            }
+        }
+
+        // Prevent copying and context menu
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+        document.addEventListener('copy', (e) => e.preventDefault());
+        document.addEventListener('cut', (e) => e.preventDefault());
+        
+        // Prevent keyboard shortcuts for copying
+        document.addEventListener('keydown', (e) => {
+            // Prevent Ctrl+C, Cmd+C, Ctrl+X, Cmd+X, Ctrl+A, Cmd+A
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'c' || e.key === 'x' || e.key === 'a')) {
+                e.preventDefault();
+            }
+        });
+
+        // Detect screenshot attempts
+        function showScreenshotWarning() {
+            console.log('🚨 SCREENSHOT WARNING SHOWN');
+            document.getElementById('screenshot-warning').classList.add('active');
+        }
+
+        function closeWarning() {
+            console.log('✅ Warning closed');
+            document.getElementById('screenshot-warning').classList.remove('active');
+        }
+
+        // Track Cmd+Shift key combinations (screenshot shortcuts are Cmd+Shift+number)
+        let cmdShiftPressed = false;
+        let cmdShiftTimer = null;
+        
+        document.addEventListener('keydown', (e) => {
+            console.log('⌨️ Key pressed:', {
+                key: e.key,
+                code: e.code,
+                metaKey: e.metaKey,
+                shiftKey: e.shiftKey,
+                ctrlKey: e.ctrlKey,
+                altKey: e.altKey
+            });
+
+            // Detect when Cmd+Shift are pressed together
+            if (e.metaKey && e.shiftKey) {
+                if (!cmdShiftPressed) {
+                    console.log('⚠️ Cmd+Shift detected (potential screenshot attempt)');
+                    cmdShiftPressed = true;
+                    
+                    // Show warning after 300ms if Cmd+Shift stays pressed
+                    // (screenshot shortcuts trigger immediately, so this catches the combo)
+                    cmdShiftTimer = setTimeout(() => {
+                        console.log('🎯 Cmd+Shift held - likely screenshot attempt');
+                        showScreenshotWarning();
+                        cmdShiftPressed = false;
+                    }, 300);
+                }
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            // Reset when Cmd or Shift is released
+            if (e.key === 'Meta' || e.key === 'Shift') {
+                console.log('🔓 Cmd/Shift released');
+                cmdShiftPressed = false;
+                if (cmdShiftTimer) {
+                    clearTimeout(cmdShiftTimer);
+                    cmdShiftTimer = null;
+                }
+            }
+        });
+
+        // Detect when page loses focus (potential screenshot tool or other app usage)
+        let focusLossCount = 0;
+        let lastFocusLoss = 0;
+        let quickBlurs = 0;
+        let blurTimer = null;
+        
+        document.addEventListener('visibilitychange', () => {
+            console.log('👁️ Visibility change:', document.hidden ? 'hidden' : 'visible');
+            if (document.hidden) {
+                const now = Date.now();
+                // Reset counter if it's been more than 30 seconds since last focus loss
+                if (now - lastFocusLoss > 30000) {
+                    console.log('⏰ Resetting focus loss counter (30s elapsed)');
+                    focusLossCount = 0;
+                }
+                focusLossCount++;
+                lastFocusLoss = now;
+                console.log('📊 Focus loss count:', focusLossCount);
+                
+                // Show warning after 3 focus losses within 30 seconds (reduced from 4)
+                if (focusLossCount >= 3) {
+                    console.log('🚨 Too many focus losses! Showing warning...');
+                    setTimeout(() => {
+                        showScreenshotWarning();
+                    }, 100);
+                    focusLossCount = 0;
+                }
+            }
+        });
+
+        // More aggressive blur detection
+        document.addEventListener('blur', () => {
+            console.log('🔵 Page blur event');
+            quickBlurs++;
+            
+            // If page blurs multiple times quickly, likely taking screenshots
+            if (quickBlurs >= 2) {
+                console.log('🚨 Multiple quick blurs detected!');
+                showScreenshotWarning();
+                quickBlurs = 0;
+            }
+            
+            // Reset quick blur counter after 5 seconds
+            if (blurTimer) clearTimeout(blurTimer);
+            blurTimer = setTimeout(() => {
+                console.log('⏰ Resetting quick blur counter');
+                quickBlurs = 0;
+            }, 5000);
+        });
+
+        console.log('✅ Screenshot detection initialized');
+    </script>
+</body>
+</html>

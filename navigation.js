@@ -2,43 +2,53 @@
 // To reorder levels, just move the lines around in this array
 window.LEVELS = [
 
-    // { path: 'binary', password: 'learn' },
+    //Learn the difference between CLI and GUI
+    { path: 'cli-vs-gui', password: 'LEARN' },
 
-    // Flags like -a to see hidden files
-    { path: 'terminal-flags', password: 'flags' },
 
-    // Terminal commands like ls -a to see hidden files
-    { path: 'terminal', password: 'terminal' },
+    // Practice identifying command parts (command, arguments, what it does)
+    { path: 'terminal-command-parts', password: 'COMMANDS' },
 
-    // Wait for the prompt before typing new commands
-    { path: 'terminal-prompt', password: 'ready' },
+    // Practice identifying command parts with multiple arguments
+    { path: 'terminal-command-parts-2', password: 'COMMANDS2' },
 
-    // How Brew Works + Install it
-    { path: 'homebrew', password: 'brew' },
+    // Explains what flags are and how to use them like -a to see hidden files
+    { path: 'terminal-flags', password: 'FLAGS' },
+
+    // Practice identifying command parts with flags
+    { path: 'terminal-command-parts-3', password: 'COMMANDS3' },
 
     // Open Source v.s. Closed Source
-    { path: 'open-source', password: 'source' },
+    { path: 'open-source', password: 'SOURCE' },
 
-    // brew install vscode
-    // { path: 'VSCode', password: 'vscode' },
+    // How Brew Works + Install it
+    { path: 'homebrew', password: 'BREW' },
 
-    // Alternative: Download VS Code from website
-    { path: 'vscode-app', password: 'vscode' },
+    // Install VS Code with BREW
+    { path: 'VSCode', password: 'VSCODE' },
+
+    // Terminal Simulator
+    { path: 'terminal', password: 'SIMULATOR' },
 
     // unnecessary game of snake lol
-    { path: 'snake-game', password: 'snake' },
+    { path: 'snake-game', password: 'SNAKE' },
+
+
+    // Download and install Python from python.org
+    { path: 'install-python', password: 'PYTHON' },
+
+
+
+
+
 
     // Install Git + recap of what they've done so far
     // { path: 'install-git', password: 'get-git' },
 
-    // Install GitHub Desktop
-    { path: 'install-github-desktop', password: 'get-github-desktop' },
 
     // How Git works: the 4 locations (working dir, staging, local repo, remote)
     { path: 'git-workflow', password: 'workflow' },
 
-    // Download and install Python from python.org
-    { path: 'install-python', password: 'install-python' },
 
     // Open VS Code and install the Python extension
     { path: 'python-extension', password: 'python' },
@@ -52,14 +62,27 @@ window.LEVELS = [
     // Add Scratch project to the folder
     // Push to Github Website
     // Submit link on canvas
-    { path: 'final-boss', password: 'final-boss' },
+    // { path: 'final-boss', password: 'final-boss' },
 
     // Full Game Recap
     // The End + Ability to go back to previous levels
     { path: 'end', password: 'ADVENTURE' }
 
 
-    // old / unused for now
+
+        // // Alternative: Download VS Code from website
+    // { path: 'vscode-app', password: 'vscode' },
+
+
+    // // Wait for the prompt before typing new commands
+    // { path: 'terminal-prompt', password: 'ready' },
+
+
+    // { path: 'binary', password: 'learn' },
+
+    // // Install GitHub Desktop
+    // { path: 'install-github-desktop', password: 'get-github-desktop' },
+
     // Boolean Logic
     // { path: 'boolean-logic', password: 'bool' },
     // Clone a repo
@@ -103,6 +126,19 @@ window.normalizeFolderName = function(name) {
         'submitscratchoncanvas': 'submit-scratch-canvas',
         'terminal': 'terminal',
         'terminalflags': 'terminal-flags',
+        'clivsgui': 'cli-vs-gui',
+        'cli-vs-gui': 'cli-vs-gui',
+        'commandparts': 'terminal-command-parts',
+        'terminalcommandparts': 'terminal-command-parts',
+        'terminal-command-parts': 'terminal-command-parts',
+        'commandparts2': 'terminal-command-parts-2',
+        'commandparts-2': 'terminal-command-parts-2',
+        'terminalcommandparts2': 'terminal-command-parts-2',
+        'terminal-command-parts-2': 'terminal-command-parts-2',
+        'commandparts3': 'terminal-command-parts-3',
+        'commandparts-3': 'terminal-command-parts-3',
+        'terminalcommandparts3': 'terminal-command-parts-3',
+        'terminal-command-parts-3': 'terminal-command-parts-3',
         'terminalprompt': 'terminal-prompt',
         'vocab': 'vocab',
         'vscode': 'VSCode',

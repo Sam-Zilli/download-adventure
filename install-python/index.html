@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Install Python</title>
+    <title>Install Python with Homebrew</title>
     
     <script src="../navigation.js"></script>
     <style>
@@ -247,42 +247,26 @@
                 
                 <p>Python is a programming language. You'll use it to write code that tells the computer what to do.</p>
                 
-                <p>We need to download Python so your computer can understand and run Python programs.</p>
+                <p>We need to install Python so your computer can understand and run Python programs.</p>
 
                 <button onclick="nextStep()">Next</button>
             </div>
 
-            <!-- Step 2: Download -->
+            <!-- Step 2: Install with Homebrew -->
             <div class="step" id="step-2">
-                <h2>Download Python</h2>
+                <h2>Install Python with Homebrew</h2>
                 
-                <ol>
-                    <li>Go to <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads/</a></li>
-                    <li>Click the big <strong>Download Python</strong> button (it will show the latest version)</li>
-                    <li>The installer file will download to your Downloads folder</li>
-                </ol>
+                <p>Now that you have Homebrew, installing Python is super easy!</p>
+
+                <p>Open <strong>Terminal</strong> and run this command:</p>
+                
+                <div class="code-block">brew install python</div>
 
                 <div class="tip">
-                    <strong>Note:</strong> The website automatically detects your Mac type. If it asks, you can check yours by running <code>uname -m</code> in Terminal (<code>arm64</code> = Apple Silicon, <code>x86_64</code> = Intel).
+                    <strong>Note:</strong> This will take a few minutes. Wait for the prompt to return before moving on.
                 </div>
 
-                <div class="nav-buttons">
-                    <button class="back-btn" onclick="prevStep()">← Back</button>
-                    <button onclick="nextStep()">Downloaded</button>
-                </div>
-            </div>
-
-            <!-- Step 3: Install -->
-            <div class="step" id="step-3">
-                <h2>Install Python</h2>
-                
-                <ol>
-                    <li>Open the <code>.pkg</code> file from your Downloads folder</li>
-                    <li>Follow the installer steps (just keep clicking "Continue" and "Agree")</li>
-                    <li><strong>IMPORTANT:</strong> Make sure to check the box that says <strong>"Add Python to PATH"</strong> if you see it</li>
-                    <li>Enter your Mac password when prompted</li>
-                    <li>Click "Install" and wait for it to finish</li>
-                </ol>
+                <p>This installs both <code>python3</code> and <code>pip3</code> (Python's package manager) automatically.</p>
 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
@@ -290,11 +274,11 @@
                 </div>
             </div>
 
-            <!-- Step 4: Verify -->
-            <div class="step" id="step-4">
+            <!-- Step 3: Verify -->
+            <div class="step" id="step-3">
                 <h2>Verify It Worked</h2>
                 
-                <p>Open Terminal and type:</p>
+                <p>Check that Python installed correctly. In Terminal, type:</p>
                 <div class="code-block">python3 --version</div>
                 
                 <p>You should see something like <code>Python 3.12.0</code> (your numbers may differ).</p>
@@ -325,7 +309,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 4;
+        const totalSteps = 3;
 
         function updateProgress() {
             const progress = (currentStep / totalSteps) * 100;
