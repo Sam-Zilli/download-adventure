@@ -41,20 +41,26 @@ window.LEVELS = [
     { path: 'python-extension', password: 'PYTHON2' },
 
     // Turn off AI coding help in VS Code
-    { path: 'disable-ai-coding', password: 'no-ai' },
+    { path: 'disable-ai-coding', password: 'SETTINGS' },
 
     // Install GitHub Desktop
-    { path: 'install-github-desktop', password: 'get-github-desktop' },
+    { path: 'install-github-desktop', password: 'GET-GITHUB-DESKTOP' },
 
 
     // Install Git + recap of what they've done so far
-    { path: 'install-git', password: 'get-git' },
-
+    { path: 'install-git', password: 'GET-GIT' },
+    // How Git works: the 4 locations (working dir, staging, local repo, remote)
 
     // // How Git works: the 4 locations (working dir, staging, local repo, remote)
     // { path: 'git-workflow', password: 'workflow' },
     // Download and install Node.js from nodejs.org
-    { path: 'install-node', password: 'nodejs' },
+    { path: 'install-node', password: 'NODE' },
+
+    // Full Game Recap
+    // The End + Ability to go back to previous levels
+    { path: 'end', password: 'ADVENTURE' }
+
+
 
     // Final Boss Level:
     // Create a Github Repo on Github.com + add me as collaborator
@@ -64,9 +70,6 @@ window.LEVELS = [
     // Submit link on canvas
     // { path: 'final-boss', password: 'final-boss' },
 
-    // Full Game Recap
-    // The End + Ability to go back to previous levels
-    { path: 'end', password: 'ADVENTURE' }
 
 
 
@@ -94,7 +97,6 @@ window.LEVELS = [
 
     // { path: 'create-github-repo', password: 'clone' },
     // { path: 'github-auth-token', password: 'token' },
-    // { path: 'download-git', password: 'get-git' },
 
     // { path: 'scratch-submission', password: 'scratch' },
     // { path: 'submit-scratch-canvas', password: 'almost-done' },,
