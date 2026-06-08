@@ -340,14 +340,13 @@
                 <p><code style="color: #ff69b4;">-l</code> = Long format (shows detailed file information)</p>
                 <p><code style="color: #ff69b4;">-a</code> = All files (including hidden files that start with .)</p>
                 <p><code style="color: #ff69b4;">-r</code> = Recursive (work on folders and everything inside them)</p>
-                <p><code style="color: #ff69b4;">-m</code> = Message (provide a message for the command)</p>
             </div>
 
             <button onclick="startQuiz()">Start Practice</button>
         </div>
 
         <div id="quiz-area" style="display: none;">
-            <div class="progress" id="progress">Question 1 of 4</div>
+            <div class="progress" id="progress">Question 1 of 3</div>
 
             <!-- Scenario 1 -->
             <div class="scenario active" data-scenario="1">
@@ -481,56 +480,12 @@
                 </div>
             </div>
 
-            <!-- Scenario 4 -->
-            <div class="scenario" data-scenario="4">
-                <div class="command-display">
-                    <span style="color: #5cd65c;">git commit -m "Initial commit"</span>
-                </div>
-
-                <div class="quiz-container">
-                    <div class="question">What is the COMMAND?</div>
-                    <div class="option-group">
-                        <label class="option">
-                            <input type="radio" name="s4-cmd" value="git commit">
-                            <span>git commit</span>
-                        </label>
-                        <label class="option">
-                            <input type="radio" name="s4-cmd" value="git">
-                            <span>git</span>
-                        </label>
-                        <label class="option">
-                            <input type="radio" name="s4-cmd" value="commit">
-                            <span>commit</span>
-                        </label>
-                    </div>
-
-                    <div class="question" style="margin-top: 25px;">What are the ARGUMENTS/FLAGS?</div>
-                    <div class="option-group">
-                        <label class="option">
-                            <input type="radio" name="s4-arg" value="-m">
-                            <span>-m</span>
-                        </label>
-                        <label class="option">
-                            <input type="radio" name="s4-arg" value="-m \"Initial commit\"">
-                            <span>-m "Initial commit"</span>
-                        </label>
-                        <label class="option">
-                            <input type="radio" name="s4-arg" value="\"Initial commit\"">
-                            <span>"Initial commit"</span>
-                        </label>
-                    </div>
-
-                    <div id="feedback-4" class="feedback" style="display: none;"></div>
-                    <button onclick="checkScenario(4)">Check Answer</button>
-                </div>
-            </div>
-
         </div>
 
         <div id="completion" class="completion">
             <h2>Great Work!</h2>
             <div class="score-display">
-                Score: <span id="final-score">0</span>/4
+                Score: <span id="final-score">0</span>/3
             </div>
             <div id="perfect-score-message" style="display: none;">
                 <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #5cd65c;">loading...</strong></p>
@@ -546,15 +501,14 @@
     <script>
         let currentScenario = 1;
         let score = 0;
-        const totalScenarios = 4;
+        const totalScenarios = 3;
         const completedScenarios = new Set(); // Track which scenarios have been completed
         let isTransitioning = false; // Prevent clicking during transitions
 
         const answers = {
             1: { cmd: 'ls', arg: '-la' },
             2: { cmd: 'rm', arg: '-r folder' },
-            3: { cmd: 'cp', arg: '-r folder1 folder2' },
-            4: { cmd: 'git commit', arg: '-m "Initial commit"' }
+            3: { cmd: 'cp', arg: '-r folder1 folder2' }
         };
 
         function startQuiz() {

@@ -33,26 +33,26 @@ window.LEVELS = [
     // unnecessary game of snake lol
     { path: 'snake-game', password: 'SNAKE' },
 
-
     // Download and install Python from python.org
     { path: 'install-python', password: 'PYTHON' },
 
 
+    // Open VS Code and install the Python extension
+    { path: 'python-extension', password: 'PYTHON2' },
 
+    // Turn off AI coding help in VS Code
+    { path: 'disable-ai-coding', password: 'no-ai' },
 
+    // Install GitHub Desktop
+    { path: 'install-github-desktop', password: 'get-github-desktop' },
 
 
     // Install Git + recap of what they've done so far
-    // { path: 'install-git', password: 'get-git' },
+    { path: 'install-git', password: 'get-git' },
 
 
-    // How Git works: the 4 locations (working dir, staging, local repo, remote)
-    { path: 'git-workflow', password: 'workflow' },
-
-
-    // Open VS Code and install the Python extension
-    { path: 'python-extension', password: 'python' },
-
+    // // How Git works: the 4 locations (working dir, staging, local repo, remote)
+    // { path: 'git-workflow', password: 'workflow' },
     // Download and install Node.js from nodejs.org
     { path: 'install-node', password: 'nodejs' },
 
@@ -80,8 +80,7 @@ window.LEVELS = [
 
     // { path: 'binary', password: 'learn' },
 
-    // // Install GitHub Desktop
-    // { path: 'install-github-desktop', password: 'get-github-desktop' },
+
 
     // Boolean Logic
     // { path: 'boolean-logic', password: 'bool' },
@@ -151,6 +150,7 @@ window.normalizeFolderName = function(name) {
         'installpython': 'install-python',
         'installnode': 'install-node',
         'pythonextension': 'python-extension',
+        'disableaicoding': 'disable-ai-coding',
         'gitworkflow': 'git-workflow',
         'finalboss': 'final-boss',
         'submitscratch': 'submit-scratch',

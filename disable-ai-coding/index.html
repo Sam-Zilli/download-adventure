@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disable AI Coding Help</title>
+    
+    <script src="../navigation.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #eee;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #container {
+            background-color: #16213e;
+            border-radius: 12px;
+            box-shadow: 0 0 30px #5cd65c30;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            border: 3px solid #5cd65c;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #5cd65c;
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #5cd65c50;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1em;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        h2 {
+            color: #5cd65c;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        ol {
+            padding-left: 25px;
+            margin: 20px 0;
+        }
+
+        ol li {
+            padding: 10px 0;
+            font-size: 1.05em;
+            color: #ccc;
+        }
+
+        ol li strong {
+            color: #5cd65c;
+        }
+
+        code {
+            background-color: #0f0f23;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #5cd65c;
+            border: 1px solid #5cd65c;
+        }
+
+        .warning-box {
+            background: #2a1a1a;
+            border: 2px solid #ff6b6b;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .info-box {
+            background: #0f0f23;
+            border-left: 4px solid #5cd65c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box h3 {
+            color: #5cd65c;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            color: #111;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 20px #5cd65c80;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px #5cd65c;
+        }
+
+        .back-btn {
+            background: #333;
+            color: #eee;
+            margin-right: 10px;
+            box-shadow: none;
+        }
+
+        .back-btn:hover {
+            background: #444;
+        }
+
+        .nav-buttons {
+            margin-top: 30px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #3e3e42;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #5cd65c, #6de06d);
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            text-align: center;
+            color: #888;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .completion {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+
+        .completion.active {
+            display: block;
+        }
+
+        .completion h2 {
+            margin-bottom: 20px;
+        }
+
+        .completion p strong {
+            color: #5cd65c;
+        }
+
+        .keyboard-shortcut {
+            background: #0f0f23;
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid #5cd65c;
+            display: inline-block;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Disable AI Coding Help</h1>
+            <p class="subtitle">Learn to code on your own first!</p>
+        </header>
+
+        <div class="step-indicator" id="step-indicator">Step 1 of 2</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 50%;"></div>
+        </div>
+
+        <div id="steps">
+            <!-- Step 1: Why -->
+            <div class="step active" id="step-1">
+                <h2>Why Disable AI Help?</h2>
+                
+                <div class="warning-box">
+                    <h3>⚠️ Important for Learning</h3>
+                    <p>AI coding tools like GitHub Copilot and IntelliCode can write code for you. While these are powerful tools, they prevent you from learning.</p>
+                    <p style="margin-top: 10px;"><strong>You need to learn to code yourself first before using AI tools.</strong></p>
+                </div>
+
+                <div class="info-box">
+                    <h3>What We're Disabling:</h3>
+                    <p><strong>GitHub Copilot</strong> - AI that writes code for you</p>
+                    <p><strong>IntelliCode AI</strong> - AI-powered autocomplete suggestions</p>
+                    <p><strong>Inline Suggestions</strong> - Gray text that appears as you type</p>
+                </div>
+
+                <p>Don't worry - you'll still have basic autocomplete and syntax highlighting. You're just turning off the AI that does the thinking for you.</p>
+
+                <button onclick="nextStep()">Next</button>
+            </div>
+
+            <!-- Step 2: How to Disable -->
+            <div class="step" id="step-2">
+                <h2>Turn Off AI Features</h2>
+                
+                <p>Follow these steps in VS Code:</p>
+
+                <ol>
+                    <li>Open VS Code</li>
+                    <li>Press <span class="keyboard-shortcut">Cmd + ,</span> to open Settings</li>
+                    <li>In the search bar at the top, type: <code>copilot</code></li>
+                    <li>If you see any Copilot settings, <strong>uncheck all of them</strong> or disable Copilot</li>
+                    <li>Now search for: <code>inlineSuggest</code></li>
+                    <li>Find <strong>"Editor › Inline Suggest: Enabled"</strong> and <strong>uncheck it</strong></li>
+                    <li>Search for: <code>intellicode</code></li>
+                    <li>If you see <strong>"Python › Analysis: Type Checking Mode"</strong>, you can leave it as is</li>
+                    <li>Look for any settings with "AI" or "predict" and disable them</li>
+                </ol>
+
+                <div class="info-box">
+                    <h3>✓ What You Should See:</h3>
+                    <p>When typing code, you should NOT see gray "ghost text" appearing automatically.</p>
+                    <p>You SHOULD still see a dropdown menu with suggestions when you type - that's normal autocomplete (not AI).</p>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="back-btn" onclick="prevStep()">← Back</button>
+                    <button onclick="showCompletion()">I Disabled AI Help</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Completion -->
+        <div class="completion" id="completion">
+            <h2>AI Help Disabled</h2>
+            <p>Now you'll learn to write code yourself - the right way!</p>
+            <p style="font-size: 1.3em; margin-top: 20px;">Password: <strong id="dynamic-password" style="color: #5cd65c;">loading...</strong></p>
+            <button onclick="window.location.href='../password-portal/index.html'">Go to Password Portal</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 2;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+            document.getElementById('step-indicator').textContent = `Step ${currentStep} of ${totalSteps}`;
+        }
+
+        function nextStep() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep++;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgress();
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+                updateProgress();
+            }
+        }
+
+        function showCompletion() {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            document.getElementById('completion').classList.add('active');
+            
+            // Get dynamic password
+            try {
+                const levelInfo = window.getLevelInfo('disable-ai-coding/index.html');
+                let nextPassword = 'no-ai';
+                if (levelInfo && levelInfo.next) {
+                    nextPassword = levelInfo.next.password;
+                }
+                document.getElementById('dynamic-password').textContent = nextPassword;
+            } catch (e) {
+                console.error('Error getting password:', e);
+                document.getElementById('dynamic-password').textContent = 'no-ai';
+            }
+        }
+    </script>
+</body>
+</html>
