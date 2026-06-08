@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Install GitHub Desktop</title>
+    <title>Install GitHub Desktop with Homebrew</title>
     
     <script src="../navigation.js"></script>
     <style>
@@ -285,6 +285,18 @@
             font-size: 0.95em;
             color: #999;
         }
+
+        .tip {
+            background: #0f0f23;
+            border-left: 4px solid #5cd65c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip strong {
+            color: #5cd65c;
+        }
     </style>
 </head>
 <body>
@@ -293,9 +305,9 @@
             <h1>Install GitHub Desktop</h1>
         </header>
 
-        <div class="step-indicator" id="step-indicator">Step 1 of 4</div>
+        <div class="step-indicator" id="step-indicator">Step 1 of 3</div>
         <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
+            <div class="progress-fill" id="progress-fill" style="width: 33%;"></div>
         </div>
 
         <div id="steps">
@@ -310,46 +322,28 @@
                 <button onclick="nextStep()">Next</button>
             </div>
 
-            <!-- Step 2: Download -->
+            <!-- Step 2: Install with Homebrew -->
             <div class="step" id="step-2">
-                <h2>Download GitHub Desktop</h2>
+                <h2>Install GitHub Desktop with Homebrew</h2>
                 
-                <ol>
-                    <li>Go to <a href="https://desktop.github.com" target="_blank">desktop.github.com</a></li>
-                    <li>Click <strong>Download for macOS</strong></li>
-                    <li>The <code>.zip</code> file will download to your Downloads folder</li>
-                </ol>
+                <p>Open <strong>Terminal</strong> and run this command:</p>
+                
+                <div class="code-block">brew install --cask github</div>
+
+                <div class="tip">
+                    <strong>Note:</strong> This will take a few minutes. Wait for the prompt to return.
+                </div>
+
+                <p>After it finishes, open GitHub Desktop from your Applications folder (or press Cmd + Space and type "GitHub Desktop").</p>
 
                 <div class="nav-buttons">
                     <button class="back-btn" onclick="prevStep()">← Back</button>
-                    <button onclick="nextStep()">Downloaded</button>
+                    <button onclick="nextStep()">Opened GitHub Desktop</button>
                 </div>
             </div>
 
-            <!-- Step 3: Install -->
+            <!-- Step 3: Sign In -->
             <div class="step" id="step-3">
-                <h2>Install GitHub Desktop</h2>
-                
-                <ol>
-                    <li>Go to your Downloads folder and find <code>GitHubDesktop.zip</code></li>
-                    <li>Double-click the zip file to unzip it</li>
-                    <li>You'll see an app called <strong>GitHub Desktop</strong></li>
-                    <li>Drag that app to your <strong>Applications</strong> folder</li>
-                    <li>Open it from Applications (or Spotlight: Cmd + Space, type "GitHub Desktop")</li>
-                </ol>
-
-                <div class="nav-buttons">
-                    <button class="back-btn" onclick="prevStep()">← Back</button>
-                </div>
-                <div style="margin-top: 25px;">
-                    <button class="response-btn success" onclick="handleVerifySuccess()">GitHub Desktop opened</button>
-                    <button class="response-btn fail" onclick="handleFail()">I got an error</button>
-                </div>
-                <p id="result-message"></p>
-            </div>
-
-            <!-- Step 4: Sign In -->
-            <div class="step" id="step-4">
                 <h2>Sign In to GitHub</h2>
                 
                 <p>GitHub Desktop needs to connect to your GitHub account.</p>
@@ -384,7 +378,7 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 4;
+        const totalSteps = 3;
 
         function updateProgress() {
             const progress = (currentStep / totalSteps) * 100;
